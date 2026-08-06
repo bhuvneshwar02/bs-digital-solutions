@@ -3,7 +3,7 @@ import AyurvedicImage from '../assets/portfolio/ayurvedic.png'
 import GrameenImage from '../assets/portfolio/grameen.png'
 import HanumanImage from '../assets/portfolio/hanumanmandir.png'
 import DheerajImage from '../assets/portfolio/dheeraj-banner.png'
-import AiHealth from '../assets/portfolio/AiHealth.png'
+import AiHealth from '../assets/portfolio/aiHealth.png'
 import KiranKummar from '../assets/portfolio/kiran-kummar.png'
 
 export const portfolio = [
