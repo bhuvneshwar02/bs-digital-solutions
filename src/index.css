@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #12172B;
+  --color-ink-soft: #232A45;
+  --color-paper: #F5F6F0;
+  --color-paper-dim: #ECEDE5;
+  --color-marigold: #F2A93B;
+  --color-marigold-dark: #D98E1F;
+  --color-teal: #17917E;
+  --color-teal-soft: #E4F3F0;
+  --color-slate: #5B6472;
+  --color-line: #DBDACE;
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: var(--color-marigold);
+  color: var(--color-ink);
+}
+
+.font-display { font-family: var(--font-display); }
+.font-mono { font-family: var(--font-mono); }
+
+.bp-grid {
+  background-image:
+    linear-gradient(rgba(245, 246, 240, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245, 246, 240, 0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.bp-grid-light {
+  background-image:
+    linear-gradient(rgba(18, 23, 43, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(18, 23, 43, 0.05) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background-color: var(--color-teal);
+  box-shadow: 0 0 0 3px var(--color-teal-soft);
+}
+
+.media-slot {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px dashed var(--color-line);
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(18, 23, 43, 0.025),
+    rgba(18, 23, 43, 0.025) 10px,
+    transparent 10px,
+    transparent 20px
+  );
+  color: var(--color-slate);
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-marigold);
+  outline-offset: 2px;
+}
