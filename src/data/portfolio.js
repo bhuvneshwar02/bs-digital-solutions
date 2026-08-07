@@ -53,7 +53,7 @@ export const portfolio = [
     'Designed and developed a modern portfolio website with immersive galleries, smooth animations, responsive layouts, and clear calls-to-action. The website highlights photography categories, AI-generated work, client projects, and contact options while maintaining a premium visual experience across all devices.',  // Based on the site's focus on advertising photography, AI-created imagery, project galleries, and contact workflow. :contentReference[oaicite:0]{index=0}
     features: [    'Premium hero section','Photography portfolio gallery','AI-generated imagery showcase','Project categorization','About & experience section','SEO-friendly structure'],
     stack: ['React', 'Vite', 'Tailwind CSS','JavaScript'],
-    link: 'https://kirankuumar.com',
+    link: 'kirankuumar.com',
   },
   {
     slug: 'dheeraj-singh-consultancy',
@@ -69,7 +69,7 @@ export const portfolio = [
       'A student-services and consultancy portal with structured enquiry handling and staff-facing tools, built and maintained as part of ongoing full-time work at the firm.',
     features: ['Student services portal', 'Enquiry & records management', 'Staff-facing tools'],
     stack: ['React', 'Node.js', 'Express', 'MongoDB'],
-    link: null,
+    link: 'www.dheerajsingh.in',
   },
   {
     slug: 'panchwati-hanuman-mandir',
@@ -85,7 +85,7 @@ export const portfolio = [
       'A React and Vite website presenting temple information, an events calendar, a photo gallery and a donations section, designed with a tone that respects the sanctity of the institution.',
     features: ['Temple information & timings', 'Events calendar', 'Photo gallery', 'Donations section'],
     stack: ['React', 'Vite', 'Tailwind CSS'],
-    link: 'panchwatihanumanmandir.com',
+    link: 'panchwatihanumanmandir.onrender.com',
   },
   {
     slug: 'ai-health-assistant',
@@ -117,7 +117,7 @@ export const portfolio = [
       'A category-driven e-commerce storefront on the MERN stack, with a clean product showcase and a UI designed to work well even for first-time online shoppers.',
     features: ['Product showcase & categories', 'Modern, simple UI', 'Built for first-time online buyers'],
     stack: ['React', 'Node.js', 'Express', 'MongoDB'],
-    link: 'dheerajsingh.in',
+    link: 'atreyaayurvedam.com/grameen-haat',
   },
 ]
 

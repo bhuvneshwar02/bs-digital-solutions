@@ -230,7 +230,7 @@ export default function Home() {
       {/* TESTIMONIALS */}
       <section className="bg-ink text-paper py-20 sm:py-28">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
-          <SectionHeading eyebrow="What clients say" title="Feedback from the people who commissioned the work" />
+          <SectionHeading className="text-cyan-300" eyebrow="What clients say" title="Feedback from the people who commissioned the work" />
           <div className="grid sm:grid-cols-3 gap-6 mt-14">
             {testimonials.map((t, i) => (
               <motion.blockquote

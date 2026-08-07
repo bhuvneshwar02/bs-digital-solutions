@@ -26,6 +26,7 @@ export const brand = {
 export const trustedBy = [
   'MCE Snehada Milana',
   'Atreya Ayurvedam',
+  'Kiran Kummar',
   'Grameen Haat',
   'Panchwati Hanuman Mandir',
   'Dheeraj Singh Consultancy',
