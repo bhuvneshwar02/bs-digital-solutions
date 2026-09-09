@@ -29,7 +29,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-5 sm:px-8 pt-16 pb-8">
         <div className="grid grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
           <div className="col-span-2 lg:col-span-4">
-            <Logo variant="light" />
+            <Logo variant="light" size={44} />
             <p className="text-white/50 text-sm leading-relaxed mt-5 max-w-xs">
               {site.footerBlurb ||
                 'Helping businesses, institutions and everyday people get their digital work done.'}

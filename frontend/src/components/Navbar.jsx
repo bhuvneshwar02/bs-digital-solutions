@@ -45,7 +45,7 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between h-[70px]">
         <NavLink to="/" aria-label={`${site.brand?.name || 'BS Innovation Solutions'} — home`} className="shrink-0">
-          <Logo />
+          <Logo size={40} />
         </NavLink>
 
         <nav className="hidden lg:flex items-center gap-0.5" aria-label="Primary">
