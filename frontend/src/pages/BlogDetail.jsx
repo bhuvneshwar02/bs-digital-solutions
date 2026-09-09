@@ -1,6 +1,7 @@
 import { useParams, Link, Navigate } from 'react-router-dom'
 import { Eyebrow } from '../components/Atoms'
 import { CTASection } from '../components/PageParts'
+import Seo from '../components/Seo'
 import { useContent } from '../content/ContentContext'
 
 function formatDate(value) {
@@ -24,6 +25,7 @@ export default function BlogDetail() {
 
   return (
     <>
+      <Seo title={post.title} description={post.excerpt} path={`/blog/${post.slug}`} />
       <section className="bg-ink text-paper bp-grid">
         <div className="max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16 sm:pt-14 sm:pb-20">
           <Link to="/blog" className="font-mono text-[11px] uppercase tracking-wider text-white/50 hover:text-marigold">

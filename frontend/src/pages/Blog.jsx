@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { PageHero } from '../components/PageParts'
+import Seo from '../components/Seo'
 import { useContent } from '../content/ContentContext'
 
 const fadeUp = {
@@ -20,6 +21,11 @@ export default function Blog() {
 
   return (
     <>
+      <Seo
+        title="Blog"
+        path="/blog"
+        description="Practical writing on websites, pricing, SEO and AI — drawn from real freelance client work by Bhuvneshwar Sharma."
+      />
       <PageHero
         eyebrow="Blog"
         title="Notes on building and running digital projects."

@@ -284,9 +284,28 @@ export const services = [
     timeline: '2–4 days',
   },
   {
-    slug: 'domain-hosting-setup',
+    slug: 'day-to-day-digital-operations',
     category: 'helpdesk',
     tag: 'HLP-04',
+    title: 'Day-to-Day Digital Operations',
+    image: '/assets/services/admin.png',
+    short: 'Ongoing hands-on help with the digital work a business runs on every day — updates, uploads, inboxes, listings and reports.',
+    description:
+      "Not every business has someone to keep the digital side running day to day. I take that on as an ongoing engagement — publishing website updates and blog posts, adding products or notices, keeping Google Business Profile and social pages current, sorting the shared inbox, generating monthly reports, and handling the small 'can you just…' tasks as they come up, on a predictable monthly retainer.",
+    features: [
+      'Website content updates, uploads and small fixes on request',
+      'Product / notice / gallery entries kept current',
+      'Google Business Profile, listings and social pages maintained',
+      'Inbox triage, form/report exports and routine digital admin',
+      'Monthly summary of what was done',
+    ],
+    idealFor: ['Owner-run businesses', 'Institutions without in-house IT', 'Anyone who just needs it handled'],
+    timeline: 'Monthly retainer',
+  },
+  {
+    slug: 'domain-hosting-setup',
+    category: 'helpdesk',
+    tag: 'HLP-05',
     title: 'Domain, Hosting & Everyday Digital Work',
     image: '/assets/services/hoisting-purchase.png',
     short: 'Buying a domain, choosing hosting, filling a government form online — the digital chores handled properly, once.',
@@ -666,4 +685,18 @@ export const coreValues = [
   { title: 'Build it to last', description: 'Clean, maintainable code — not something that breaks the moment you ask for a small change.' },
   { title: "Explain, don't just deliver", description: 'You should understand what was built and why, not just receive a login.' },
   { title: 'Small requests matter too', description: 'A Gmail account setup gets the same care as a full web application.' },
+]
+
+// Placeholder gallery — replace the images from Admin → Gallery once real
+// screenshots / photos are ready.
+export const gallery = [
+  { title: 'MCE Snehada Milana — registration', image: '/assets/portfolio/MCE.png', caption: 'Sample — replace with real screenshot' },
+  { title: 'Atreya Ayurvedam — home', image: '/assets/portfolio/ayurvedic.png', caption: 'Sample — replace with real screenshot' },
+  { title: 'Kiran Kumar — portfolio', image: '/assets/portfolio/kiran-kummar.png', caption: 'Sample — replace with real screenshot' },
+  { title: 'Dheeraj Singh Consultancy — portal', image: '/assets/portfolio/dheeraj-banner.png', caption: 'Sample — replace with real screenshot' },
+  { title: 'Panchwati Hanuman Mandir', image: '/assets/portfolio/hanumanmandir.png', caption: 'Sample — replace with real screenshot' },
+  { title: 'AI Health Assistant', image: '/assets/portfolio/aiHealth.png', caption: 'Sample — replace with real screenshot' },
+  { title: 'Grameen Haat — marketplace', image: '/assets/portfolio/grameen.png', caption: 'Sample — replace with real screenshot' },
+  { title: 'Admin dashboard build', image: '/assets/services/admin.png', caption: 'Sample — replace with real screenshot' },
+  { title: 'E-commerce build', image: '/assets/services/e-commerce.png', caption: 'Sample — replace with real screenshot' },
 ]

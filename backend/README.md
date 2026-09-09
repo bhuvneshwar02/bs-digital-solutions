@@ -33,9 +33,10 @@ Public (no auth):
 - `GET /api/health`
 - `GET /api/site` — site settings singleton
 - `GET /api/bootstrap` — site settings + every published collection, in one call
-- `GET /api/<collection>` — published rows, ordered (`services`, `portfolio`, `blog`, `pricing-plans`, `pricing-addons`, `testimonials`, `faqs`, `process-steps`, `tech-stack`, `timeline`, `core-values`, `service-categories`)
+- `GET /api/<collection>` — published rows, ordered (`services`, `portfolio`, `gallery`, `blog`, `pricing-plans`, `pricing-addons`, `testimonials`, `faqs`, `process-steps`, `tech-stack`, `timeline`, `core-values`, `service-categories`)
 - `GET /api/services/:slug`, `/api/portfolio/:slug`, `/api/blog/:slug`
 - `POST /api/contact` — enquiry submission (rate-limited, honeypot-protected)
+- `POST /api/applications` — project brief / collaborator application (`kind: "project" | "collaborator"`); stored + emailed
 
 Auth:
 
@@ -47,7 +48,14 @@ Admin (Bearer token):
 - `GET|POST|PUT|PATCH|DELETE /api/admin/<collection>[/:id]`, `POST /api/admin/<collection>/reorder`
 - `GET|PUT /api/admin/settings` (PUT is admin-role only)
 - `GET|POST|PUT|DELETE /api/admin/users` (admin-role only)
-- `GET /api/contact`, `PATCH /api/contact/:id`, `DELETE /api/contact/:id`
+- `GET /api/contact`, `PATCH|DELETE /api/contact/:id`
+- `GET /api/applications` (`?kind=&status=`), `PATCH|DELETE /api/applications/:id`
+
+## Email
+
+Contact + application submissions are emailed via [Resend](https://resend.com)
+when `RESEND_API_KEY`, `MAIL_FROM` and `MAIL_TO` are set. Without them, submissions
+are still stored and shown in the admin panel — nothing is lost.
 
 ## Roles
 

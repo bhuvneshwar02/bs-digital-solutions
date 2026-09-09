@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { PageHero } from '../components/PageParts'
 import { Eyebrow, PrimaryButton, GhostButton } from '../components/Atoms'
+import Seo from '../components/Seo'
 import { useSite } from '../content/ContentContext'
 import { api, ApiError } from '../lib/api'
 
@@ -52,6 +53,11 @@ export default function Contact() {
 
   return (
     <>
+      <Seo
+        title="Contact"
+        path="/contact"
+        description="Get in touch with BS Innovation Solutions — Bhuvneshwar Sharma. Freelance web, app and AI developer, Rampur UP, working remotely across India and worldwide."
+      />
       <PageHero
         eyebrow="Contact"
         title="Tell me what you need — I'll reply within a day."
@@ -192,6 +198,21 @@ export default function Contact() {
             {brand.linkedin && <ContactRow label="LinkedIn" value="bhuvneshwar02" href={brand.linkedin} />}
             {brand.github && <ContactRow label="GitHub" value="bhuvneshwar02" href={brand.github} />}
           </div>
+
+          {brand.googleReview && (
+            <a
+              href={brand.googleReview}
+              target="_blank"
+              rel="noreferrer"
+              className="border border-line rounded-2xl p-5 flex items-center justify-between gap-3 hover:border-ink/30 transition-colors bg-white"
+            >
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-wider text-slate">Worked with me before?</p>
+                <p className="font-display text-sm font-semibold mt-1 text-ink">Leave a Google review ★</p>
+              </div>
+              <span className="text-ink/30">↗</span>
+            </a>
+          )}
           {brand.location && (
             <div className="relative w-full overflow-hidden rounded-3xl border border-gray-200 shadow-lg aspect-[4/3]">
               <iframe

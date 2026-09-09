@@ -67,14 +67,18 @@ const siteSettingsSchema = new Schema(
       tagline: { type: String, default: 'Web · AI · Growth' },
       founder: { type: String, default: 'Bhuvneshwar Sharma' },
       location: { type: String, default: 'Rampur, Uttar Pradesh, India' },
+      domain: { type: String, default: 'bsinnovationsolutions.com' },
       email: { type: String, default: '' },
       phone: { type: String, default: '' },
       whatsapp: { type: String, default: '' },
+      googleReview: { type: String, default: '' },
       linkedin: { type: String, default: '' },
       github: { type: String, default: '' },
       instagram: { type: String, default: '' },
       facebook: { type: String, default: '' },
     },
+    // "Timely delivery / fixed price / no hidden charges" promises.
+    commitments: [{ title: String, description: String }],
     nav: [{ label: String, to: String, order: Number }],
     trustedBy: [String],
     hero: {
@@ -232,6 +236,49 @@ const coreValueSchema = new Schema(
   opts,
 )
 export const CoreValue = model('CoreValue', coreValueSchema)
+
+/* ------------------------------------------------------------------ */
+/*  Contact messages                                                   */
+/* ------------------------------------------------------------------ */
+
+const galleryItemSchema = new Schema(
+  {
+    title: { type: String, required: true },
+    image: { type: String, required: true },
+    caption: String,
+    ...listable,
+  },
+  opts,
+)
+export const GalleryItem = model('GalleryItem', galleryItemSchema)
+
+/* ------------------------------------------------------------------ */
+/*  Applications (project brief + collaborator)                        */
+/* ------------------------------------------------------------------ */
+
+const applicationSchema = new Schema(
+  {
+    kind: { type: String, enum: ['project', 'collaborator'], required: true, index: true },
+    name: { type: String, required: true, trim: true },
+    email: { type: String, required: true, trim: true, lowercase: true },
+    phone: { type: String, trim: true },
+    message: { type: String, required: true },
+    // project brief
+    company: String,
+    projectType: String,
+    budget: String,
+    timeline: String,
+    // collaborator
+    role: String,
+    skills: String,
+    portfolioUrl: String,
+    availability: String,
+    status: { type: String, enum: ['new', 'read', 'archived'], default: 'new', index: true },
+    meta: { ip: String, userAgent: String },
+  },
+  opts,
+)
+export const Application = model('Application', applicationSchema)
 
 /* ------------------------------------------------------------------ */
 /*  Contact messages                                                   */

@@ -25,6 +25,7 @@ import {
   TimelineItem,
   CoreValue,
   ServiceCategory,
+  GalleryItem,
 } from '../models/index.js'
 import * as content from './data/content.js'
 import { siteSettings } from './data/site.js'
@@ -34,10 +35,11 @@ const fresh = process.argv.includes('--fresh')
 const withOrder = (rows) => rows.map((row, i) => ({ ...row, order: i, published: true }))
 
 const groups = [
-  { Model: ServiceCategory, rows: content.serviceCategories },
-  { Model: Service, rows: content.services },
-  { Model: Project, rows: content.portfolio },
-  { Model: BlogPost, rows: content.blog },
+  { Model: ServiceCategory, rows: content.serviceCategories, upsertKey: 'key' },
+  { Model: Service, rows: content.services, upsertKey: 'slug' },
+  { Model: Project, rows: content.portfolio, upsertKey: 'slug' },
+  { Model: BlogPost, rows: content.blog, upsertKey: 'slug' },
+  { Model: GalleryItem, rows: content.gallery },
   { Model: PricingPlan, rows: content.pricingPlans },
   { Model: PricingAddon, rows: content.pricingAddons },
   { Model: Testimonial, rows: content.testimonials },
@@ -64,27 +66,76 @@ async function ensureAdmin() {
   console.log(`• users: created admin <${email}>`)
 }
 
-async function seedGroup({ Model, rows }) {
+async function seedGroup({ Model, rows, upsertKey }) {
   const name = Model.modelName
   if (fresh) await Model.deleteMany({})
   const existing = await Model.countDocuments()
-  if (existing > 0) {
-    console.log(`• ${name}: ${existing} rows present — skipping`)
+
+  if (existing === 0) {
+    await Model.insertMany(withOrder(rows))
+    console.log(`• ${name}: inserted ${rows.length}`)
     return
   }
-  await Model.insertMany(withOrder(rows))
-  console.log(`• ${name}: inserted ${rows.length}`)
+
+  // Additive: for collections with a natural key, insert any new rows that
+  // aren't in the DB yet (keeps hand-edits, adds newly-shipped content).
+  if (upsertKey) {
+    let added = 0
+    let maxOrder = (await Model.findOne().sort({ order: -1 }).select('order'))?.order ?? -1
+    for (const row of rows) {
+      // eslint-disable-next-line no-await-in-loop
+      if (await Model.exists({ [upsertKey]: row[upsertKey] })) continue
+      maxOrder += 1
+      // eslint-disable-next-line no-await-in-loop
+      await Model.create({ ...row, order: maxOrder, published: true })
+      added += 1
+    }
+    console.log(`• ${name}: ${existing} present, added ${added} new`)
+    return
+  }
+
+  console.log(`• ${name}: ${existing} rows present — skipping`)
 }
 
 async function seedSettings() {
   if (fresh) await SiteSettings.deleteMany({})
   const existing = await SiteSettings.findOne({ key: 'site' })
-  if (existing) {
-    console.log('• SiteSettings: present — skipping')
+  if (!existing) {
+    await SiteSettings.create(siteSettings)
+    console.log('• SiteSettings: created')
     return
   }
-  await SiteSettings.create(siteSettings)
-  console.log('• SiteSettings: created')
+  // Backfill only fields that don't exist yet — never overwrite edited values.
+  let touched = 0
+  const backfillBrand = ['domain', 'googleReview']
+  for (const k of backfillBrand) {
+    if (!existing.brand?.[k] && siteSettings.brand[k]) {
+      existing.brand[k] = siteSettings.brand[k]
+      touched += 1
+    }
+  }
+  if (!existing.commitments?.length && siteSettings.commitments?.length) {
+    existing.commitments = siteSettings.commitments
+    touched += 1
+  }
+  if (!existing.nav?.some((n) => n.to === '/gallery')) {
+    const galleryNav = siteSettings.nav.find((n) => n.to === '/gallery')
+    if (galleryNav) {
+      existing.nav.splice(4, 0, galleryNav)
+      existing.nav.forEach((n, i) => {
+        n.order = i
+      })
+      touched += 1
+    }
+  }
+  if (touched) {
+    existing.markModified('brand')
+    existing.markModified('nav')
+    await existing.save()
+    console.log(`• SiteSettings: backfilled ${touched} field(s)`)
+  } else {
+    console.log('• SiteSettings: present — nothing to backfill')
+  }
 }
 
 async function main() {

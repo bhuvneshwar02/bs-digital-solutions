@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { PageHero, CTASection } from '../components/PageParts'
+import Seo from '../components/Seo'
 import MediaSlot from '../components/MediaSlot'
 import { Tag } from '../components/Atoms'
 import { useContent } from '../content/ContentContext'
@@ -15,6 +16,11 @@ export default function Portfolio() {
 
   return (
     <>
+      <Seo
+        title="Portfolio"
+        path="/portfolio"
+        description="Live websites, web apps and AI projects built end-to-end by BS Innovation Solutions — event platforms, healthcare sites, e-commerce, consultancy portals and RAG apps."
+      />
       <PageHero
         eyebrow="Portfolio"
         title={`${portfolio.length || ''} live projects. Real clients, real deadlines.`.trim()}

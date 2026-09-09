@@ -44,7 +44,7 @@ export function CTASection({
         </h2>
         <p className="text-white/60 text-base leading-relaxed mt-5 max-w-xl mx-auto">{description}</p>
         <div className="flex flex-wrap items-center justify-center gap-4 mt-9">
-          <PrimaryButton to="/contact">Start a project</PrimaryButton>
+          <PrimaryButton to="/start-project">Start a project</PrimaryButton>
           {whatsapp && (
             <GhostButton dark href={`https://wa.me/${whatsapp}`}>
               Chat on WhatsApp
@@ -53,6 +53,32 @@ export function CTASection({
         </div>
         <div className="mt-8">
           <StatusTag>Replies within 24 hours</StatusTag>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// "Delivered on time · fixed price · no hidden charges" — editable via settings.
+export function Commitments({ dark = false }) {
+  const site = useSite()
+  const items = site.commitments || []
+  if (!items.length) return null
+  return (
+    <section className={`${dark ? 'bg-ink text-paper' : 'bg-white'} py-16 sm:py-20`}>
+      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+        <Eyebrow>How I work</Eyebrow>
+        <h2 className="font-display text-2xl sm:text-3xl font-semibold tracking-tight mt-3">
+          Timely delivery, a fixed price, and no hidden charges.
+        </h2>
+        <div className="grid sm:grid-cols-3 gap-6 mt-10">
+          {items.map((c, i) => (
+            <div key={c.title} className={`border-t pt-5 ${dark ? 'border-white/15' : 'border-line'}`}>
+              <span className="font-mono text-xs text-marigold-dark">{String(i + 1).padStart(2, '0')}</span>
+              <h3 className="font-display font-semibold mt-2">{c.title}</h3>
+              <p className={`text-sm leading-relaxed mt-2 ${dark ? 'text-white/55' : 'text-slate'}`}>{c.description}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

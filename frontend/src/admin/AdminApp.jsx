@@ -6,6 +6,7 @@ import Dashboard from './Dashboard'
 import CollectionPage from './CollectionPage'
 import SiteSettingsPage from './SiteSettingsPage'
 import ContactInbox from './ContactInbox'
+import ApplicationsInbox from './ApplicationsInbox'
 import UsersPage from './UsersPage'
 
 function RequireAuth({ children }) {
@@ -37,6 +38,7 @@ export default function AdminApp() {
         <Route path="c/:key" element={<CollectionPage />} />
         <Route path="site" element={<SiteSettingsPage />} />
         <Route path="messages" element={<ContactInbox />} />
+        <Route path="applications" element={<ApplicationsInbox />} />
         <Route
           path="users"
           element={

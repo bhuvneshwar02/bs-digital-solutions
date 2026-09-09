@@ -7,6 +7,9 @@ import Services from './pages/Services'
 import ServiceDetail from './pages/ServiceDetail'
 import Portfolio from './pages/Portfolio'
 import PortfolioDetail from './pages/PortfolioDetail'
+import Gallery from './pages/Gallery'
+import StartProject from './pages/StartProject'
+import Collaborate from './pages/Collaborate'
 import Pricing from './pages/Pricing'
 import Blog from './pages/Blog'
 import BlogDetail from './pages/BlogDetail'
@@ -28,6 +31,9 @@ export default function App() {
         <Route path="/services/:slug" element={<ServiceDetail />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/start-project" element={<StartProject />} />
+        <Route path="/collaborate" element={<Collaborate />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogDetail />} />

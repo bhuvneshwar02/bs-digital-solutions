@@ -1,6 +1,7 @@
 import { useParams, Link, Navigate } from 'react-router-dom'
 import { Eyebrow, Tag, PrimaryButton } from '../components/Atoms'
 import { CTASection } from '../components/PageParts'
+import Seo from '../components/Seo'
 import MediaSlot from '../components/MediaSlot'
 import { useContent } from '../content/ContentContext'
 
@@ -22,6 +23,7 @@ export default function PortfolioDetail() {
 
   return (
     <>
+      <Seo title={project.title} description={project.summary} path={`/portfolio/${project.slug}`} image={project.image} />
       <section className="bg-ink text-paper bp-grid">
         <div className="max-w-5xl mx-auto px-5 sm:px-8 pt-10 pb-16 sm:pt-14 sm:pb-20">
           <Link to="/portfolio" className="font-mono text-[11px] uppercase tracking-wider text-white/50 hover:text-marigold">

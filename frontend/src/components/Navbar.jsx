@@ -51,7 +51,7 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden lg:block">
-          <PrimaryButton to="/contact" className="!py-2.5 !px-5 !text-[13px]">
+          <PrimaryButton to="/start-project" className="!py-2.5 !px-5 !text-[13px]">
             Start a project
           </PrimaryButton>
         </div>
@@ -85,7 +85,7 @@ export default function Navbar() {
               </NavLink>
             ))}
           </nav>
-          <PrimaryButton to="/contact" className="w-full mt-5">
+          <PrimaryButton to="/start-project" className="w-full mt-5">
             Start a project
           </PrimaryButton>
         </div>

@@ -53,6 +53,10 @@ export default function SiteSettingsPage() {
           order: i,
         })),
         trustedBy: linesToArr(s._trustedText ?? arrToLines(s.trustedBy)),
+        commitments: linesToPairs(
+          s._commitText ?? pairsToLines(s.commitments, ['title', 'description']),
+          ['title', 'description'],
+        ),
         hero: {
           ...s.hero,
           stats: linesToPairs(s._statsText ?? pairsToLines(s.hero?.stats, ['value', 'label']), ['value', 'label']),
@@ -89,7 +93,7 @@ export default function SiteSettingsPage() {
 
       <Card title="Brand & contact">
         <div className="grid sm:grid-cols-2 gap-4">
-          {['name', 'short', 'tagline', 'founder', 'location', 'email', 'phone', 'whatsapp', 'linkedin', 'github', 'instagram', 'facebook'].map(
+          {['name', 'short', 'tagline', 'founder', 'location', 'domain', 'email', 'phone', 'whatsapp', 'googleReview', 'linkedin', 'github', 'instagram', 'facebook'].map(
             (k) => (
               <Field key={k} label={k}>
                 <Input value={brand[k] || ''} onChange={setBrand(k)} disabled={!isAdmin} />
@@ -117,6 +121,17 @@ export default function SiteSettingsPage() {
             rows={6}
             defaultValue={arrToLines(s.trustedBy)}
             onChange={(e) => setS((p) => ({ ...p, _trustedText: e.target.value }))}
+            disabled={!isAdmin}
+          />
+        </Field>
+      </Card>
+
+      <Card title="How I work — commitments">
+        <Field label="One per line, format: Title | Description" hint="Shown on Home, Pricing and Start-a-project.">
+          <Textarea
+            rows={6}
+            defaultValue={pairsToLines(s.commitments, ['title', 'description'])}
+            onChange={(e) => setS((p) => ({ ...p, _commitText: e.target.value }))}
             disabled={!isAdmin}
           />
         </Field>

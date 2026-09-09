@@ -43,6 +43,9 @@ Three free services: **MongoDB Atlas** (database), **Render** (API), **Vercel**
    | `SEED_ADMIN_PASSWORD` | a strong password |
    | `SEED_ADMIN_NAME` | `Bhuvneshwar Sharma` |
    | `NODE_ENV` | `production` |
+   | `RESEND_API_KEY` | from step 5 below (optional — leave blank to skip email) |
+   | `MAIL_FROM` | `BS Innovation Solutions <notify@bsinnovationsolutions.com>` |
+   | `MAIL_TO` | where enquiry emails should land (your inbox) |
 5. Deploy. When it's live, open the Render **Shell** tab and run once:
    ```
    npm run seed
@@ -74,21 +77,56 @@ Three free services: **MongoDB Atlas** (database), **Render** (API), **Vercel**
 
 ---
 
-## 4. Check it
+## 4. Email notifications (Resend)
+
+Contact-form and application submissions are always saved to the database and
+visible in the admin panel. To also get them emailed:
+
+1. Create a free account at <https://resend.com>.
+2. **API Keys → Create** → copy the key into Render as `RESEND_API_KEY`.
+3. **Domains → Add Domain** → `bsinnovationsolutions.com` → add the DNS records it
+   shows to your domain registrar. Once verified, set
+   `MAIL_FROM=BS Innovation Solutions <notify@bsinnovationsolutions.com>`.
+   - Until the domain is verified you can test with
+     `MAIL_FROM=BS Innovation Solutions <onboarding@resend.dev>`, which only
+     delivers to your own account email.
+4. Set `MAIL_TO` to the inbox that should receive enquiries, and redeploy.
+
+---
+
+## 5. Connect the domain — bsinnovationsolutions.com
+
+1. **Vercel → Project → Settings → Domains** → add `bsinnovationsolutions.com`
+   and `www.bsinnovationsolutions.com`; follow the DNS instructions at your
+   registrar.
+2. Update Render's `CORS_ORIGIN` to `https://bsinnovationsolutions.com` (comma-add
+   the Vercel `*.vercel.app` URL too if you still use it).
+3. The site's canonical URLs, `robots.txt`, `sitemap.xml` and structured data are
+   already set to `bsinnovationsolutions.com`.
+4. Submit the sitemap in **Google Search Console** (add the domain property,
+   verify via DNS, then Sitemaps → `https://bsinnovationsolutions.com/sitemap.xml`).
+   Also create/verify a **Google Business Profile** for the local-search ranking —
+   the "Leave a Google review" button already points at your Maps listing.
+
+---
+
+## 6. Check it
 
 - Open the Vercel URL — the site should load content from the API.
 - Go to `/admin`, sign in with `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD`.
 - Edit a service title, save, refresh the public page — the change shows.
-- Submit the contact form — it appears in **Admin → Contact inbox**.
+- Submit the contact form and the **Start a project** / **Work with me** forms —
+  each appears in **Admin → Contact inbox** / **Admin → Applications** and, if
+  Resend is configured, arrives in your email.
+- In **Admin → Gallery**, swap the placeholder images for real screenshots.
 - In **Admin → Users**, change your own password and add any extra editors.
 
 ## Updating content later
 
-Everything is in the admin panel — no redeploy needed for content changes. Code
-changes: push to GitHub and both Render and Vercel redeploy automatically.
+Everything is in the admin panel — no redeploy needed for content changes
+(services, portfolio, gallery, blog, pricing, the home page, SEO text, the
+Google-review link, the "how I work" commitments…). Code changes: push to GitHub
+and both Render and Vercel redeploy automatically.
 
-## Custom domain
-
-Add it in Vercel (Project → Domains), then append it to Render's `CORS_ORIGIN`
-(comma-separated) and to the `<link rel="canonical">` / `robots.txt` /
-`sitemap.xml` in `frontend/` if you want them exact.
+Re-running `npm run seed` on Render is safe — it only *adds* newly-shipped
+starter content and never overwrites your edits.

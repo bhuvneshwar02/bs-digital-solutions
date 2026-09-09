@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { SectionHeading, StatusTag, PrimaryButton, GhostButton } from '../components/Atoms'
-import { CTASection, HireMe } from '../components/PageParts'
+import { CTASection, HireMe, Commitments } from '../components/PageParts'
+import Seo from '../components/Seo'
 import { useContent, useSite } from '../content/ContentContext'
 
 const fadeUp = {
@@ -25,6 +26,7 @@ export default function Home() {
 
   return (
     <>
+      <Seo path="/" />
       {/* HERO */}
       <section className="bg-ink text-paper bp-grid relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 pt-20 pb-20 sm:pt-28 sm:pb-28 relative z-10">
@@ -37,7 +39,7 @@ export default function Home() {
               </h1>
               <p className="text-white/60 text-base sm:text-lg leading-relaxed mt-6 max-w-xl">{hero.description}</p>
               <div className="flex flex-wrap items-center gap-4 mt-9">
-                <PrimaryButton to="/contact">Start a project</PrimaryButton>
+                <PrimaryButton to="/start-project">Start a project</PrimaryButton>
                 <GhostButton dark to="/portfolio">
                   See the work
                 </GhostButton>
@@ -148,6 +150,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* HOW I WORK */}
+      <Commitments />
 
       {/* SUCCESS STORIES */}
       <section className="max-w-7xl mx-auto px-5 sm:px-8 py-20 sm:py-28">

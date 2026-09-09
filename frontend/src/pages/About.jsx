@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { PageHero, CTASection, HireMe } from '../components/PageParts'
 import { SectionHeading, Eyebrow } from '../components/Atoms'
+import Seo from '../components/Seo'
 import { useContent, useSite } from '../content/ContentContext'
 
 const fadeUp = {
@@ -16,6 +17,11 @@ export default function About() {
 
   return (
     <>
+      <Seo
+        title="About"
+        path="/about"
+        description={about.heroDescription}
+      />
       <PageHero
         eyebrow={`About ${brand.name || 'BS Innovation Solutions'}`}
         title={about.heroTitle || 'A one-person studio, built like a full team.'}

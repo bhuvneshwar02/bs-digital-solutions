@@ -27,6 +27,14 @@ export const adminApi = {
   setMessageStatus: (id, status) => api.patch(`/contact/${id}`, { status }, opts),
   removeMessage: (id) => api.del(`/contact/${id}`, opts),
 
+  // Applications (project briefs + collaborator applications)
+  listApplications: (params = {}) => {
+    const q = new URLSearchParams(Object.entries(params).filter(([, v]) => v)).toString()
+    return api.get(`/applications${q ? `?${q}` : ''}`, opts)
+  },
+  setApplicationStatus: (id, status) => api.patch(`/applications/${id}`, { status }, opts),
+  removeApplication: (id) => api.del(`/applications/${id}`, opts),
+
   // Change own password
   changePassword: (currentPassword, newPassword) =>
     api.post('/auth/change-password', { currentPassword, newPassword }, opts),

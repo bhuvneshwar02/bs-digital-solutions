@@ -67,6 +67,21 @@ export const collectionSchemas = {
     ],
   },
 
+  gallery: {
+    label: 'Gallery',
+    endpoint: 'gallery',
+    singularLabel: 'image',
+    columns: [
+      { key: 'title', label: 'Title' },
+      { key: 'caption', label: 'Caption' },
+    ],
+    fields: [
+      { name: 'title', type: 'text', required: true },
+      { name: 'image', type: 'image', required: true },
+      { name: 'caption', type: 'text' },
+    ],
+  },
+
   'pricing-plans': {
     label: 'Pricing plans',
     endpoint: 'pricing-plans',
@@ -198,7 +213,7 @@ export const collectionSchemas = {
 
 // Sidebar grouping / order.
 export const adminNav = [
-  { section: 'Content', items: ['services', 'portfolio', 'blog'] },
+  { section: 'Content', items: ['services', 'portfolio', 'gallery', 'blog'] },
   { section: 'Pricing', items: ['pricing-plans', 'pricing-addons'] },
   { section: 'Home page', items: ['testimonials', 'faqs', 'process-steps', 'tech-stack'] },
   { section: 'About page', items: ['timeline', 'core-values'] },

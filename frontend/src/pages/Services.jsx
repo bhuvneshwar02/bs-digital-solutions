@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { PageHero, CTASection } from '../components/PageParts'
+import Seo from '../components/Seo'
 import { useContent } from '../content/ContentContext'
 
 const fadeUp = {
@@ -16,6 +17,11 @@ export default function Services() {
 
   return (
     <>
+      <Seo
+        title="Services"
+        path="/services"
+        description="Web development, e-commerce, admin dashboards, AI chatbots, SEO and day-to-day digital operations — freelance, remote, across India and worldwide."
+      />
       <PageHero
         eyebrow="Services"
         title="Any kind of digital work — scoped, priced and shipped."

@@ -9,11 +9,18 @@ studio of Bhuvneshwar Sharma.
 └── backend/    # Node + Express + MongoDB — REST API and CMS
 ```
 
-Every piece of content on the public site (services, portfolio, blog, pricing,
-testimonials, FAQs, the home hero, the About page, SEO tags, navigation…) is
-stored in MongoDB and edited from the admin panel at `/admin`. If the API is
-unreachable the site falls back to a bundled copy of the content so it never
-renders blank.
+Every piece of content on the public site (services, portfolio, gallery, blog,
+pricing, testimonials, FAQs, the home hero, the About page, SEO text, navigation,
+the "how I work" commitments, the Google-review link…) is stored in MongoDB and
+edited from the admin panel at `/admin`. If the API is unreachable the site falls
+back to a bundled copy of the content so it never renders blank.
+
+The public site includes a Gallery, a **Start a project** brief form and a
+**Work with me** collaborator form — both stored in the database and emailed
+(via Resend) to the owner. Local + remote SEO is built in: per-page titles and
+meta, canonical URLs on `bsinnovationsolutions.com`, `robots.txt`, `sitemap.xml`
+and `ProfessionalService` structured data with the Rampur location and
+India + worldwide service area.
 
 ## Run it locally
 

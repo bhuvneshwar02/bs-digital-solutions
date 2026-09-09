@@ -13,6 +13,7 @@ import {
   techStack,
   timeline,
   coreValues,
+  gallery,
 } from '../data/site'
 
 export const fallbackContent = {
@@ -20,6 +21,7 @@ export const fallbackContent = {
   services,
   portfolio,
   blog,
+  gallery,
   pricingPlans,
   pricingAddons,
   testimonials,

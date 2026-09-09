@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
-import { PageHero, CTASection } from '../components/PageParts'
+import { PageHero, CTASection, Commitments } from '../components/PageParts'
 import { SectionHeading, PrimaryButton, GhostButton } from '../components/Atoms'
+import Seo from '../components/Seo'
 import { useContent } from '../content/ContentContext'
 
 const fadeUp = {
@@ -13,6 +14,11 @@ export default function Pricing() {
 
   return (
     <>
+      <Seo
+        title="Pricing"
+        path="/pricing"
+        description="Transparent website and web-app pricing from BS Innovation Solutions. Fixed quote agreed before work starts, no hidden platform fees or surprise charges."
+      />
       <PageHero
         eyebrow="Pricing"
         title="Clear pricing, no hidden platform fees."
@@ -77,6 +83,9 @@ export default function Pricing() {
           Prices in INR · GST extra where applicable · Custom scopes quoted separately
         </p>
       </section>
+
+      <Commitments dark />
+
 
       {pricingAddons.length > 0 && (
         <section className="bg-paper-dim py-16 sm:py-20">

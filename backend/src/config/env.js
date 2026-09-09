@@ -24,6 +24,10 @@ export const env = {
     email: process.env.SEED_ADMIN_EMAIL || 'bhuvneshwarsharma44@gmail.com',
     password: process.env.SEED_ADMIN_PASSWORD || 'ChangeMe!2026',
   },
+  // Email notifications via Resend (optional — DB storage always happens).
+  resendApiKey: process.env.RESEND_API_KEY || '',
+  mailFrom: process.env.MAIL_FROM || '',
+  mailTo: process.env.MAIL_TO || process.env.SEED_ADMIN_EMAIL || '',
 }
 
 export const isProd = env.nodeEnv === 'production'

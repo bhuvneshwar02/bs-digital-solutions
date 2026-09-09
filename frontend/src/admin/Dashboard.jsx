@@ -9,6 +9,7 @@ export default function Dashboard() {
   const { user } = useAuth()
   const [counts, setCounts] = useState({})
   const [newMessages, setNewMessages] = useState(null)
+  const [newApps, setNewApps] = useState(null)
 
   useEffect(() => {
     const keys = adminNav.flatMap((g) => g.items)
@@ -25,6 +26,11 @@ export default function Dashboard() {
       .listMessages('new')
       .then((rows) => setNewMessages(rows.length))
       .catch(() => setNewMessages(null))
+
+    adminApi
+      .listApplications({ status: 'new' })
+      .then((rows) => setNewApps(rows.length))
+      .catch(() => setNewApps(null))
   }, [])
 
   return (
@@ -40,6 +46,14 @@ export default function Dashboard() {
             <p className="font-mono text-[11px] uppercase tracking-wider text-slate">Contact inbox</p>
             <p className="font-display text-3xl font-semibold mt-1">
               {newMessages ?? '—'} <span className="text-sm font-normal text-slate">new</span>
+            </p>
+          </Card>
+        </Link>
+        <Link to="/admin/applications">
+          <Card className="hover:border-ink/30 transition-colors">
+            <p className="font-mono text-[11px] uppercase tracking-wider text-slate">Applications</p>
+            <p className="font-display text-3xl font-semibold mt-1">
+              {newApps ?? '—'} <span className="text-sm font-normal text-slate">new</span>
             </p>
           </Card>
         </Link>

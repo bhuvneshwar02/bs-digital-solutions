@@ -4,6 +4,7 @@ import { ContactMessage } from '../models/index.js'
 import { schemas } from '../lib/validate.js'
 import { requireAuth } from '../middleware/auth.js'
 import { ApiError } from '../middleware/errors.js'
+import { sendMail } from '../lib/mailer.js'
 
 const router = Router()
 
@@ -25,6 +26,20 @@ router.post('/', contactLimiter, async (req, res, next) => {
     await ContactMessage.create({
       ...data,
       meta: { ip: req.ip, userAgent: req.get('user-agent') || '' },
+    })
+    await sendMail({
+      subject: `New enquiry — ${data.name}${data.type ? ` (${data.type})` : ''}`,
+      text: [
+        `Name: ${data.name}`,
+        `Email: ${data.email}`,
+        data.phone && `Phone: ${data.phone}`,
+        data.type && `Type: ${data.type}`,
+        '',
+        data.message,
+      ]
+        .filter(Boolean)
+        .join('\n'),
+      replyTo: data.email,
     })
     res.status(201).json({ ok: true })
   } catch (err) {

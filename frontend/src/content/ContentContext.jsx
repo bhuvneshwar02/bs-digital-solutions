@@ -11,6 +11,7 @@ function normalize(raw) {
     services: raw.services || [],
     portfolio: raw.portfolio || [],
     blog: raw.blog || [],
+    gallery: raw.gallery || [],
     pricingPlans: raw['pricing-plans'] || [],
     pricingAddons: raw['pricing-addons'] || [],
     testimonials: raw.testimonials || [],

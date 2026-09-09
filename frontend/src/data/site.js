@@ -8,9 +8,11 @@ export const brand = {
   tagline: 'Web · AI · Growth',
   founder: 'Bhuvneshwar Sharma',
   location: 'Rampur, Uttar Pradesh, India',
+  domain: 'bsinnovationsolutions.com',
   email: 'bhuvneshwarsharma44@gmail.com',
   phone: '+91 76174 82996',
   whatsapp: '917617482996',
+  googleReview: 'https://share.google/55Y7wRwqEJCePCqam',
   linkedin: 'https://linkedin.com/in/bhuvneshwar02',
   github: 'https://github.com/bhuvneshwar02',
   instagram: 'https://instagram.com/bhuvneshwar02',
@@ -22,9 +24,27 @@ export const nav = [
   { label: 'About', to: '/about' },
   { label: 'Services', to: '/services' },
   { label: 'Portfolio', to: '/portfolio' },
+  { label: 'Gallery', to: '/gallery' },
   { label: 'Pricing', to: '/pricing' },
   { label: 'Blog', to: '/blog' },
   { label: 'Contact', to: '/contact' },
+]
+
+export const commitments = [
+  {
+    title: 'Delivered on a timeline, in writing',
+    description:
+      'Every project gets a delivery date before it starts, with a staging link along the way so you see progress — not a vague "soon".',
+  },
+  {
+    title: 'Fixed price, agreed upfront',
+    description: 'You approve a single quote before work begins. The number on the quote is the number you pay.',
+  },
+  {
+    title: 'No hidden charges',
+    description:
+      'Third-party costs (domain, hosting, gateway fees) are shown at cost and separately. Nothing is added to the invoice that you did not agree to.',
+  },
 ]
 
 export const trustedBy = [
@@ -79,13 +99,25 @@ export const footerBlurb =
   'Helping businesses, institutions and everyday people get their digital work done — websites, web apps, AI tools and the small digital chores in between.'
 
 export const seo = {
-  title: 'BS Innovation Solutions — Web · AI · Growth',
+  title: 'BS Innovation Solutions — Freelance Web, App & AI Developer',
   description:
-    'BS Innovation Solutions is a full-stack web, AI and digital services studio founded by Bhuvneshwar Sharma — freelance websites, e-commerce, admin dashboards, AI chatbots, SEO and everyday digital help.',
-  ogTitle: 'BS Innovation Solutions — Web · AI · Growth',
+    'BS Innovation Solutions — Bhuvneshwar Sharma, freelance full-stack web, app and AI developer in Rampur, Uttar Pradesh, working with clients across India and worldwide. Business websites, e-commerce, admin dashboards, AI chatbots, SEO and day-to-day digital operations, delivered on a fixed price with no hidden charges.',
+  ogTitle: 'BS Innovation Solutions — Freelance Web, App & AI Developer',
   ogDescription:
-    'Websites, web apps, AI solutions and everyday digital help — built end-to-end by Bhuvneshwar Sharma, freelance full-stack developer.',
+    'Websites, web apps, AI solutions and everyday digital operations — built end-to-end by Bhuvneshwar Sharma. Fixed price, delivered on time, remote across India and worldwide.',
 }
+
+export const gallery = [
+  { title: 'MCE Snehada Milana — registration', image: '/assets/portfolio/MCE.png', caption: 'Sample — replace with real screenshot' },
+  { title: 'Atreya Ayurvedam — home', image: '/assets/portfolio/ayurvedic.png', caption: 'Sample — replace with real screenshot' },
+  { title: 'Kiran Kumar — portfolio', image: '/assets/portfolio/kiran-kummar.png', caption: 'Sample — replace with real screenshot' },
+  { title: 'Dheeraj Singh Consultancy — portal', image: '/assets/portfolio/dheeraj-banner.png', caption: 'Sample — replace with real screenshot' },
+  { title: 'Panchwati Hanuman Mandir', image: '/assets/portfolio/hanumanmandir.png', caption: 'Sample — replace with real screenshot' },
+  { title: 'AI Health Assistant', image: '/assets/portfolio/aiHealth.png', caption: 'Sample — replace with real screenshot' },
+  { title: 'Grameen Haat — marketplace', image: '/assets/portfolio/grameen.png', caption: 'Sample — replace with real screenshot' },
+  { title: 'Admin dashboard build', image: '/assets/services/admin.png', caption: 'Sample — replace with real screenshot' },
+  { title: 'E-commerce build', image: '/assets/services/e-commerce.png', caption: 'Sample — replace with real screenshot' },
+]
 
 export const processSteps = [
   { step: '01', title: 'Discover', description: 'A short call or WhatsApp chat to understand your business, audience and what the site actually needs to do — not a generic questionnaire.' },
@@ -244,6 +276,7 @@ export const siteSettings = {
   brand,
   nav,
   trustedBy,
+  commitments,
   hero,
   hireMe,
   about,

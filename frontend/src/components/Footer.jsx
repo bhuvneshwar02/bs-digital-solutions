@@ -13,6 +13,7 @@ export default function Footer() {
     { label: 'GitHub', href: brand.github },
     { label: 'Instagram', href: brand.instagram },
     { label: 'Facebook', href: brand.facebook },
+    { label: 'Review on Google ★', href: brand.googleReview },
   ].filter((s) => s.href)
 
   return (

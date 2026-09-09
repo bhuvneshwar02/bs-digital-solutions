@@ -35,6 +35,9 @@ export default function AdminLayout() {
             <NavLink to="/admin/messages" className={linkClass}>
               Contact inbox
             </NavLink>
+            <NavLink to="/admin/applications" className={linkClass}>
+              Applications
+            </NavLink>
             {isAdmin && (
               <NavLink to="/admin/users" className={linkClass}>
                 Users

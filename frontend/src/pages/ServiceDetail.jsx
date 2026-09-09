@@ -2,6 +2,7 @@ import { useParams, Link, Navigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Eyebrow, Tag, PrimaryButton, GhostButton } from '../components/Atoms'
 import { CTASection } from '../components/PageParts'
+import Seo from '../components/Seo'
 import MediaSlot from '../components/MediaSlot'
 import { useContent, useSite } from '../content/ContentContext'
 
@@ -21,6 +22,7 @@ export default function ServiceDetail() {
 
   return (
     <>
+      <Seo title={service.title} description={service.short} path={`/services/${service.slug}`} />
       <section className="bg-ink text-paper bp-grid">
         <div className="max-w-5xl mx-auto px-5 sm:px-8 pt-10 pb-16 sm:pt-14 sm:pb-20">
           <Link to="/services" className="font-mono text-[11px] uppercase tracking-wider text-white/50 hover:text-marigold">

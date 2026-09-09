@@ -2,10 +2,12 @@ import { Outlet } from 'react-router-dom'
 import Navbar from './Navbar'
 import Footer from './Footer'
 import WhatsAppFloat from './WhatsAppFloat'
+import StructuredData from './StructuredData'
 
 export default function Layout() {
   return (
     <div className="min-h-screen flex flex-col">
+      <StructuredData />
       <Navbar />
       <main className="flex-1">
         <Outlet />

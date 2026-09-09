@@ -117,6 +117,29 @@ export const schemas = {
     message: z.string().trim().min(5, 'Please add a bit more detail').max(5000),
   }),
 
+  galleryItem: z.object({
+    title: z.string().trim().min(1),
+    image: z.string().trim().min(1),
+    caption: z.string().trim().optional().default(''),
+    ...listable,
+  }),
+
+  application: z.object({
+    kind: z.enum(['project', 'collaborator']),
+    name: z.string().trim().min(1, 'Name is required').max(120),
+    email: z.string().trim().email('A valid email is required').max(200),
+    phone: z.string().trim().max(40).optional().default(''),
+    message: z.string().trim().min(5, 'Please add a bit more detail').max(6000),
+    company: z.string().trim().max(160).optional().default(''),
+    projectType: z.string().trim().max(160).optional().default(''),
+    budget: z.string().trim().max(120).optional().default(''),
+    timeline: z.string().trim().max(120).optional().default(''),
+    role: z.string().trim().max(160).optional().default(''),
+    skills: z.string().trim().max(600).optional().default(''),
+    portfolioUrl: z.string().trim().max(300).optional().default(''),
+    availability: z.string().trim().max(160).optional().default(''),
+  }),
+
   login: z.object({
     email: z.string().trim().email(),
     password: z.string().min(1),
@@ -156,6 +179,8 @@ const brandSchema = z
     email: z.string().trim().optional(),
     phone: z.string().trim().optional(),
     whatsapp: z.string().trim().optional(),
+    domain: z.string().trim().optional(),
+    googleReview: z.string().trim().optional(),
     linkedin: z.string().trim().optional(),
     github: z.string().trim().optional(),
     instagram: z.string().trim().optional(),
@@ -170,6 +195,7 @@ export const siteSettingsSchema = z
       .array(z.object({ label: z.string().trim(), to: z.string().trim(), order: z.number().optional() }))
       .optional(),
     trustedBy: z.array(z.string().trim()).optional(),
+    commitments: z.array(z.object({ title: z.string(), description: z.string() })).optional(),
     hero: z
       .object({
         statusText: z.string().optional(),
