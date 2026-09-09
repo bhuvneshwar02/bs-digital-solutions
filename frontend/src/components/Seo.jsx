@@ -19,7 +19,7 @@ export default function Seo({ title, description, path = '', image, noindex = fa
   const fullTitle = title ? `${title} · ${brand.name || 'BS Innovation Solutions'}` : seo.title || brand.name
   const desc = description || seo.description || ''
   const canonical = `${origin}${path}`
-  const rawImage = image || '/assets/founder-photo.png'
+  const rawImage = image || seo.ogImage || '/assets/portfolio/dheeraj-banner.png'
   const ogImage = rawImage.startsWith('http') ? rawImage : `${origin}${rawImage}`
 
   return (

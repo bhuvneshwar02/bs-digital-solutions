@@ -9,21 +9,33 @@ export function StatusTag({ children }) {
   )
 }
 
-export function Eyebrow({ children }) {
+export function Eyebrow({ children, tone = 'light' }) {
   return (
-    <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-teal font-medium">
+    <span
+      className={`font-mono text-[11px] uppercase tracking-[0.18em] font-medium ${
+        tone === 'dark' ? 'text-marigold' : 'text-teal'
+      }`}
+    >
       {children}
     </span>
   )
 }
 
-export function SectionHeading({ eyebrow, title, description, align = 'left', className = '' }) {
+// tone="dark" for sections on the ink background (keeps the title readable).
+export function SectionHeading({ eyebrow, title, description, align = 'left', tone = 'light', className = '' }) {
   const alignClass = align === 'center' ? 'text-center items-center mx-auto' : 'text-left items-start'
+  const dark = tone === 'dark'
   return (
     <div className={`flex flex-col gap-3 max-w-2xl ${alignClass} ${className}`}>
-      {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-      <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-ink">{title}</h2>
-      {description && <p className="text-slate text-base leading-relaxed">{description}</p>}
+      {eyebrow && <Eyebrow tone={tone}>{eyebrow}</Eyebrow>}
+      <h2
+        className={`font-display text-3xl sm:text-4xl font-semibold tracking-tight ${dark ? 'text-paper' : 'text-ink'}`}
+      >
+        {title}
+      </h2>
+      {description && (
+        <p className={`text-base leading-relaxed ${dark ? 'text-white/60' : 'text-slate'}`}>{description}</p>
+      )}
     </div>
   )
 }

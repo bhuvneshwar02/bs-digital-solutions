@@ -80,7 +80,7 @@ export default function EntityForm({ schema, initial, onSubmit, onCancel, saving
             ) : f.type === 'select' ? (
               <select className={inputClass} value={form[f.name]} onChange={set(f.name)} required={f.required}>
                 <option value="">— choose —</option>
-                {selectOptions(f.from).map((o) => (
+                {(f.options || selectOptions(f.from)).map((o) => (
                   <option key={o.value} value={o.value}>
                     {o.label}
                   </option>

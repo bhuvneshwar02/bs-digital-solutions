@@ -1,8 +1,6 @@
 {
   "generatedNote": "Images bundled in the repo, available to the admin image picker. Paths are site-absolute.",
   "images": [
-    "/assets/founder-photo.png",
-    "/assets/working-image.png",
     "/assets/portfolio/MCE.png",
     "/assets/portfolio/aiHealth.png",
     "/assets/portfolio/ayurvedic.png",

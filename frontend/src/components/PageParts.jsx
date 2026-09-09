@@ -38,7 +38,7 @@ export function CTASection({
   return (
     <section className="bg-ink text-paper bp-grid relative overflow-hidden">
       <div className="max-w-5xl mx-auto px-5 sm:px-8 py-20 sm:py-24 text-center relative z-10">
-        <Eyebrow>{eyebrow}</Eyebrow>
+        <Eyebrow tone="dark">{eyebrow}</Eyebrow>
         <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight mt-4 max-w-3xl mx-auto leading-tight">
           {title}
         </h2>
@@ -67,14 +67,16 @@ export function Commitments({ dark = false }) {
   return (
     <section className={`${dark ? 'bg-ink text-paper' : 'bg-white'} py-16 sm:py-20`}>
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
-        <Eyebrow>How I work</Eyebrow>
+        <Eyebrow tone={dark ? 'dark' : 'light'}>How I work</Eyebrow>
         <h2 className="font-display text-2xl sm:text-3xl font-semibold tracking-tight mt-3">
           Timely delivery, a fixed price, and no hidden charges.
         </h2>
         <div className="grid sm:grid-cols-3 gap-6 mt-10">
           {items.map((c, i) => (
             <div key={c.title} className={`border-t pt-5 ${dark ? 'border-white/15' : 'border-line'}`}>
-              <span className="font-mono text-xs text-marigold-dark">{String(i + 1).padStart(2, '0')}</span>
+              <span className={`font-mono text-xs ${dark ? 'text-marigold' : 'text-marigold-dark'}`}>
+                {String(i + 1).padStart(2, '0')}
+              </span>
               <h3 className="font-display font-semibold mt-2">{c.title}</h3>
               <p className={`text-sm leading-relaxed mt-2 ${dark ? 'text-white/55' : 'text-slate'}`}>{c.description}</p>
             </div>
@@ -95,7 +97,7 @@ export function HireMe({ dark = false }) {
     <section className={`${wrap} py-16 sm:py-20`}>
       <div className="max-w-4xl mx-auto px-5 sm:px-8">
         <div className={`rounded-3xl border p-8 sm:p-10 ${dark ? 'border-white/15' : 'border-line bg-white'}`}>
-          <Eyebrow>{h.eyebrow || 'Freelance / hire me'}</Eyebrow>
+          <Eyebrow tone={dark ? 'dark' : 'light'}>{h.eyebrow || 'Freelance / hire me'}</Eyebrow>
           <h2 className="font-display text-2xl sm:text-3xl font-semibold tracking-tight mt-3 leading-snug">
             {h.title || 'Open for freelance digital work'}
           </h2>
@@ -103,7 +105,7 @@ export function HireMe({ dark = false }) {
             {h.description}
           </p>
           <div className="flex flex-wrap items-center gap-4 mt-7">
-            <PrimaryButton to="/contact">{h.ctaLabel || 'Hire me for a project'}</PrimaryButton>
+            <PrimaryButton to="/start-project">{h.ctaLabel || 'Hire me for a project'}</PrimaryButton>
             {whatsapp && (
               <GhostButton dark={dark} href={`https://wa.me/${whatsapp}`}>
                 Message on WhatsApp

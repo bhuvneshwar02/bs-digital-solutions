@@ -2,11 +2,23 @@ import { Link } from 'react-router-dom'
 import Logo from './Logo'
 import { useContent, useSite } from '../content/ContentContext'
 
+const pages = [
+  { label: 'Home', to: '/' },
+  { label: 'About', to: '/about' },
+  { label: 'Services', to: '/services' },
+  { label: 'Portfolio', to: '/portfolio' },
+  { label: 'Gallery', to: '/gallery' },
+  { label: 'Pricing', to: '/pricing' },
+  { label: 'Blog', to: '/blog' },
+  { label: 'Contact', to: '/contact' },
+  { label: 'Start a project', to: '/start-project' },
+  { label: 'Work with me', to: '/collaborate' },
+]
+
 export default function Footer() {
   const site = useSite()
-  const { services, portfolio, blog } = useContent()
+  const { services, portfolio } = useContent()
   const brand = site.brand || {}
-  const nav = site.nav?.length ? site.nav : []
 
   const socials = [
     { label: 'LinkedIn', href: brand.linkedin },
@@ -19,8 +31,8 @@ export default function Footer() {
   return (
     <footer className="bg-ink text-paper">
       <div className="max-w-7xl mx-auto px-5 sm:px-8 pt-16 pb-8">
-        <div className="grid grid-cols-2 lg:grid-cols-6 gap-10 lg:gap-8">
-          <div className="col-span-2">
+        <div className="grid grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
+          <div className="col-span-2 lg:col-span-4">
             <Logo variant="light" />
             <p className="text-white/50 text-sm leading-relaxed mt-5 max-w-xs">
               {site.footerBlurb ||
@@ -29,12 +41,20 @@ export default function Footer() {
             {brand.location && (
               <p className="font-mono text-[11px] text-white/40 mt-6 uppercase tracking-wider">{brand.location}</p>
             )}
+            {brand.email && (
+              <a
+                href={`mailto:${brand.email}`}
+                className="font-mono text-[11px] text-white/60 mt-2 block hover:text-marigold transition-colors"
+              >
+                {brand.email}
+              </a>
+            )}
           </div>
 
-          <div>
-            <p className="font-mono text-[11px] uppercase tracking-widest text-white/40 mb-4">Company</p>
+          <div className="lg:col-span-2">
+            <p className="font-mono text-[11px] uppercase tracking-widest text-white/40 mb-4">Pages</p>
             <ul className="flex flex-col gap-3">
-              {nav.map((item) => (
+              {pages.map((item) => (
                 <li key={item.to}>
                   <Link to={item.to} className="text-sm text-white/70 hover:text-marigold transition-colors">
                     {item.label}
@@ -44,10 +64,10 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div>
+          <div className="lg:col-span-3">
             <p className="font-mono text-[11px] uppercase tracking-widest text-white/40 mb-4">Services</p>
             <ul className="flex flex-col gap-3">
-              {services.slice(0, 6).map((s) => (
+              {services.slice(0, 7).map((s) => (
                 <li key={s.slug}>
                   <Link to={`/services/${s.slug}`} className="text-sm text-white/70 hover:text-marigold transition-colors">
                     {s.title}
@@ -57,10 +77,10 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div>
-            <p className="font-mono text-[11px] uppercase tracking-widest text-white/40 mb-4">Portfolio</p>
+          <div className="lg:col-span-3">
+            <p className="font-mono text-[11px] uppercase tracking-widest text-white/40 mb-4">Recent work</p>
             <ul className="flex flex-col gap-3">
-              {portfolio.slice(0, 5).map((p) => (
+              {portfolio.slice(0, 6).map((p) => (
                 <li key={p.slug}>
                   <Link to={`/portfolio/${p.slug}`} className="text-sm text-white/70 hover:text-marigold transition-colors">
                     {p.title}
@@ -69,26 +89,10 @@ export default function Footer() {
               ))}
             </ul>
           </div>
-
-          <div>
-            <p className="font-mono text-[11px] uppercase tracking-widest text-white/40 mb-4">Blog</p>
-            <ul className="flex flex-col gap-3">
-              {blog.slice(0, 4).map((b) => (
-                <li key={b.slug}>
-                  <Link
-                    to={`/blog/${b.slug}`}
-                    className="text-sm text-white/70 hover:text-marigold transition-colors line-clamp-2"
-                  >
-                    {b.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
 
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mt-14 pt-8 border-t border-white/10">
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
             {socials.map((s) => (
               <a
                 key={s.label}

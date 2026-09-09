@@ -16,15 +16,14 @@ export const siteSettings = {
     instagram: 'https://instagram.com/bhuvneshwar02',
     facebook: 'https://facebook.com/bhuvneshwar02',
   },
+  // Primary top-nav only — secondary pages (Home logo, About, Gallery, Blog…)
+  // live in the footer.
   nav: [
-    { label: 'Home', to: '/', order: 0 },
-    { label: 'About', to: '/about', order: 1 },
-    { label: 'Services', to: '/services', order: 2 },
-    { label: 'Portfolio', to: '/portfolio', order: 3 },
-    { label: 'Gallery', to: '/gallery', order: 4 },
-    { label: 'Pricing', to: '/pricing', order: 5 },
-    { label: 'Blog', to: '/blog', order: 6 },
-    { label: 'Contact', to: '/contact', order: 7 },
+    { label: 'Services', to: '/services', order: 0 },
+    { label: 'Portfolio', to: '/portfolio', order: 1 },
+    { label: 'Pricing', to: '/pricing', order: 2 },
+    { label: 'About', to: '/about', order: 3 },
+    { label: 'Contact', to: '/contact', order: 4 },
   ],
   commitments: [
     {
@@ -57,6 +56,7 @@ export const siteSettings = {
     titleAccent: 'websites, apps, AI and everything in between.',
     description:
       "BS Innovation Solutions is a one-person full-stack studio run by Bhuvneshwar Sharma. From a business website to an AI chatbot to setting up your first Gmail account for work — if it's digital, it's within scope.",
+    image: '',
     stats: [
       { value: '8+', label: 'Live projects shipped' },
       { value: '12+', label: 'Digital services offered' },
@@ -86,6 +86,7 @@ export const siteSettings = {
     trustTitle: 'Nothing outsourced, nothing templated',
     trustDescription:
       "Every project on the portfolio was designed, built and deployed personally — there's no subcontracted team behind the name, and no recycled template underneath the design.",
+    image: '',
   },
   footerBlurb:
     'Helping businesses, institutions and everyday people get their digital work done — websites, web apps, AI tools and the small digital chores in between.',

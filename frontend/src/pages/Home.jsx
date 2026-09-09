@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { SectionHeading, StatusTag, PrimaryButton, GhostButton } from '../components/Atoms'
 import { CTASection, HireMe, Commitments } from '../components/PageParts'
 import Seo from '../components/Seo'
+import DevIllustration from '../components/DevIllustration'
 import { useContent, useSite } from '../content/ContentContext'
 
 const fadeUp = {
@@ -61,12 +62,16 @@ export default function Home() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.15 }}
             >
-              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-3">
-                <img
-                  src="/assets/working-image.png"
-                  alt={`${site.brand?.founder || 'Bhuvneshwar Sharma'} at work`}
-                  className="w-full rounded-xl object-cover aspect-[4/5]"
-                />
+              <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.09] to-white/[0.02] p-4 sm:p-6 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.5)]">
+                {hero.image ? (
+                  <img
+                    src={hero.image}
+                    alt="A developer building a web application"
+                    className="w-full rounded-xl object-cover aspect-[4/5]"
+                  />
+                ) : (
+                  <DevIllustration variant="editor" className="w-full h-auto" />
+                )}
               </div>
             </motion.div>
           </div>
@@ -129,6 +134,7 @@ export default function Home() {
       <section className="bg-ink text-paper py-20 sm:py-28">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <SectionHeading
+            tone="dark"
             eyebrow="Why clients stick around"
             title="Not an agency with a queue. One developer who ships."
             description="No account managers, no hand-offs between teams — the person who scopes the project is the person who builds it."
@@ -240,7 +246,11 @@ export default function Home() {
       {testimonials.length > 0 && (
         <section className="bg-ink text-paper py-20 sm:py-28">
           <div className="max-w-7xl mx-auto px-5 sm:px-8">
-            <SectionHeading eyebrow="What clients say" title="Feedback from the people who commissioned the work" />
+            <SectionHeading
+            tone="dark"
+            eyebrow="What clients say"
+            title="Feedback from the people who commissioned the work"
+          />
             <div className="grid sm:grid-cols-3 gap-6 mt-14">
               {testimonials.map((t, i) => (
                 <motion.blockquote

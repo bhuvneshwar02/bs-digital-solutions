@@ -22,6 +22,14 @@ meta, canonical URLs on `bsinnovationsolutions.com`, `robots.txt`, `sitemap.xml`
 and `ProfessionalService` structured data with the Rampur location and
 India + worldwide service area.
 
+The top nav is intentionally short (Services · Portfolio · Pricing · About ·
+Contact) — every other page is linked from the footer. Where a photo would go
+(home hero, About story) the site draws a brand-coloured SVG illustration by
+default; paste an image URL into **Admin → Site settings → Home hero / About
+page** to use a real photo instead. Pricing has two groups — one-time **builds**
+and monthly **care / operations** plans (including a day-to-day operations
+retainer) — set per plan in **Admin → Pricing plans**.
+
 ## Run it locally
 
 You need MongoDB running locally (or an Atlas URI).

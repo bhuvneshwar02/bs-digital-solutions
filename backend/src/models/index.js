@@ -86,6 +86,7 @@ const siteSettingsSchema = new Schema(
       titleLead: String,
       titleAccent: String,
       description: String,
+      image: String,
       stats: [{ value: String, label: String }],
     },
     hireMe: {
@@ -104,6 +105,7 @@ const siteSettingsSchema = new Schema(
       vision: String,
       trustTitle: String,
       trustDescription: String,
+      image: String,
     },
     footerBlurb: String,
     seo: {
@@ -189,6 +191,8 @@ const pricingPlanSchema = new Schema(
     description: String,
     features: [String],
     highlighted: { type: Boolean, default: false },
+    // 'build' = one-time project plans, 'care' = monthly retainer plans
+    group: { type: String, enum: ['build', 'care'], default: 'build', index: true },
     ...listable,
   },
   opts,

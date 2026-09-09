@@ -160,6 +160,12 @@ export default function SiteSettingsPage() {
             disabled={!isAdmin}
           />
         </Field>
+        <Field
+          label="Hero image URL"
+          hint="Leave blank to show the built-in illustration. Paste a URL to use a photo instead."
+        >
+          <Input value={hero.image || ''} onChange={setHero('image')} disabled={!isAdmin} placeholder="https://…" />
+        </Field>
       </Card>
 
       <Card title="“Hire me” section (Home + About)">
@@ -215,6 +221,12 @@ export default function SiteSettingsPage() {
         </Field>
         <Field label="“Why trust” description">
           <Textarea value={about.trustDescription || ''} onChange={setAbout('trustDescription')} disabled={!isAdmin} />
+        </Field>
+        <Field
+          label="Story image URL"
+          hint="Leave blank to show the built-in illustration. Paste a URL (e.g. an AI-generated portrait) to use a photo."
+        >
+          <Input value={about.image || ''} onChange={setAbout('image')} disabled={!isAdmin} placeholder="https://…" />
         </Field>
       </Card>
 

@@ -89,12 +89,21 @@ export const collectionSchemas = {
     columns: [
       { key: 'name', label: 'Name' },
       { key: 'price', label: 'Price' },
-      { key: 'highlighted', label: 'Featured' },
+      { key: 'group', label: 'Group' },
     ],
     fields: [
       { name: 'name', type: 'text', required: true },
-      { name: 'price', type: 'text', hint: 'e.g. ₹14,999' },
-      { name: 'unit', type: 'text', hint: 'e.g. one-time' },
+      {
+        name: 'group',
+        type: 'select',
+        options: [
+          { value: 'build', label: 'Build (one-time project)' },
+          { value: 'care', label: 'Care (monthly retainer)' },
+        ],
+        hint: 'Which section of the pricing page this appears in',
+      },
+      { name: 'price', type: 'text', hint: 'e.g. ₹18,999' },
+      { name: 'unit', type: 'text', hint: 'e.g. one-time  /  / month' },
       { name: 'description', type: 'textarea' },
       { name: 'features', type: 'list', label: 'Features (one per line)' },
       { name: 'highlighted', type: 'boolean', label: 'Mark as “Most popular”' },

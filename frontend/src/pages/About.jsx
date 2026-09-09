@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { PageHero, CTASection, HireMe } from '../components/PageParts'
 import { SectionHeading, Eyebrow } from '../components/Atoms'
 import Seo from '../components/Seo'
+import DevIllustration from '../components/DevIllustration'
 import { useContent, useSite } from '../content/ContentContext'
 
 const fadeUp = {
@@ -41,11 +42,17 @@ export default function About() {
             ))}
           </div>
         </div>
-        <img
-          src="/assets/founder-photo.png"
-          alt={`${brand.founder || 'Bhuvneshwar Sharma'}, founder`}
-          className="w-full rounded-2xl object-cover aspect-[4/5]"
-        />
+        {about.image ? (
+          <img
+            src={about.image}
+            alt={`${brand.founder || 'Bhuvneshwar Sharma'}, founder`}
+            className="w-full rounded-2xl object-cover aspect-[4/5]"
+          />
+        ) : (
+          <div className="rounded-2xl border border-line bg-paper-dim p-5 sm:p-7">
+            <DevIllustration variant="workspace" className="w-full h-auto" />
+          </div>
+        )}
       </section>
 
       {/* MISSION & VISION */}
@@ -96,7 +103,7 @@ export default function About() {
       {coreValues.length > 0 && (
         <section className="bg-ink text-paper py-20 sm:py-24">
           <div className="max-w-6xl mx-auto px-5 sm:px-8">
-            <SectionHeading eyebrow="Core values" title="What every project is held to" />
+            <SectionHeading tone="dark" eyebrow="Core values" title="What every project is held to" />
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
               {coreValues.map((v, i) => (
                 <motion.div

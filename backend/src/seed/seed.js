@@ -40,8 +40,8 @@ const groups = [
   { Model: Project, rows: content.portfolio, upsertKey: 'slug' },
   { Model: BlogPost, rows: content.blog, upsertKey: 'slug' },
   { Model: GalleryItem, rows: content.gallery },
-  { Model: PricingPlan, rows: content.pricingPlans },
-  { Model: PricingAddon, rows: content.pricingAddons },
+  { Model: PricingPlan, rows: [...content.pricingPlans, ...content.carePlans], upsertKey: 'name' },
+  { Model: PricingAddon, rows: content.pricingAddons, upsertKey: 'name' },
   { Model: Testimonial, rows: content.testimonials },
   { Model: Faq, rows: content.faqs },
   { Model: ProcessStep, rows: content.processSteps },
@@ -118,15 +118,16 @@ async function seedSettings() {
     existing.commitments = siteSettings.commitments
     touched += 1
   }
-  if (!existing.nav?.some((n) => n.to === '/gallery')) {
-    const galleryNav = siteSettings.nav.find((n) => n.to === '/gallery')
-    if (galleryNav) {
-      existing.nav.splice(4, 0, galleryNav)
-      existing.nav.forEach((n, i) => {
-        n.order = i
-      })
-      touched += 1
-    }
+  // Reset nav to the trimmed primary set only if it still matches a known older
+  // default (i.e. the owner hasn't customised it).
+  const legacyNavShapes = [
+    'Home,About,Services,Portfolio,Pricing,Blog,Contact',
+    'Home,About,Services,Portfolio,Gallery,Pricing,Blog,Contact',
+  ]
+  const currentNav = (existing.nav || []).map((n) => n.label).join(',')
+  if (legacyNavShapes.includes(currentNav)) {
+    existing.nav = siteSettings.nav
+    touched += 1
   }
   if (touched) {
     existing.markModified('brand')

@@ -18,7 +18,7 @@ export default function StructuredData() {
     name: brand.name || 'BS Innovation Solutions',
     alternateName: brand.short,
     url: origin,
-    image: `${origin}/assets/founder-photo.png`,
+    image: `${origin}/assets/portfolio/dheeraj-banner.png`,
     description: site.seo?.description,
     email: brand.email || undefined,
     telephone: brand.phone || undefined,

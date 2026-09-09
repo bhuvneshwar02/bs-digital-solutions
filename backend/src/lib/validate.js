@@ -55,6 +55,7 @@ export const schemas = {
     description: z.string().trim().optional().default(''),
     features: strArray,
     highlighted: z.boolean().optional().default(false),
+    group: z.enum(['build', 'care']).optional().default('build'),
     ...listable,
   }),
 
@@ -202,6 +203,7 @@ export const siteSettingsSchema = z
         titleLead: z.string().optional(),
         titleAccent: z.string().optional(),
         description: z.string().optional(),
+        image: z.string().optional(),
         stats: z.array(z.object({ value: z.string(), label: z.string() })).optional(),
       })
       .partial()
@@ -226,6 +228,7 @@ export const siteSettingsSchema = z
         vision: z.string().optional(),
         trustTitle: z.string().optional(),
         trustDescription: z.string().optional(),
+        image: z.string().optional(),
       })
       .partial()
       .optional(),
