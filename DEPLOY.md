@@ -26,6 +26,7 @@ the bottom.)
 1. <https://render.com> → **New → Web Service** → connect
    `github.com/bhuvneshwar02/bsinnovationsolutions`.
 2. Settings:
+   - **Name:** `bsinnovationsolutions` (this makes the URL `https://bsinnovationsolutions.onrender.com`)
    - **Root Directory:** `backend`
    - **Build Command:** `npm install`
    - **Start Command:** `node src/index.js`
@@ -47,8 +48,8 @@ the bottom.)
    ```
    npm run seed
    ```
-5. Note the service URL — e.g. `https://bsinnovationsolutions-api.onrender.com`.
-   This is `VITE_API_URL` for the frontend.
+5. The service URL is `https://bsinnovationsolutions.onrender.com` — this is
+   `VITE_API_URL` for the frontend (already set in `frontend/.env.production.example`).
 
 > Free Render services sleep after 15 min idle; the first request then takes
 > ~30 s to wake. The site shows its bundled fallback content during that cold start.
@@ -62,7 +63,7 @@ result.
 
 1. In `frontend/`, create `.env.production` (copy `.env.production.example`):
    ```
-   VITE_API_URL=https://bsinnovationsolutions-api.onrender.com
+   VITE_API_URL=https://bsinnovationsolutions.onrender.com
    ```
 2. Build:
    ```

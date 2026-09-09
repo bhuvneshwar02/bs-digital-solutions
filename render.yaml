@@ -1,9 +1,10 @@
 # Render blueprint for the API. Import via Render → New → Blueprint.
-# Set MONGODB_URI, CORS_ORIGIN and SEED_ADMIN_* in the dashboard after first deploy,
+# The service name sets the URL: bsinnovationsolutions -> https://bsinnovationsolutions.onrender.com
+# Set MONGODB_URI and SEED_ADMIN_* in the dashboard after first deploy,
 # then run `npm run seed` once from the service Shell.
 services:
   - type: web
-    name: bs-innovation-api
+    name: bsinnovationsolutions
     runtime: node
     rootDir: backend
     plan: free
@@ -15,9 +16,9 @@ services:
         value: production
       - key: JWT_SECRET
         generateValue: true
-      - key: MONGODB_URI
-        sync: false
       - key: CORS_ORIGIN
+        value: https://bsinnovationsolutions.com,https://www.bsinnovationsolutions.com
+      - key: MONGODB_URI
         sync: false
       - key: SEED_ADMIN_EMAIL
         sync: false
