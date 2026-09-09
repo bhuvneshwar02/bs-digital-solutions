@@ -101,7 +101,7 @@ export default function SiteSettingsPage() {
             ),
           )}
         </div>
-        <Field label="whatsapp" hint="digits only, with country code — e.g. 917617482996" />
+        <Field label="whatsapp" hint="digits only, with country code — e.g. 918791986336" />
       </Card>
 
       <Card title="Navigation & footer">

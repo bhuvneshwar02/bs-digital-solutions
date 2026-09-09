@@ -117,6 +117,16 @@ async function seedSettings() {
       touched += 1
     }
   }
+  // One-time correction: replace the old contact number if it hasn't been
+  // changed away from the previous default.
+  if (existing.brand?.whatsapp === '917617482996') {
+    existing.brand.whatsapp = siteSettings.brand.whatsapp
+    touched += 1
+  }
+  if (existing.brand?.phone === '+91 76174 82996') {
+    existing.brand.phone = siteSettings.brand.phone
+    touched += 1
+  }
   if (!existing.commitments?.length && siteSettings.commitments?.length) {
     existing.commitments = siteSettings.commitments
     touched += 1
