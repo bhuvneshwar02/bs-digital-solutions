@@ -25,7 +25,7 @@ export function crudRouter(Model, schema, options = {}) {
   // List everything (published or not), newest ordering first by `order`.
   router.get('/', async (_req, res, next) => {
     try {
-      const items = await Model.find().sort({ order: 1, createdAt: 1 })
+      const items = await Model.find().sort({ order: 1, createdAt: 1 }).limit(1000)
       res.json(items)
     } catch (err) {
       next(err)
@@ -104,8 +104,10 @@ export function crudRouter(Model, schema, options = {}) {
   router.post('/reorder', async (req, res, next) => {
     try {
       const { ids } = schemas.reorder.parse(req.body)
-      await Promise.all(ids.map((id, index) => Model.updateOne({ _id: id }, { order: index })))
-      const items = await Model.find().sort({ order: 1, createdAt: 1 })
+      await Model.bulkWrite(
+        ids.map((id, index) => ({ updateOne: { filter: { _id: id }, update: { $set: { order: index } } } })),
+      )
+      const items = await Model.find().sort({ order: 1, createdAt: 1 }).limit(1000)
       res.json(items)
     } catch (err) {
       next(err)

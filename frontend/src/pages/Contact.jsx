@@ -203,7 +203,7 @@ export default function Contact() {
             <a
               href={brand.googleReview}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="border border-line rounded-2xl p-5 flex items-center justify-between gap-3 hover:border-ink/30 transition-colors bg-white"
             >
               <div>
@@ -253,7 +253,7 @@ function ContactRow({ label, value, href }) {
     <a
       href={href}
       target={href.startsWith('http') ? '_blank' : undefined}
-      rel="noreferrer"
+      rel="noopener noreferrer"
       className="block hover:text-marigold-dark transition-colors"
     >
       {content}

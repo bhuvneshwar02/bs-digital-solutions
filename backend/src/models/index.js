@@ -37,6 +37,8 @@ const userSchema = new Schema(
     passwordHash: { type: String, required: true, select: false },
     role: { type: String, enum: ['admin', 'editor'], default: 'editor', index: true },
     lastLoginAt: Date,
+    // Any token issued before this instant is rejected (see requireAuth).
+    passwordChangedAt: Date,
   },
   {
     timestamps: true,

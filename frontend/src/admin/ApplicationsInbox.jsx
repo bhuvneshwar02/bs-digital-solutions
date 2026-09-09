@@ -113,7 +113,7 @@ export default function ApplicationsInbox() {
                     </dt>
                     <dd className="text-ink/80">
                       {k === 'portfolioUrl' ? (
-                        <a href={a[k]} target="_blank" rel="noreferrer" className="underline">
+                        <a href={a[k]} target="_blank" rel="noopener noreferrer" className="underline">
                           {a[k]}
                         </a>
                       ) : (

@@ -61,7 +61,7 @@ export function PrimaryButton({ children, to, href, onClick, type = 'button', cl
   }
   if (href) {
     return (
-      <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel="noreferrer" className={`${base} ${className}`}>
+      <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer" className={`${base} ${className}`}>
         {children}
       </a>
     )
@@ -85,7 +85,7 @@ export function GhostButton({ children, to, href, className = '', dark = false }
     )
   }
   return (
-    <a href={href} target="_blank" rel="noreferrer" className={`${base} ${className}`}>
+    <a href={href} target="_blank" rel="noopener noreferrer" className={`${base} ${className}`}>
       {children}
     </a>
   )

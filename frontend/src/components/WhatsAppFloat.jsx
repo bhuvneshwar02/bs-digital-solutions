@@ -10,7 +10,7 @@ export default function WhatsAppFloat() {
     <a
       href={`https://wa.me/${whatsapp}?text=${encodeURIComponent(`Hi ${name}, I'd like to talk about a project.`)}`}
       target="_blank"
-      rel="noreferrer"
+      rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
       className="fixed bottom-6 right-5 sm:bottom-8 sm:right-8 z-50 w-14 h-14 rounded-full bg-teal shadow-lg shadow-black/20 flex items-center justify-center hover:scale-105 transition-transform duration-200"
     >

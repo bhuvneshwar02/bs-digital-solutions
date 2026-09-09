@@ -49,9 +49,19 @@ async function request(method, path, { body, auth = false } = {}) {
   }
 
   const text = await res.text()
-  const data = text ? JSON.parse(text) : null
+  let data = null
+  if (text) {
+    try {
+      data = JSON.parse(text)
+    } catch {
+      if (res.ok) throw new ApiError('Unexpected response from the server', res.status)
+    }
+  }
 
   if (!res.ok) {
+    // A stale/expired admin token: clear it so the UI drops back to the login screen.
+    // (403 = authenticated but not permitted — keep the session.)
+    if (res.status === 401 && auth) setToken(null)
     throw new ApiError(data?.error || `Request failed (${res.status})`, res.status, data?.details)
   }
   return data

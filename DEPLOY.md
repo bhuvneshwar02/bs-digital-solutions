@@ -42,7 +42,7 @@ Three free services: **MongoDB Atlas** (database), **Render** (API), **Vercel**
    | `SEED_ADMIN_EMAIL` | your admin email |
    | `SEED_ADMIN_PASSWORD` | a strong password |
    | `SEED_ADMIN_NAME` | `Bhuvneshwar Sharma` |
-   | `NODE_ENV` | `production` |
+   | `NODE_ENV` | `production` (**required** — the server enforces the checks below in production) |
    | `RESEND_API_KEY` | from step 5 below (optional — leave blank to skip email) |
    | `MAIL_FROM` | `BS Innovation Solutions <notify@bsinnovationsolutions.com>` |
    | `MAIL_TO` | where enquiry emails should land (your inbox) |
@@ -119,7 +119,11 @@ visible in the admin panel. To also get them emailed:
   each appears in **Admin → Contact inbox** / **Admin → Applications** and, if
   Resend is configured, arrives in your email.
 - In **Admin → Gallery**, swap the placeholder images for real screenshots.
-- In **Admin → Users**, change your own password and add any extra editors.
+- In **Admin → Account**, change your password (it rotates your session token and
+  signs out any other sessions). Add extra editors in **Admin → Users**.
+- See **[SECURITY.md](SECURITY.md)** for the full hardening list. In production the
+  API **refuses to start** without a strong `JWT_SECRET` (32+ chars), `MONGODB_URI`
+  and `CORS_ORIGIN`.
 
 ## Updating content later
 

@@ -5,6 +5,9 @@ import { schemas } from '../lib/validate.js'
 import { requireAuth } from '../middleware/auth.js'
 import { ApiError } from '../middleware/errors.js'
 import { sendMail } from '../lib/mailer.js'
+import { statusFilter } from '../lib/query.js'
+
+const STATUSES = ['pending', 'approved', 'rejected']
 
 const router = Router()
 
@@ -19,7 +22,7 @@ const limiter = rateLimit({
 // Public: submit a job posting (goes to a moderation queue).
 router.post('/', limiter, async (req, res, next) => {
   try {
-    if (req.body.website) return res.status(201).json({ ok: true }) // honeypot
+    if (req.body?.website) return res.status(201).json({ ok: true }) // honeypot
     const data = schemas.jobPost.parse(req.body)
     const doc = await JobPost.create({
       ...data,
@@ -74,8 +77,7 @@ router.get('/', async (_req, res, next) => {
 // Admin: moderation.
 router.get('/admin', requireAuth, async (req, res, next) => {
   try {
-    const filter = req.query.status ? { status: req.query.status } : {}
-    res.json(await JobPost.find(filter).sort({ createdAt: -1 }))
+    res.json(await JobPost.find(statusFilter(req.query.status, STATUSES)).sort({ createdAt: -1 }).limit(500))
   } catch (err) {
     next(err)
   }
@@ -83,8 +85,8 @@ router.get('/admin', requireAuth, async (req, res, next) => {
 
 router.patch('/admin/:id', requireAuth, async (req, res, next) => {
   try {
-    const status = req.body.status
-    if (!['pending', 'approved', 'rejected'].includes(status)) throw new ApiError(400, 'Invalid status')
+    const status = req.body?.status
+    if (!STATUSES.includes(status)) throw new ApiError(400, 'Invalid status')
     const doc = await JobPost.findByIdAndUpdate(req.params.id, { status }, { new: true })
     if (!doc) throw new ApiError(404, 'Not found')
     res.json(doc)

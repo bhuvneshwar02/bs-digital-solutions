@@ -3,9 +3,16 @@ import { env } from '../config/env.js'
 import { User } from '../models/index.js'
 import { ApiError } from './errors.js'
 
+const ISSUER = 'bs-innovation-solutions'
+
+const pwStamp = (user) => (user.passwordChangedAt ? user.passwordChangedAt.getTime() : 0)
+
 export function signToken(user) {
-  return jwt.sign({ sub: String(user.id ?? user._id), role: user.role }, env.jwtSecret, {
+  return jwt.sign({ role: user.role, pca: pwStamp(user) }, env.jwtSecret, {
+    subject: String(user.id ?? user._id),
     expiresIn: env.jwtExpiresIn,
+    issuer: ISSUER,
+    audience: ISSUER,
   })
 }
 
@@ -13,18 +20,23 @@ export function signToken(user) {
 export async function requireAuth(req, _res, next) {
   try {
     const header = req.headers.authorization || ''
-    const token = header.startsWith('Bearer ') ? header.slice(7) : null
+    const token = header.startsWith('Bearer ') ? header.slice(7).trim() : null
     if (!token) throw new ApiError(401, 'Authentication required')
 
     let payload
     try {
-      payload = jwt.verify(token, env.jwtSecret)
+      payload = jwt.verify(token, env.jwtSecret, { issuer: ISSUER, audience: ISSUER })
     } catch {
       throw new ApiError(401, 'Invalid or expired session')
     }
 
     const user = await User.findById(payload.sub)
     if (!user) throw new ApiError(401, 'Account no longer exists')
+
+    // A password change re-stamps the user; tokens carrying the old stamp die.
+    if ((payload.pca || 0) !== pwStamp(user)) {
+      throw new ApiError(401, 'Session expired — please sign in again')
+    }
 
     req.user = user
     next()

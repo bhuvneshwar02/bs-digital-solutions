@@ -27,6 +27,14 @@ export function errorHandler(err, _req, res, _next) {
     return res.status(err.status).json({ error: err.message, details: err.details })
   }
 
+  // Malformed JSON body / oversized payload from body-parser
+  if (err?.type === 'entity.parse.failed') {
+    return res.status(400).json({ error: 'Malformed JSON body' })
+  }
+  if (err?.type === 'entity.too.large' || err?.status === 413) {
+    return res.status(413).json({ error: 'Request body too large' })
+  }
+
   // Mongo duplicate key
   if (err?.code === 11000) {
     const field = Object.keys(err.keyValue || {})[0] || 'field'

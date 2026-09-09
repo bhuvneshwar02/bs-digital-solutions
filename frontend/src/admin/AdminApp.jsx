@@ -9,6 +9,7 @@ import ContactInbox from './ContactInbox'
 import ApplicationsInbox from './ApplicationsInbox'
 import JobBoardInbox from './JobBoardInbox'
 import UsersPage from './UsersPage'
+import AccountPage from './AccountPage'
 
 function RequireAuth({ children }) {
   const { user, ready } = useAuth()
@@ -41,6 +42,7 @@ export default function AdminApp() {
         <Route path="messages" element={<ContactInbox />} />
         <Route path="applications" element={<ApplicationsInbox />} />
         <Route path="job-board" element={<JobBoardInbox />} />
+        <Route path="account" element={<AccountPage />} />
         <Route
           path="users"
           element={

@@ -61,12 +61,17 @@ export default function AdminLayout() {
         </nav>
 
         <div className="border-t border-line pt-3">
-          <p className="text-xs text-slate truncate">{user?.name}</p>
+          <NavLink to="/admin/account" className="text-xs text-slate hover:text-ink block truncate">
+            {user?.name}
+          </NavLink>
           <p className="font-mono text-[10px] uppercase tracking-wider text-slate/60">{user?.role}</p>
           <div className="flex gap-3 mt-2">
             <a href="/" className="font-mono text-[11px] text-slate hover:text-ink">
               View site
             </a>
+            <NavLink to="/admin/account" className="font-mono text-[11px] text-slate hover:text-ink">
+              Account
+            </NavLink>
             <button onClick={signOut} className="font-mono text-[11px] text-red-600 hover:underline">
               Sign out
             </button>

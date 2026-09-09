@@ -41,7 +41,7 @@ export default function PortfolioDetail() {
               <a
                 href={project.link}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="inline-block font-mono text-sm text-teal mt-4 hover:text-marigold transition-colors"
               >
                 {displayLink(project.link)} ↗

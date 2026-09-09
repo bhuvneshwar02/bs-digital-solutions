@@ -5,6 +5,9 @@ import { schemas } from '../lib/validate.js'
 import { requireAuth } from '../middleware/auth.js'
 import { ApiError } from '../middleware/errors.js'
 import { sendMail } from '../lib/mailer.js'
+import { statusFilter } from '../lib/query.js'
+
+const STATUSES = ['new', 'read', 'archived']
 
 const router = Router()
 
@@ -19,9 +22,9 @@ const contactLimiter = rateLimit({
 // Public: submit an enquiry.
 router.post('/', contactLimiter, async (req, res, next) => {
   try {
+    // Honeypot: bots fill hidden fields. Return a fake success.
+    if (req.body?.company) return res.status(201).json({ ok: true })
     const data = schemas.contactMessage.parse(req.body)
-    // Honeypot: bots fill hidden fields.
-    if (req.body.company) return res.status(201).json({ ok: true })
 
     await ContactMessage.create({
       ...data,
@@ -50,8 +53,10 @@ router.post('/', contactLimiter, async (req, res, next) => {
 // Authenticated: inbox management.
 router.get('/', requireAuth, async (req, res, next) => {
   try {
-    const filter = req.query.status ? { status: req.query.status } : {}
-    res.json(await ContactMessage.find(filter).sort({ createdAt: -1 }))
+    const rows = await ContactMessage.find(statusFilter(req.query.status, STATUSES))
+      .sort({ createdAt: -1 })
+      .limit(500)
+    res.json(rows)
   } catch (err) {
     next(err)
   }
@@ -59,8 +64,8 @@ router.get('/', requireAuth, async (req, res, next) => {
 
 router.patch('/:id', requireAuth, async (req, res, next) => {
   try {
-    const status = req.body.status
-    if (!['new', 'read', 'archived'].includes(status)) throw new ApiError(400, 'Invalid status')
+    const status = req.body?.status
+    if (!STATUSES.includes(status)) throw new ApiError(400, 'Invalid status')
     const msg = await ContactMessage.findByIdAndUpdate(req.params.id, { status }, { new: true })
     if (!msg) throw new ApiError(404, 'Message not found')
     res.json(msg)

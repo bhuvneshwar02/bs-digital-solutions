@@ -6,6 +6,7 @@ import ApplicationForm from '../components/ApplicationForm'
 import JobBoardForm from '../components/JobBoardForm'
 import { useContent, useSite } from '../content/ContentContext'
 import { api } from '../lib/api'
+import { jsonLd } from '../lib/jsonld'
 
 function formatDate(v) {
   const d = new Date(v)
@@ -39,7 +40,7 @@ function JobPostingSchema({ jobs, origin, areas }) {
     <script
       type="application/ld+json"
       // eslint-disable-next-line react/no-danger
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: jsonLd(data) }}
     />
   )
 }

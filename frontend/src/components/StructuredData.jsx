@@ -1,4 +1,5 @@
 import { useContent, useSite } from '../content/ContentContext'
+import { jsonLd } from '../lib/jsonld'
 
 // Schema.org JSON-LD so search engines understand this is a local + remote
 // freelance service, who runs it, where, and what it covers.
@@ -55,7 +56,7 @@ export default function StructuredData() {
     <script
       type="application/ld+json"
       // eslint-disable-next-line react/no-danger
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: jsonLd(data) }}
     />
   )
 }

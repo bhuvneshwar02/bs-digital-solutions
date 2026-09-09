@@ -5,6 +5,10 @@ import { schemas } from '../lib/validate.js'
 import { requireAuth } from '../middleware/auth.js'
 import { ApiError } from '../middleware/errors.js'
 import { sendMail } from '../lib/mailer.js'
+import { str, statusFilter } from '../lib/query.js'
+
+const STATUSES = ['new', 'read', 'archived']
+const KINDS = ['project', 'collaborator', 'job']
 
 const router = Router()
 
@@ -40,7 +44,7 @@ function summarise(a) {
 // Public: submit a project brief or a collaborator application.
 router.post('/', limiter, async (req, res, next) => {
   try {
-    if (req.body.company_website) return res.status(201).json({ ok: true }) // honeypot
+    if (req.body?.company_website) return res.status(201).json({ ok: true }) // honeypot
     const data = schemas.application.parse(req.body)
     const doc = await Application.create({
       ...data,
@@ -64,10 +68,10 @@ router.post('/', limiter, async (req, res, next) => {
 // Authenticated: manage applications.
 router.get('/', requireAuth, async (req, res, next) => {
   try {
-    const filter = {}
-    if (req.query.kind) filter.kind = req.query.kind
-    if (req.query.status) filter.status = req.query.status
-    res.json(await Application.find(filter).sort({ createdAt: -1 }))
+    const filter = { ...statusFilter(req.query.status, STATUSES) }
+    const kind = str(req.query.kind)
+    if (KINDS.includes(kind)) filter.kind = kind
+    res.json(await Application.find(filter).sort({ createdAt: -1 }).limit(500))
   } catch (err) {
     next(err)
   }
@@ -75,8 +79,8 @@ router.get('/', requireAuth, async (req, res, next) => {
 
 router.patch('/:id', requireAuth, async (req, res, next) => {
   try {
-    const status = req.body.status
-    if (!['new', 'read', 'archived'].includes(status)) throw new ApiError(400, 'Invalid status')
+    const status = req.body?.status
+    if (!STATUSES.includes(status)) throw new ApiError(400, 'Invalid status')
     const doc = await Application.findByIdAndUpdate(req.params.id, { status }, { new: true })
     if (!doc) throw new ApiError(404, 'Application not found')
     res.json(doc)

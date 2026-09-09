@@ -1,10 +1,27 @@
 import { z } from 'zod'
 
-const strArray = z.array(z.string().trim()).default([])
+const strArray = z.array(z.string().trim().max(2000)).max(100).default([])
 const listable = {
-  order: z.number().int().optional(),
+  order: z.number().int().min(0).max(100000).optional(),
   published: z.boolean().optional(),
 }
+
+// Image references: a site-relative path or an http(s) URL. Blocks javascript:,
+// data:, and other exotic schemes from ending up in an <img src>.
+const imageRef = z
+  .string()
+  .trim()
+  .max(2048)
+  .refine((v) => v === '' || v.startsWith('/') || /^https?:\/\//i.test(v), {
+    message: 'Must be a site path (/…) or an http(s) URL',
+  })
+  .optional()
+  .default('')
+
+const strongPassword = z
+  .string()
+  .min(10, 'Use at least 10 characters')
+  .max(200)
 
 export const schemas = {
   service: z.object({
@@ -12,7 +29,7 @@ export const schemas = {
     category: z.string().trim().min(1),
     tag: z.string().trim().optional().default(''),
     title: z.string().trim().min(1),
-    image: z.string().trim().optional().default(''),
+    image: imageRef,
     short: z.string().trim().optional().default(''),
     description: z.string().trim().optional().default(''),
     features: strArray,
@@ -25,7 +42,7 @@ export const schemas = {
     slug: z.string().trim().optional(),
     tag: z.string().trim().optional().default(''),
     title: z.string().trim().min(1),
-    image: z.string().trim().optional().default(''),
+    image: imageRef,
     category: z.string().trim().optional().default(''),
     year: z.string().trim().optional().default(''),
     summary: z.string().trim().optional().default(''),
@@ -120,7 +137,7 @@ export const schemas = {
 
   galleryItem: z.object({
     title: z.string().trim().min(1),
-    image: z.string().trim().min(1),
+    image: imageRef.refine((v) => !!v, 'An image is required'),
     caption: z.string().trim().optional().default(''),
     ...listable,
   }),
@@ -170,31 +187,34 @@ export const schemas = {
   }),
 
   login: z.object({
-    email: z.string().trim().email(),
-    password: z.string().min(1),
+    email: z.string().trim().email().max(200),
+    password: z.string().min(1).max(200),
   }),
 
   changePassword: z.object({
-    currentPassword: z.string().min(1),
-    newPassword: z.string().min(8, 'Use at least 8 characters'),
+    currentPassword: z.string().min(1).max(200),
+    newPassword: strongPassword,
   }),
 
   userCreate: z.object({
     name: z.string().trim().min(1),
     email: z.string().trim().email(),
-    password: z.string().min(8, 'Use at least 8 characters'),
+    password: strongPassword,
     role: z.enum(['admin', 'editor']).default('editor'),
   }),
 
   userUpdate: z.object({
     name: z.string().trim().min(1).optional(),
     email: z.string().trim().email().optional(),
-    password: z.string().min(8).optional(),
+    password: strongPassword.optional(),
     role: z.enum(['admin', 'editor']).optional(),
   }),
 
   reorder: z.object({
-    ids: z.array(z.string()).min(1),
+    ids: z
+      .array(z.string().regex(/^[a-f\d]{24}$/i, 'Invalid id'))
+      .min(1)
+      .max(500),
   }),
 }
 
@@ -231,7 +251,7 @@ export const siteSettingsSchema = z
         titleLead: z.string().optional(),
         titleAccent: z.string().optional(),
         description: z.string().optional(),
-        image: z.string().optional(),
+        image: imageRef,
         stats: z.array(z.object({ value: z.string(), label: z.string() })).optional(),
       })
       .partial()
@@ -256,7 +276,7 @@ export const siteSettingsSchema = z
         vision: z.string().optional(),
         trustTitle: z.string().optional(),
         trustDescription: z.string().optional(),
-        image: z.string().optional(),
+        image: imageRef,
       })
       .partial()
       .optional(),

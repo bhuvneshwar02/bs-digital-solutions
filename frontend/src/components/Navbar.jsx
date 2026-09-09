@@ -66,7 +66,7 @@ export default function Navbar() {
             <a
               href={`https://wa.me/${site.brand.whatsapp}`}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               aria-label="WhatsApp"
               className="w-9 h-9 rounded-full border border-line flex items-center justify-center text-slate hover:text-teal hover:border-teal/40 transition-colors"
             >
