@@ -1,136 +1,142 @@
 # Deploying BS Innovation Solutions
 
-Three free services: **MongoDB Atlas** (database), **Render** (API), **Vercel**
-(website). Do them in this order.
+Current setup: **frontend on Hostinger**, **API on Render**, **database on MongoDB
+Atlas**. Do the steps in this order. (A Vercel alternative for the frontend is at
+the bottom.)
 
 ---
 
 ## 1. MongoDB Atlas — the database
 
-1. Create an account at <https://www.mongodb.com/cloud/atlas> and create a free
-   **M0** cluster.
-2. **Database Access** → add a database user (username + password). Save the password.
-3. **Network Access** → Add IP Address → **Allow access from anywhere**
-   (`0.0.0.0/0`). Render's IPs are dynamic, so this is required on the free tier.
-4. **Clusters → Connect → Drivers** → copy the connection string. It looks like:
-   ```
-   mongodb+srv://<user>:<password>@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority
-   ```
-   Insert your password and add the database name before the `?`:
+1. Create a free account at <https://www.mongodb.com/cloud/atlas> and a free **M0** cluster.
+2. **Database Access** → add a database user (username + a strong password). Save it.
+3. **Network Access** → Add IP Address → **Allow access from anywhere** (`0.0.0.0/0`).
+   Render's IPs are dynamic, so this is required on the free tier.
+4. **Clusters → Connect → Drivers** → copy the connection string and insert your
+   password + the DB name before the `?`:
    ```
    mongodb+srv://<user>:<password>@cluster0.xxxxx.mongodb.net/bs-innovation?retryWrites=true&w=majority
    ```
-   Keep this — it's `MONGODB_URI`.
+   This is `MONGODB_URI`.
 
 ---
 
 ## 2. Render — the API
 
-1. Push this repo to GitHub (it already has a remote).
-2. <https://render.com> → **New → Web Service** → connect the repo.
-3. Settings:
+1. <https://render.com> → **New → Web Service** → connect
+   `github.com/bhuvneshwar02/bsinnovationsolutions`.
+2. Settings:
    - **Root Directory:** `backend`
    - **Build Command:** `npm install`
    - **Start Command:** `node src/index.js`
    - **Instance Type:** Free
-4. **Environment** → add:
+3. **Environment** → add:
    | Key | Value |
    | --- | --- |
+   | `NODE_ENV` | `production` (**required** — the API refuses to start in prod without the keys below) |
    | `MONGODB_URI` | the Atlas string from step 1 |
-   | `JWT_SECRET` | run `node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"` and paste the output |
-   | `CORS_ORIGIN` | your Vercel URL, e.g. `https://bs-innovation-solutions.vercel.app` (add it after step 3; comma-separate a custom domain later) |
+   | `JWT_SECRET` | `node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"` — paste the output (32+ chars) |
+   | `CORS_ORIGIN` | `https://bsinnovationsolutions.com,https://www.bsinnovationsolutions.com` |
    | `SEED_ADMIN_EMAIL` | your admin email |
-   | `SEED_ADMIN_PASSWORD` | a strong password |
+   | `SEED_ADMIN_PASSWORD` | a strong password (you'll change it again after first login) |
    | `SEED_ADMIN_NAME` | `Bhuvneshwar Sharma` |
-   | `NODE_ENV` | `production` (**required** — the server enforces the checks below in production) |
-   | `RESEND_API_KEY` | from step 5 below (optional — leave blank to skip email) |
-   | `MAIL_FROM` | `BS Innovation Solutions <notify@bsinnovationsolutions.com>` |
-   | `MAIL_TO` | where enquiry emails should land (your inbox) |
-5. Deploy. When it's live, open the Render **Shell** tab and run once:
+   | `RESEND_API_KEY` | from step 4 (optional — blank = no email, submissions still saved) |
+   | `MAIL_FROM` | `BS Innovation Solutions <onboarding@resend.dev>` (until your domain is verified in Resend) |
+   | `MAIL_TO` | the inbox that should receive enquiries |
+4. Deploy. When live, open the Render **Shell** and run once:
    ```
    npm run seed
    ```
-   This creates the admin user and imports the starter content into Atlas.
-6. Note the service URL, e.g. `https://bs-innovation-api.onrender.com` — this is
-   `VITE_API_URL` for the frontend.
+5. Note the service URL — e.g. `https://bsinnovationsolutions-api.onrender.com`.
+   This is `VITE_API_URL` for the frontend.
 
 > Free Render services sleep after 15 min idle; the first request then takes
-> ~30 s. The site's fallback content covers that cold start.
+> ~30 s to wake. The site shows its bundled fallback content during that cold start.
 
 ---
 
-## 3. Vercel — the website
+## 3. Frontend — build with the API URL, upload to Hostinger
 
-1. <https://vercel.com> → **Add New → Project** → import the repo.
-2. Settings:
-   - **Root Directory:** `frontend`
-   - **Framework Preset:** Vite (auto-detected)
-   - **Build Command:** `npm run build` · **Output:** `dist` (defaults are fine)
-3. **Environment Variables** → add:
-   | Key | Value |
-   | --- | --- |
-   | `VITE_API_URL` | the Render URL from step 2, no trailing slash |
-4. Deploy. `frontend/vercel.json` already routes all paths to `index.html` so the
-   client-side router works on refresh.
-5. Copy the final Vercel URL back into Render's `CORS_ORIGIN` env var and let
-   Render redeploy.
+The API URL is baked in at **build time**, so you build on your PC and upload the
+result.
 
----
+1. In `frontend/`, create `.env.production` (copy `.env.production.example`):
+   ```
+   VITE_API_URL=https://bsinnovationsolutions-api.onrender.com
+   ```
+2. Build:
+   ```
+   cd frontend
+   npm install
+   npm run build
+   ```
+   This produces `frontend/dist/` — **including a `.htaccess`** that fixes SPA
+   routing (so `/jobs`, `/services`, `/admin` etc. work on refresh) and sets
+   security headers.
+3. In **Hostinger → hPanel → Files → File Manager**, open `public_html/` for
+   `bsinnovationsolutions.com`. **Delete everything currently in it**, then upload
+   **the entire contents of `frontend/dist/`** (not the `dist` folder itself — its
+   contents: `index.html`, `assets/`, `.htaccess`, `favicon.svg`, `robots.txt`,
+   `sitemap.xml`, `assets/…`).
+   - The File Manager hides dotfiles by default — enable "show hidden files" so
+     `.htaccess` uploads, or upload the zip and extract.
+4. Visit `https://bsinnovationsolutions.com/jobs` — it should now load (not 404).
 
-## 4. Email notifications (Resend)
-
-Contact-form and application submissions are always saved to the database and
-visible in the admin panel. To also get them emailed:
-
-1. Create a free account at <https://resend.com>.
-2. **API Keys → Create** → copy the key into Render as `RESEND_API_KEY`.
-3. **Domains → Add Domain** → `bsinnovationsolutions.com` → add the DNS records it
-   shows to your domain registrar. Once verified, set
-   `MAIL_FROM=BS Innovation Solutions <notify@bsinnovationsolutions.com>`.
-   - Until the domain is verified you can test with
-     `MAIL_FROM=BS Innovation Solutions <onboarding@resend.dev>`, which only
-     delivers to your own account email.
-4. Set `MAIL_TO` to the inbox that should receive enquiries, and redeploy.
+Every time you change site **code**, repeat steps 2–3. Site **content** (services,
+pricing, blog, jobs, images, SEO text…) is edited in the admin panel with no
+rebuild.
 
 ---
 
-## 5. Connect the domain — bsinnovationsolutions.com
+## 4. Email notifications (Resend) — optional
 
-1. **Vercel → Project → Settings → Domains** → add `bsinnovationsolutions.com`
-   and `www.bsinnovationsolutions.com`; follow the DNS instructions at your
-   registrar.
-2. Update Render's `CORS_ORIGIN` to `https://bsinnovationsolutions.com` (comma-add
-   the Vercel `*.vercel.app` URL too if you still use it).
-3. The site's canonical URLs, `robots.txt`, `sitemap.xml` and structured data are
-   already set to `bsinnovationsolutions.com`.
-4. Submit the sitemap in **Google Search Console** (add the domain property,
-   verify via DNS, then Sitemaps → `https://bsinnovationsolutions.com/sitemap.xml`).
-   Also create/verify a **Google Business Profile** for the local-search ranking —
-   the "Leave a Google review" button already points at your Maps listing.
+1. <https://resend.com> → free account → **API Keys → Create** → set as `RESEND_API_KEY` on Render.
+2. **Domains → Add Domain** → `bsinnovationsolutions.com` → add the DNS records it
+   shows at Hostinger (**hPanel → Domains → DNS / Nameservers**). Once verified, set
+   `MAIL_FROM=BS Innovation Solutions <notify@bsinnovationsolutions.com>` and redeploy.
+3. Until verified, keep `MAIL_FROM=…<onboarding@resend.dev>` — it only delivers to
+   your own Resend account email.
 
 ---
 
-## 6. Check it
+## 5. "Site can't be reached" after a domain migration
 
-- Open the Vercel URL — the site should load content from the API.
-- Go to `/admin`, sign in with `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD`.
-- Edit a service title, save, refresh the public page — the change shows.
-- Submit the contact form and the **Start a project** / **Work with me** forms —
-  each appears in **Admin → Contact inbox** / **Admin → Applications** and, if
-  Resend is configured, arrives in your email.
-- In **Admin → Gallery**, swap the placeholder images for real screenshots.
-- In **Admin → Account**, change your password (it rotates your session token and
-  signs out any other sessions). Add extra editors in **Admin → Users**.
-- See **[SECURITY.md](SECURITY.md)** for the full hardening list. In production the
-  API **refuses to start** without a strong `JWT_SECRET` (32+ chars), `MONGODB_URI`
-  and `CORS_ORIGIN`.
+If the site loads for others (check <https://dnschecker.org> for
+`bsinnovationsolutions.com`) but not for you, your device/router/ISP is still
+caching the old DNS. Fix on your machine:
 
-## Updating content later
+- **Windows:** `ipconfig /flushdns` in Command Prompt
+- **Restart your Wi-Fi router** (clears its DNS cache)
+- Try it on **mobile data** — if it works there, it's your router/ISP; wait a few hours
+- Or set your DNS to `1.1.1.1` / `8.8.8.8` (Wi-Fi adapter → IPv4 properties)
+- Full propagation can take up to 24–48 h but is usually much faster
 
-Everything is in the admin panel — no redeploy needed for content changes
-(services, portfolio, gallery, blog, pricing, the home page, SEO text, the
-Google-review link, the "how I work" commitments…). Code changes: push to GitHub
-and both Render and Vercel redeploy automatically.
+---
 
-Re-running `npm run seed` on Render is safe — it only *adds* newly-shipped
-starter content and never overwrites your edits.
+## 6. Check it works
+
+- `https://bsinnovationsolutions.com` and a deep link like `/pricing` both load.
+- `/admin` → sign in with `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD`.
+- **Admin → Account** → change your password.
+- Edit a service, save, refresh the public page — the change shows.
+- Submit the contact form → it appears in **Admin → Contact inbox** (and emails you if Resend is set).
+- **Admin → Gallery** → replace the placeholder images.
+- Submit **Post a job** on `/jobs` → approve it in **Admin → Job board** → it shows publicly.
+- Submit the sitemap in **Google Search Console**; verify a **Google Business Profile**
+  for local search.
+
+See **[SECURITY.md](SECURITY.md)** for what's protected and the deploy-time requirements.
+
+---
+
+## Alternative: frontend on Vercel instead of Hostinger
+
+If you'd rather not rebuild-and-upload each time:
+
+1. <https://vercel.com> → **Add New → Project** → import the repo → **Root Directory:** `frontend`.
+2. Env var `VITE_API_URL` = the Render URL.
+3. Deploy. `frontend/vercel.json` handles routing + security headers automatically.
+4. **Vercel → Domains** → add `bsinnovationsolutions.com`; at Hostinger set the DNS
+   records Vercel shows (an `A` record to `76.76.21.21` and a `CNAME` `www` →
+   `cname.vercel-dns.com`), or point the domain's nameservers at Vercel.
+5. `git push` now redeploys the frontend automatically — no manual upload.

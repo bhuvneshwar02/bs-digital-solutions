@@ -54,5 +54,8 @@ for the CMS. Default admin login is whatever you set in `backend/.env`
 
 ## Deploy
 
-See **[DEPLOY.md](DEPLOY.md)** — Vercel (frontend) + Render (API) + MongoDB Atlas,
-all on free tiers.
+See **[DEPLOY.md](DEPLOY.md)**. Current setup: **frontend on Hostinger** (build
+locally with `VITE_API_URL` set, upload `frontend/dist/` — the generated
+`.htaccess` handles SPA routing + security headers), **API on Render**, **database
+on MongoDB Atlas** (all free tiers). A Vercel option for the frontend is documented
+too.
