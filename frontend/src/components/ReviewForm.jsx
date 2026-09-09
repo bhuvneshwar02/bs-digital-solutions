@@ -44,7 +44,7 @@ export default function ReviewForm() {
       setStatus('sent')
     } catch (err) {
       setStatus('error')
-      setError(err instanceof ApiError ? err.message : 'Something went wrong — please try again.')
+      setError(err instanceof ApiError ? err.userMessage : 'Something went wrong — please try again.')
     }
   }
 
@@ -102,12 +102,14 @@ export default function ReviewForm() {
       <Field label="Your review" required>
         <textarea
           required
+          minLength={6}
           rows={5}
           className={`${input} resize-none`}
           value={form.text}
           onChange={set('text')}
           placeholder="What was it like working together? What did you get?"
         />
+        <span className="text-[11px] text-slate/80">A sentence or two is plenty.</span>
       </Field>
 
       <input

@@ -41,7 +41,7 @@ export default function Contact() {
       setStatus('sent')
     } catch (err) {
       setStatus('error')
-      setError(err instanceof ApiError ? err.message : 'Something went wrong — please email directly.')
+      setError(err instanceof ApiError ? err.userMessage : 'Something went wrong — please email directly.')
     }
   }
 

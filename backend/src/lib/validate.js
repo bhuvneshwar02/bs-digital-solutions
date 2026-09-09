@@ -160,13 +160,13 @@ export const schemas = {
 
   // Public "leave a review" submission.
   reviewSubmit: z.object({
-    name: z.string().trim().min(1, 'Your name is required').max(80),
+    name: z.string().trim().min(2, 'Please enter your name').max(80),
     role: z.string().trim().max(120).optional().default(''),
-    rating: z.coerce.number().int().min(1).max(5).default(5),
+    rating: z.coerce.number().int().min(1, 'Pick a star rating').max(5).default(5),
     project: z.string().trim().max(160).optional().default(''),
     city: z.string().trim().max(80).optional().default(''),
     state: z.union([stateEnum, z.literal('')]).optional().default(''),
-    text: z.string().trim().min(10, 'Please write a little more').max(2000),
+    text: z.string().trim().min(6, 'Please write a few more words').max(2000),
   }),
 
   // Admin create/edit of a review.

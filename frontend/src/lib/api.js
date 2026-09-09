@@ -21,11 +21,44 @@ export function setToken(token) {
   }
 }
 
+const FIELD_LABELS = {
+  name: 'Name',
+  email: 'Email',
+  phone: 'Phone',
+  message: 'Message',
+  text: 'Review',
+  rating: 'Rating',
+  state: 'State',
+  city: 'City',
+  role: 'Role',
+  project: 'Project',
+  jobTitle: 'Job title',
+  location: 'Location',
+  description: 'Description',
+  posterName: 'Your name',
+  posterEmail: 'Your email',
+  posterPhone: 'Your phone',
+}
+
 export class ApiError extends Error {
   constructor(message, status, details) {
     super(message)
     this.status = status
     this.details = details
+  }
+
+  // A readable, user-facing message — turns Zod's { field: [msg] } details into
+  // "Review: Please write a little more · State: choose a valid state".
+  get userMessage() {
+    if (this.details && typeof this.details === 'object') {
+      const parts = Object.entries(this.details)
+        .flatMap(([field, msgs]) =>
+          (Array.isArray(msgs) ? msgs : [msgs]).map((m) => `${FIELD_LABELS[field] || field}: ${m}`),
+        )
+        .filter(Boolean)
+      if (parts.length) return parts.join(' · ')
+    }
+    return this.message
   }
 }
 

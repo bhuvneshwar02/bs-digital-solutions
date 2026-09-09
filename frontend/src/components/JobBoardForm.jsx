@@ -50,7 +50,7 @@ export default function JobBoardForm() {
       setStatus('sent')
     } catch (err) {
       setStatus('error')
-      setError(err instanceof ApiError ? err.message : 'Something went wrong — please try again.')
+      setError(err instanceof ApiError ? err.userMessage : 'Something went wrong — please try again.')
     }
   }
 
