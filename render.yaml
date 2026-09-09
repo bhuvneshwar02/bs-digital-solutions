@@ -1,0 +1,27 @@
+# Render blueprint for the API. Import via Render → New → Blueprint.
+# Set MONGODB_URI, CORS_ORIGIN and SEED_ADMIN_* in the dashboard after first deploy,
+# then run `npm run seed` once from the service Shell.
+services:
+  - type: web
+    name: bs-innovation-api
+    runtime: node
+    rootDir: backend
+    plan: free
+    buildCommand: npm install
+    startCommand: node src/index.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: MONGODB_URI
+        sync: false
+      - key: CORS_ORIGIN
+        sync: false
+      - key: SEED_ADMIN_EMAIL
+        sync: false
+      - key: SEED_ADMIN_PASSWORD
+        sync: false
+      - key: SEED_ADMIN_NAME
+        sync: false

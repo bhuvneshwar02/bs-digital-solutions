@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+
+Sitemap: https://bs-innovation-solutions.vercel.app/sitemap.xml

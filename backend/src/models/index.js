@@ -1,0 +1,255 @@
+import mongoose from 'mongoose'
+
+const { Schema, model } = mongoose
+
+/* ------------------------------------------------------------------ */
+/*  Shared field sets                                                  */
+/* ------------------------------------------------------------------ */
+
+// Every editable content collection carries these so the admin panel can
+// reorder and hide items without deleting them.
+const listable = {
+  order: { type: Number, default: 0, index: true },
+  published: { type: Boolean, default: true, index: true },
+}
+
+const opts = {
+  timestamps: true,
+  toJSON: {
+    virtuals: true,
+    transform(_doc, ret) {
+      ret.id = ret._id
+      delete ret._id
+      delete ret.__v
+      return ret
+    },
+  },
+}
+
+/* ------------------------------------------------------------------ */
+/*  Users                                                              */
+/* ------------------------------------------------------------------ */
+
+const userSchema = new Schema(
+  {
+    name: { type: String, required: true, trim: true },
+    email: { type: String, required: true, unique: true, lowercase: true, trim: true },
+    passwordHash: { type: String, required: true, select: false },
+    role: { type: String, enum: ['admin', 'editor'], default: 'editor', index: true },
+    lastLoginAt: Date,
+  },
+  {
+    timestamps: true,
+    toJSON: {
+      transform(_doc, ret) {
+        ret.id = ret._id
+        delete ret._id
+        delete ret.__v
+        delete ret.passwordHash
+        return ret
+      },
+    },
+  },
+)
+
+export const User = model('User', userSchema)
+
+/* ------------------------------------------------------------------ */
+/*  Site settings (singleton)                                          */
+/* ------------------------------------------------------------------ */
+
+const siteSettingsSchema = new Schema(
+  {
+    key: { type: String, default: 'site', unique: true },
+    brand: {
+      name: { type: String, default: 'BS Innovation Solutions' },
+      short: { type: String, default: 'BS Innovation' },
+      tagline: { type: String, default: 'Web · AI · Growth' },
+      founder: { type: String, default: 'Bhuvneshwar Sharma' },
+      location: { type: String, default: 'Rampur, Uttar Pradesh, India' },
+      email: { type: String, default: '' },
+      phone: { type: String, default: '' },
+      whatsapp: { type: String, default: '' },
+      linkedin: { type: String, default: '' },
+      github: { type: String, default: '' },
+      instagram: { type: String, default: '' },
+      facebook: { type: String, default: '' },
+    },
+    nav: [{ label: String, to: String, order: Number }],
+    trustedBy: [String],
+    hero: {
+      statusText: String,
+      titleLead: String,
+      titleAccent: String,
+      description: String,
+      stats: [{ value: String, label: String }],
+    },
+    hireMe: {
+      eyebrow: { type: String, default: 'Freelance / hire me' },
+      title: String,
+      description: String,
+      ctaLabel: { type: String, default: 'Hire me for a project' },
+    },
+    about: {
+      heroTitle: String,
+      heroDescription: String,
+      storyEyebrow: { type: String, default: 'The story' },
+      storyTitle: String,
+      storyParagraphs: [String],
+      mission: String,
+      vision: String,
+      trustTitle: String,
+      trustDescription: String,
+    },
+    footerBlurb: String,
+    seo: {
+      title: String,
+      description: String,
+      ogTitle: String,
+      ogDescription: String,
+    },
+  },
+  opts,
+)
+
+export const SiteSettings = model('SiteSettings', siteSettingsSchema)
+
+/* ------------------------------------------------------------------ */
+/*  Content collections                                                */
+/* ------------------------------------------------------------------ */
+
+const serviceCategorySchema = new Schema(
+  { key: { type: String, required: true, unique: true }, label: { type: String, required: true }, ...listable },
+  opts,
+)
+export const ServiceCategory = model('ServiceCategory', serviceCategorySchema)
+
+const serviceSchema = new Schema(
+  {
+    slug: { type: String, required: true, unique: true, lowercase: true, trim: true },
+    category: { type: String, required: true },
+    tag: String,
+    title: { type: String, required: true },
+    image: String,
+    short: String,
+    description: String,
+    features: [String],
+    idealFor: [String],
+    timeline: String,
+    ...listable,
+  },
+  opts,
+)
+export const Service = model('Service', serviceSchema)
+
+const projectSchema = new Schema(
+  {
+    slug: { type: String, required: true, unique: true, lowercase: true, trim: true },
+    tag: String,
+    title: { type: String, required: true },
+    image: String,
+    category: String,
+    year: String,
+    summary: String,
+    problem: String,
+    solution: String,
+    features: [String],
+    stack: [String],
+    link: String,
+    ...listable,
+  },
+  opts,
+)
+export const Project = model('Project', projectSchema)
+
+const blogPostSchema = new Schema(
+  {
+    slug: { type: String, required: true, unique: true, lowercase: true, trim: true },
+    tag: String,
+    title: { type: String, required: true },
+    date: String,
+    readTime: String,
+    excerpt: String,
+    body: [String],
+    ...listable,
+  },
+  opts,
+)
+export const BlogPost = model('BlogPost', blogPostSchema)
+
+const pricingPlanSchema = new Schema(
+  {
+    name: { type: String, required: true },
+    price: String,
+    unit: String,
+    description: String,
+    features: [String],
+    highlighted: { type: Boolean, default: false },
+    ...listable,
+  },
+  opts,
+)
+export const PricingPlan = model('PricingPlan', pricingPlanSchema)
+
+const pricingAddonSchema = new Schema(
+  { name: { type: String, required: true }, price: String, ...listable },
+  opts,
+)
+export const PricingAddon = model('PricingAddon', pricingAddonSchema)
+
+const testimonialSchema = new Schema(
+  { quote: { type: String, required: true }, name: String, context: String, ...listable },
+  opts,
+)
+export const Testimonial = model('Testimonial', testimonialSchema)
+
+const faqSchema = new Schema(
+  { q: { type: String, required: true }, a: { type: String, required: true }, ...listable },
+  opts,
+)
+export const Faq = model('Faq', faqSchema)
+
+const processStepSchema = new Schema(
+  { step: String, title: { type: String, required: true }, description: String, ...listable },
+  opts,
+)
+export const ProcessStep = model('ProcessStep', processStepSchema)
+
+const techItemSchema = new Schema(
+  { name: { type: String, required: true }, note: String, ...listable },
+  opts,
+)
+export const TechItem = model('TechItem', techItemSchema)
+
+const timelineItemSchema = new Schema(
+  { year: String, title: { type: String, required: true }, text: String, ...listable },
+  opts,
+)
+export const TimelineItem = model('TimelineItem', timelineItemSchema)
+
+const coreValueSchema = new Schema(
+  { title: { type: String, required: true }, description: String, ...listable },
+  opts,
+)
+export const CoreValue = model('CoreValue', coreValueSchema)
+
+/* ------------------------------------------------------------------ */
+/*  Contact messages                                                   */
+/* ------------------------------------------------------------------ */
+
+const contactMessageSchema = new Schema(
+  {
+    name: { type: String, required: true, trim: true },
+    email: { type: String, required: true, trim: true, lowercase: true },
+    phone: { type: String, trim: true },
+    type: { type: String, trim: true },
+    message: { type: String, required: true },
+    status: { type: String, enum: ['new', 'read', 'archived'], default: 'new', index: true },
+    meta: {
+      ip: String,
+      userAgent: String,
+    },
+  },
+  opts,
+)
+export const ContactMessage = model('ContactMessage', contactMessageSchema)

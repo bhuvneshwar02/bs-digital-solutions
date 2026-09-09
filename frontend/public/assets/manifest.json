@@ -1,0 +1,30 @@
+{
+  "generatedNote": "Images bundled in the repo, available to the admin image picker. Paths are site-absolute.",
+  "images": [
+    "/assets/founder-photo.png",
+    "/assets/working-image.png",
+    "/assets/portfolio/MCE.png",
+    "/assets/portfolio/aiHealth.png",
+    "/assets/portfolio/ayurvedic.png",
+    "/assets/portfolio/dheeraj-banner.png",
+    "/assets/portfolio/grameen.png",
+    "/assets/portfolio/hanumanmandir.png",
+    "/assets/portfolio/kiran-kummar.png",
+    "/assets/services/admin.png",
+    "/assets/services/ai-chatbot.png",
+    "/assets/services/business-profile.png",
+    "/assets/services/bussiness.png",
+    "/assets/services/e-commerce.png",
+    "/assets/services/event.png",
+    "/assets/services/hoisting-purchase.png",
+    "/assets/services/hospital.png",
+    "/assets/services/insurance.png",
+    "/assets/services/maintenance.png",
+    "/assets/services/portfolio.png",
+    "/assets/services/restaurant.png",
+    "/assets/services/school.png",
+    "/assets/services/seo.png",
+    "/assets/services/temple.png",
+    "/assets/services/workspace.png"
+  ]
+}
