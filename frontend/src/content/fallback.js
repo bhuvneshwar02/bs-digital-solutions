@@ -14,6 +14,7 @@ import {
   timeline,
   coreValues,
   gallery,
+  jobs,
 } from '../data/site'
 
 export const fallbackContent = {
@@ -22,6 +23,7 @@ export const fallbackContent = {
   portfolio,
   blog,
   gallery,
+  jobs,
   pricingPlans,
   pricingAddons,
   testimonials,

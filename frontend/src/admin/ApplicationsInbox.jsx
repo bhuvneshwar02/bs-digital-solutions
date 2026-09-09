@@ -5,6 +5,7 @@ import { Card, Badge, EmptyState, Button } from './ui'
 const tones = { new: 'amber', read: 'green', archived: 'neutral' }
 
 const fieldLabels = {
+  jobTitle: 'Applying for',
   company: 'Company / org',
   projectType: 'Project type',
   budget: 'Budget',
@@ -61,6 +62,9 @@ export default function ApplicationsInbox() {
         </Filter>
         <Filter value="project" current={kind} onClick={setKind}>
           project briefs
+        </Filter>
+        <Filter value="job" current={kind} onClick={setKind}>
+          job applications
         </Filter>
         <Filter value="collaborator" current={kind} onClick={setKind}>
           collaborators

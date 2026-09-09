@@ -8,6 +8,7 @@ import ServiceDetail from './pages/ServiceDetail'
 import Portfolio from './pages/Portfolio'
 import PortfolioDetail from './pages/PortfolioDetail'
 import Gallery from './pages/Gallery'
+import Jobs from './pages/Jobs'
 import StartProject from './pages/StartProject'
 import Collaborate from './pages/Collaborate'
 import Pricing from './pages/Pricing'
@@ -32,6 +33,7 @@ export default function App() {
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
         <Route path="/gallery" element={<Gallery />} />
+        <Route path="/jobs" element={<Jobs />} />
         <Route path="/start-project" element={<StartProject />} />
         <Route path="/collaborate" element={<Collaborate />} />
         <Route path="/pricing" element={<Pricing />} />

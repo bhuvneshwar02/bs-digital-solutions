@@ -38,6 +38,9 @@ export default function AdminLayout() {
             <NavLink to="/admin/applications" className={linkClass}>
               Applications
             </NavLink>
+            <NavLink to="/admin/job-board" className={linkClass}>
+              Job board
+            </NavLink>
             {isAdmin && (
               <NavLink to="/admin/users" className={linkClass}>
                 Users

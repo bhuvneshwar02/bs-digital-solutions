@@ -12,6 +12,7 @@ import {
   CoreValue,
   ServiceCategory,
   GalleryItem,
+  Job,
 } from '../models/index.js'
 import { schemas } from '../lib/validate.js'
 
@@ -21,6 +22,7 @@ export const collections = {
   portfolio: { Model: Project, schema: schemas.project, hasSlug: true, slugSource: 'title' },
   blog: { Model: BlogPost, schema: schemas.blogPost, hasSlug: true, slugSource: 'title' },
   gallery: { Model: GalleryItem, schema: schemas.galleryItem },
+  jobs: { Model: Job, schema: schemas.job },
   'pricing-plans': { Model: PricingPlan, schema: schemas.pricingPlan },
   'pricing-addons': { Model: PricingAddon, schema: schemas.pricingAddon },
   testimonials: { Model: Testimonial, schema: schemas.testimonial },

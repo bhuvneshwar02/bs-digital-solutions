@@ -4,12 +4,10 @@ import { useContent, useSite } from '../content/ContentContext'
 
 const pages = [
   { label: 'Home', to: '/' },
-  { label: 'About', to: '/about' },
   { label: 'Services', to: '/services' },
-  { label: 'Portfolio', to: '/portfolio' },
   { label: 'Gallery', to: '/gallery' },
-  { label: 'Pricing', to: '/pricing' },
   { label: 'Blog', to: '/blog' },
+  { label: 'Jobs', to: '/jobs' },
   { label: 'Contact', to: '/contact' },
   { label: 'Start a project', to: '/start-project' },
   { label: 'Work with me', to: '/collaborate' },

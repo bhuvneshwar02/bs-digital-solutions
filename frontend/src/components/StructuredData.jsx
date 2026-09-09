@@ -36,6 +36,10 @@ export default function StructuredData() {
       addressCountry: 'IN',
     },
     areaServed: [
+      ...(site.seo?.serviceAreas || ['Rampur', 'Milak', 'Moradabad', 'Bareilly']).map((name) => ({
+        '@type': 'Place',
+        name,
+      })),
       { '@type': 'Country', name: 'India' },
       { '@type': 'Place', name: 'Worldwide (remote)' },
     ],

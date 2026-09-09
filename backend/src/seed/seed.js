@@ -26,6 +26,7 @@ import {
   CoreValue,
   ServiceCategory,
   GalleryItem,
+  Job,
 } from '../models/index.js'
 import * as content from './data/content.js'
 import { siteSettings } from './data/site.js'
@@ -40,6 +41,7 @@ const groups = [
   { Model: Project, rows: content.portfolio, upsertKey: 'slug' },
   { Model: BlogPost, rows: content.blog, upsertKey: 'slug' },
   { Model: GalleryItem, rows: content.gallery },
+  { Model: Job, rows: content.jobs, upsertKey: 'title' },
   { Model: PricingPlan, rows: [...content.pricingPlans, ...content.carePlans], upsertKey: 'name' },
   { Model: PricingAddon, rows: content.pricingAddons, upsertKey: 'name' },
   { Model: Testimonial, rows: content.testimonials },
@@ -118,11 +120,16 @@ async function seedSettings() {
     existing.commitments = siteSettings.commitments
     touched += 1
   }
-  // Reset nav to the trimmed primary set only if it still matches a known older
+  if (!existing.seo?.serviceAreas?.length && siteSettings.seo.serviceAreas?.length) {
+    existing.seo = { ...(existing.seo?.toObject?.() ?? existing.seo ?? {}), serviceAreas: siteSettings.seo.serviceAreas }
+    touched += 1
+  }
+  // Reset nav to the canonical primary set only if it still matches a known older
   // default (i.e. the owner hasn't customised it).
   const legacyNavShapes = [
     'Home,About,Services,Portfolio,Pricing,Blog,Contact',
     'Home,About,Services,Portfolio,Gallery,Pricing,Blog,Contact',
+    'Services,Portfolio,Pricing,About,Contact',
   ]
   const currentNav = (existing.nav || []).map((n) => n.label).join(',')
   if (legacyNavShapes.includes(currentNav)) {
@@ -132,6 +139,7 @@ async function seedSettings() {
   if (touched) {
     existing.markModified('brand')
     existing.markModified('nav')
+    existing.markModified('seo')
     await existing.save()
     console.log(`• SiteSettings: backfilled ${touched} field(s)`)
   } else {

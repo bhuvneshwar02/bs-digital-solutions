@@ -28,10 +28,11 @@ const projectTypes = [
 const budgets = ['Under ₹10,000', '₹10,000 – ₹25,000', '₹25,000 – ₹50,000', '₹50,000 – ₹1,00,000', 'Above ₹1,00,000', 'Not sure yet']
 const timelines = ['ASAP', 'Within 2 weeks', 'Within a month', '1–3 months', 'Flexible']
 
-export default function ApplicationForm({ kind }) {
+export default function ApplicationForm({ kind, job }) {
   const site = useSite()
   const brand = site.brand || {}
   const isProject = kind === 'project'
+  const isJob = kind === 'job'
 
   const [form, setForm] = useState({
     name: '',
@@ -58,7 +59,11 @@ export default function ApplicationForm({ kind }) {
     setStatus('sending')
     setError('')
     try {
-      await api.post('/applications', { kind, ...form })
+      await api.post('/applications', {
+        kind,
+        ...form,
+        ...(isJob && job ? { jobId: job.id || '', jobTitle: job.title || '' } : {}),
+      })
       setStatus('sent')
     } catch (err) {
       setStatus('error')
@@ -73,6 +78,9 @@ export default function ApplicationForm({ kind }) {
         <h3 className="font-display text-xl font-semibold mt-3">
           {isProject ? 'Thanks — your project brief is in.' : 'Thanks — your application is in.'}
         </h3>
+        {isJob && job?.title && (
+          <p className="font-mono text-[11px] uppercase tracking-wider text-teal mt-1">for: {job.title}</p>
+        )}
         <p className="text-sm text-slate leading-relaxed mt-2">
           I read every submission personally and reply within a day. For anything urgent, WhatsApp or email is fastest.
         </p>
@@ -106,13 +114,37 @@ export default function ApplicationForm({ kind }) {
             <input className={input} value={form.company} onChange={set('company')} placeholder="Optional" />
           </Field>
         ) : (
-          <Field label="Your role / title">
+          <Field label={isJob ? 'Current role / title' : 'Your role / title'}>
             <input className={input} value={form.role} onChange={set('role')} placeholder="e.g. Frontend developer, Designer" />
           </Field>
         )}
       </div>
 
-      {isProject ? (
+      {isJob ? (
+        <>
+          <Field label="Portfolio / GitHub / LinkedIn">
+            <input className={input} value={form.portfolioUrl} onChange={set('portfolioUrl')} placeholder="https://…" />
+          </Field>
+          <div className="grid sm:grid-cols-2 gap-5">
+            <Field label="Relevant skills">
+              <input className={input} value={form.skills} onChange={set('skills')} placeholder="e.g. React, Tailwind, Node" />
+            </Field>
+            <Field label="Availability / notice">
+              <input className={input} value={form.availability} onChange={set('availability')} placeholder="e.g. immediate, 15 hrs/week" />
+            </Field>
+          </div>
+          <Field label="Why are you a good fit for this role?" required>
+            <textarea
+              required
+              rows={5}
+              className={`${input} resize-none`}
+              value={form.message}
+              onChange={set('message')}
+              placeholder="A short note about your experience and why this role suits you…"
+            />
+          </Field>
+        </>
+      ) : isProject ? (
         <>
           <div className="grid sm:grid-cols-3 gap-5">
             <Field label="Project type">
@@ -190,7 +222,7 @@ export default function ApplicationForm({ kind }) {
 
       <div className="flex flex-wrap gap-4 mt-1 items-center">
         <PrimaryButton type="submit" className={status === 'sending' ? 'opacity-60 pointer-events-none' : ''}>
-          {status === 'sending' ? 'Sending…' : isProject ? 'Send project brief' : 'Send application'}
+          {status === 'sending' ? 'Sending…' : isProject ? 'Send project brief' : isJob ? 'Apply for this role' : 'Send application'}
         </PrimaryButton>
         {brand.whatsapp && <GhostButton href={`https://wa.me/${brand.whatsapp}`}>Or message on WhatsApp</GhostButton>}
       </div>

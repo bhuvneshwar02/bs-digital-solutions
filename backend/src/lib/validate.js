@@ -125,8 +125,34 @@ export const schemas = {
     ...listable,
   }),
 
+  job: z.object({
+    title: z.string().trim().min(1),
+    employmentType: z.string().trim().optional().default('Contract'),
+    location: z.string().trim().optional().default('Remote'),
+    remote: z.boolean().optional().default(true),
+    description: z.string().trim().optional().default(''),
+    requirements: strArray,
+    compensation: z.string().trim().optional().default(''),
+    applyEmail: z.string().trim().optional().default(''),
+    status: z.enum(['open', 'closed']).optional().default('open'),
+    ...listable,
+  }),
+
+  // Public "post a job for free" submission.
+  jobPost: z.object({
+    jobTitle: z.string().trim().min(2).max(160),
+    company: z.string().trim().max(160).optional().default(''),
+    location: z.string().trim().min(2).max(160),
+    workMode: z.string().trim().max(40).optional().default('On-site'),
+    budget: z.string().trim().max(120).optional().default(''),
+    description: z.string().trim().min(15, 'Please describe the job in a bit more detail').max(4000),
+    posterName: z.string().trim().min(1).max(120),
+    posterEmail: z.string().trim().email('A valid email is required').max(200),
+    posterPhone: z.string().trim().max(40).optional().default(''),
+  }),
+
   application: z.object({
-    kind: z.enum(['project', 'collaborator']),
+    kind: z.enum(['project', 'collaborator', 'job']),
     name: z.string().trim().min(1, 'Name is required').max(120),
     email: z.string().trim().email('A valid email is required').max(200),
     phone: z.string().trim().max(40).optional().default(''),
@@ -139,6 +165,8 @@ export const schemas = {
     skills: z.string().trim().max(600).optional().default(''),
     portfolioUrl: z.string().trim().max(300).optional().default(''),
     availability: z.string().trim().max(160).optional().default(''),
+    jobId: z.string().trim().max(64).optional().default(''),
+    jobTitle: z.string().trim().max(200).optional().default(''),
   }),
 
   login: z.object({
@@ -239,6 +267,8 @@ export const siteSettingsSchema = z
         description: z.string().optional(),
         ogTitle: z.string().optional(),
         ogDescription: z.string().optional(),
+        ogImage: z.string().optional(),
+        serviceAreas: z.array(z.string()).optional(),
       })
       .partial()
       .optional(),

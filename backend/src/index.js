@@ -9,6 +9,7 @@ import authRouter from './routes/auth.js'
 import publicRouter from './routes/public.js'
 import contactRouter from './routes/contact.js'
 import applicationsRouter from './routes/applications.js'
+import jobBoardRouter from './routes/jobBoard.js'
 import adminRouter from './routes/admin/index.js'
 
 export function createApp() {
@@ -35,6 +36,7 @@ export function createApp() {
   app.use('/api/auth', authRouter)
   app.use('/api/contact', contactRouter)
   app.use('/api/applications', applicationsRouter)
+  app.use('/api/job-board', jobBoardRouter)
   app.use('/api/admin', adminRouter)
   app.use('/api', publicRouter)
 

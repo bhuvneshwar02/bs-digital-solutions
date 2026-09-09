@@ -10,6 +10,7 @@ export default function Dashboard() {
   const [counts, setCounts] = useState({})
   const [newMessages, setNewMessages] = useState(null)
   const [newApps, setNewApps] = useState(null)
+  const [pendingJobs, setPendingJobs] = useState(null)
 
   useEffect(() => {
     const keys = adminNav.flatMap((g) => g.items)
@@ -31,6 +32,11 @@ export default function Dashboard() {
       .listApplications({ status: 'new' })
       .then((rows) => setNewApps(rows.length))
       .catch(() => setNewApps(null))
+
+    adminApi
+      .listJobPosts('pending')
+      .then((rows) => setPendingJobs(rows.length))
+      .catch(() => setPendingJobs(null))
   }, [])
 
   return (
@@ -54,6 +60,14 @@ export default function Dashboard() {
             <p className="font-mono text-[11px] uppercase tracking-wider text-slate">Applications</p>
             <p className="font-display text-3xl font-semibold mt-1">
               {newApps ?? '—'} <span className="text-sm font-normal text-slate">new</span>
+            </p>
+          </Card>
+        </Link>
+        <Link to="/admin/job-board">
+          <Card className="hover:border-ink/30 transition-colors">
+            <p className="font-mono text-[11px] uppercase tracking-wider text-slate">Job board</p>
+            <p className="font-display text-3xl font-semibold mt-1">
+              {pendingJobs ?? '—'} <span className="text-sm font-normal text-slate">to review</span>
             </p>
           </Card>
         </Link>

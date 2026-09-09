@@ -82,6 +82,39 @@ export const collectionSchemas = {
     ],
   },
 
+  jobs: {
+    label: 'Jobs (open roles)',
+    endpoint: 'jobs',
+    singularLabel: 'role',
+    columns: [
+      { key: 'title', label: 'Title' },
+      { key: 'employmentType', label: 'Type' },
+      { key: 'status', label: 'Status' },
+    ],
+    fields: [
+      { name: 'title', type: 'text', required: true },
+      {
+        name: 'employmentType',
+        type: 'select',
+        options: ['Full-time', 'Part-time', 'Contract', 'Freelance', 'Internship'].map((v) => ({ value: v, label: v })),
+      },
+      { name: 'location', type: 'text', hint: 'e.g. Remote (India), Rampur / Remote' },
+      { name: 'remote', type: 'boolean', label: 'Remote OK' },
+      { name: 'description', type: 'textarea', rows: 5 },
+      { name: 'requirements', type: 'list', label: 'Requirements (one per line)' },
+      { name: 'compensation', type: 'text', hint: 'e.g. ₹6,000–₹10,000 / month' },
+      { name: 'applyEmail', type: 'text', hint: 'Optional — leave blank to use the site apply form' },
+      {
+        name: 'status',
+        type: 'select',
+        options: [
+          { value: 'open', label: 'Open' },
+          { value: 'closed', label: 'Closed' },
+        ],
+      },
+    ],
+  },
+
   'pricing-plans': {
     label: 'Pricing plans',
     endpoint: 'pricing-plans',
@@ -222,7 +255,7 @@ export const collectionSchemas = {
 
 // Sidebar grouping / order.
 export const adminNav = [
-  { section: 'Content', items: ['services', 'portfolio', 'gallery', 'blog'] },
+  { section: 'Content', items: ['services', 'portfolio', 'gallery', 'blog', 'jobs'] },
   { section: 'Pricing', items: ['pricing-plans', 'pricing-addons'] },
   { section: 'Home page', items: ['testimonials', 'faqs', 'process-steps', 'tech-stack'] },
   { section: 'About page', items: ['timeline', 'core-values'] },

@@ -752,6 +752,43 @@ export const coreValues = [
   { title: 'Small requests matter too', description: 'A Gmail account setup gets the same care as a full web application.' },
 ]
 
+export const jobs = [
+  {
+    title: 'Freelance React / Frontend Developer',
+    employmentType: 'Freelance',
+    location: 'Remote (India)',
+    remote: true,
+    description:
+      'Project-based frontend work on client websites and web apps built with React, Vite and Tailwind. You take a Figma or a rough brief and turn it into clean, responsive, accessible UI. Paid per project or per milestone.',
+    requirements: [
+      '2+ years building production React apps',
+      'Comfortable with Tailwind CSS and component-driven UI',
+      'Git, and able to work to a brief with minimal hand-holding',
+      'Available for at least one project a month',
+    ],
+    compensation: 'Per project — ₹8,000–₹30,000 depending on scope',
+    applyEmail: '',
+    status: 'open',
+  },
+  {
+    title: 'Part-time Digital Operations Assistant (Rampur / Remote)',
+    employmentType: 'Part-time',
+    location: 'Rampur, Uttar Pradesh / Remote',
+    remote: true,
+    description:
+      'Help run day-to-day digital tasks for retainer clients — publishing website updates, adding products and notices, keeping Google Business Profiles and social pages current, and basic inbox and document work. Training provided.',
+    requirements: [
+      'Good written English and attention to detail',
+      'Comfortable learning admin panels and simple tools',
+      'Reliable internet and 10–15 hours a week',
+      'Based in or near Rampur is a plus, not required',
+    ],
+    compensation: '₹6,000–₹10,000 / month',
+    applyEmail: '',
+    status: 'open',
+  },
+]
+
 // Placeholder gallery — replace the images from Admin → Gallery once real
 // screenshots / photos are ready.
 export const gallery = [

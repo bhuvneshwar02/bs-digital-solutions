@@ -27,13 +27,18 @@ export const adminApi = {
   setMessageStatus: (id, status) => api.patch(`/contact/${id}`, { status }, opts),
   removeMessage: (id) => api.del(`/contact/${id}`, opts),
 
-  // Applications (project briefs + collaborator applications)
+  // Applications (project briefs, collaborator + job applications)
   listApplications: (params = {}) => {
     const q = new URLSearchParams(Object.entries(params).filter(([, v]) => v)).toString()
     return api.get(`/applications${q ? `?${q}` : ''}`, opts)
   },
   setApplicationStatus: (id, status) => api.patch(`/applications/${id}`, { status }, opts),
   removeApplication: (id) => api.del(`/applications/${id}`, opts),
+
+  // Community job-board moderation
+  listJobPosts: (status) => api.get(`/job-board/admin${status ? `?status=${status}` : ''}`, opts),
+  setJobPostStatus: (id, status) => api.patch(`/job-board/admin/${id}`, { status }, opts),
+  removeJobPost: (id) => api.del(`/job-board/admin/${id}`, opts),
 
   // Change own password
   changePassword: (currentPassword, newPassword) =>

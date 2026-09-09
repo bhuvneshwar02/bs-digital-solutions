@@ -113,6 +113,8 @@ const siteSettingsSchema = new Schema(
       description: String,
       ogTitle: String,
       ogDescription: String,
+      ogImage: String,
+      serviceAreas: [String],
     },
   },
   opts,
@@ -262,7 +264,7 @@ export const GalleryItem = model('GalleryItem', galleryItemSchema)
 
 const applicationSchema = new Schema(
   {
-    kind: { type: String, enum: ['project', 'collaborator'], required: true, index: true },
+    kind: { type: String, enum: ['project', 'collaborator', 'job'], required: true, index: true },
     name: { type: String, required: true, trim: true },
     email: { type: String, required: true, trim: true, lowercase: true },
     phone: { type: String, trim: true },
@@ -277,12 +279,59 @@ const applicationSchema = new Schema(
     skills: String,
     portfolioUrl: String,
     availability: String,
+    // job application
+    jobId: String,
+    jobTitle: String,
     status: { type: String, enum: ['new', 'read', 'archived'], default: 'new', index: true },
     meta: { ip: String, userAgent: String },
   },
   opts,
 )
 export const Application = model('Application', applicationSchema)
+
+/* ------------------------------------------------------------------ */
+/*  Jobs — roles the studio is hiring for (admin-managed)              */
+/* ------------------------------------------------------------------ */
+
+const jobSchema = new Schema(
+  {
+    title: { type: String, required: true },
+    employmentType: { type: String, default: 'Contract' }, // Full-time | Part-time | Contract | Freelance | Internship
+    location: { type: String, default: 'Remote' },
+    remote: { type: Boolean, default: true },
+    description: String,
+    requirements: [String],
+    compensation: String,
+    applyEmail: String,
+    status: { type: String, enum: ['open', 'closed'], default: 'open', index: true },
+    ...listable,
+  },
+  opts,
+)
+export const Job = model('Job', jobSchema)
+
+/* ------------------------------------------------------------------ */
+/*  Community job board — anyone can post a job/requirement for free   */
+/*  (moderated: pending -> approved before it shows publicly)          */
+/* ------------------------------------------------------------------ */
+
+const jobPostSchema = new Schema(
+  {
+    jobTitle: { type: String, required: true },
+    company: String,
+    location: { type: String, required: true },
+    workMode: { type: String, default: 'On-site' }, // On-site | Remote | Hybrid
+    budget: String,
+    description: { type: String, required: true },
+    posterName: { type: String, required: true },
+    posterEmail: { type: String, required: true, lowercase: true, trim: true },
+    posterPhone: String,
+    status: { type: String, enum: ['pending', 'approved', 'rejected'], default: 'pending', index: true },
+    meta: { ip: String, userAgent: String },
+  },
+  opts,
+)
+export const JobPost = model('JobPost', jobPostSchema)
 
 /* ------------------------------------------------------------------ */
 /*  Contact messages                                                   */

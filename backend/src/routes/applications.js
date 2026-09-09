@@ -30,6 +30,7 @@ function summarise(a) {
     a.skills && `Skills: ${a.skills}`,
     a.portfolioUrl && `Portfolio: ${a.portfolioUrl}`,
     a.availability && `Availability: ${a.availability}`,
+    a.jobTitle && `Applying for: ${a.jobTitle}`,
     '',
     a.message,
   ].filter(Boolean)
@@ -45,7 +46,10 @@ router.post('/', limiter, async (req, res, next) => {
       ...data,
       meta: { ip: req.ip, userAgent: req.get('user-agent') || '' },
     })
-    const label = data.kind === 'project' ? 'New project brief' : 'New collaborator application'
+    const label =
+      { project: 'New project brief', collaborator: 'New collaborator application', job: 'New job application' }[
+        data.kind
+      ] || 'New application'
     await sendMail({
       subject: `${label} — ${data.name}`,
       text: summarise(doc),
