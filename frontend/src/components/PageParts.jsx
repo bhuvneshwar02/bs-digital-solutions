@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Eyebrow, PrimaryButton, GhostButton, StatusTag } from './Atoms'
 import { useSite } from '../content/ContentContext'
 
@@ -6,7 +6,7 @@ export function PageHero({ eyebrow, title, description, children }) {
   return (
     <section className="bg-ink text-paper bp-grid relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-5 sm:px-8 pt-20 pb-16 sm:pt-28 sm:pb-20 relative z-10">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, ease: 'easeOut' }}
@@ -22,7 +22,7 @@ export function PageHero({ eyebrow, title, description, children }) {
           </h1>
           {description && <p className="text-white/60 text-base sm:text-lg leading-relaxed mt-6 max-w-2xl">{description}</p>}
           {children}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   )

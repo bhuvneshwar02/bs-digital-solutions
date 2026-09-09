@@ -2,25 +2,26 @@ import { lazy, Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
 import Home from './pages/Home'
-import About from './pages/About'
-import Services from './pages/Services'
-import ServiceDetail from './pages/ServiceDetail'
-import Portfolio from './pages/Portfolio'
-import PortfolioDetail from './pages/PortfolioDetail'
-import Gallery from './pages/Gallery'
-import Jobs from './pages/Jobs'
-import Reviews from './pages/Reviews'
-import StartProject from './pages/StartProject'
-import Collaborate from './pages/Collaborate'
-import Pricing from './pages/Pricing'
-import Blog from './pages/Blog'
-import BlogDetail from './pages/BlogDetail'
-import Contact from './pages/Contact'
-import Privacy from './pages/Privacy'
-import Terms from './pages/Terms'
 import NotFound from './pages/NotFound'
 
-// The admin panel is code-split so it never weighs down the public bundle.
+// Home + NotFound load with the app; every other route is split into its own
+// chunk that only downloads when someone visits it.
+const About = lazy(() => import('./pages/About'))
+const Services = lazy(() => import('./pages/Services'))
+const ServiceDetail = lazy(() => import('./pages/ServiceDetail'))
+const Portfolio = lazy(() => import('./pages/Portfolio'))
+const PortfolioDetail = lazy(() => import('./pages/PortfolioDetail'))
+const Gallery = lazy(() => import('./pages/Gallery'))
+const Jobs = lazy(() => import('./pages/Jobs'))
+const Reviews = lazy(() => import('./pages/Reviews'))
+const StartProject = lazy(() => import('./pages/StartProject'))
+const Collaborate = lazy(() => import('./pages/Collaborate'))
+const Pricing = lazy(() => import('./pages/Pricing'))
+const Blog = lazy(() => import('./pages/Blog'))
+const BlogDetail = lazy(() => import('./pages/BlogDetail'))
+const Contact = lazy(() => import('./pages/Contact'))
+const Privacy = lazy(() => import('./pages/Privacy'))
+const Terms = lazy(() => import('./pages/Terms'))
 const AdminApp = lazy(() => import('./admin/AdminApp'))
 
 export default function App() {

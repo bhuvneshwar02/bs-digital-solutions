@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { SectionHeading, StatusTag, PrimaryButton, GhostButton } from '../components/Atoms'
 import { CTASection, HireMe, Commitments } from '../components/PageParts'
@@ -34,7 +34,7 @@ export default function Home() {
       <section className="bg-ink text-paper bp-grid relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 pt-20 pb-20 sm:pt-28 sm:pb-28 relative z-10">
           <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-14 items-center">
-            <motion.div initial="hidden" animate="show" variants={fadeUp}>
+            <m.div initial="hidden" animate="show" variants={fadeUp}>
               {hero.statusText && <StatusTag>{hero.statusText}</StatusTag>}
               <h1 className="font-display text-4xl sm:text-5xl lg:text-[3.4rem] font-semibold tracking-tight mt-5 leading-[1.06]">
                 {hero.titleLead || 'Digital work, done properly —'}
@@ -57,9 +57,9 @@ export default function Home() {
                   ))}
                 </div>
               )}
-            </motion.div>
+            </m.div>
 
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.15 }}
@@ -75,7 +75,7 @@ export default function Home() {
                   <DevIllustration variant="editor" className="w-full h-auto" />
                 )}
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </section>
@@ -113,7 +113,7 @@ export default function Home() {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {services.slice(0, 9).map((s, i) => (
-            <motion.div key={s.slug} custom={i} initial="hidden" animate="show" variants={fadeUp}>
+            <m.div key={s.slug} custom={i} initial="hidden" animate="show" variants={fadeUp}>
               <Link
                 to={`/services/${s.slug}`}
                 className="group flex flex-col h-full bg-white border border-line rounded-2xl p-6 hover:border-ink/30 hover:shadow-[0_4px_24px_rgba(18,23,43,0.06)] transition-all duration-200"
@@ -127,7 +127,7 @@ export default function Home() {
                 <h3 className="font-display text-lg font-semibold mt-4 text-ink">{s.title}</h3>
                 <p className="text-sm text-slate leading-relaxed mt-2">{s.short}</p>
               </Link>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </section>
@@ -143,7 +143,7 @@ export default function Home() {
           />
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-14">
             {whyChoose.map((item, i) => (
-              <motion.div
+              <m.div
                 key={item.t}
                 custom={i}
                 initial="hidden"
@@ -153,7 +153,7 @@ export default function Home() {
               >
                 <h3 className="font-display text-base font-semibold">{item.t}</h3>
                 <p className="text-sm text-white/55 leading-relaxed mt-2">{item.d}</p>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>
@@ -177,7 +177,7 @@ export default function Home() {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {portfolio.slice(0, 3).map((p, i) => (
-            <motion.div key={p.slug} custom={i} initial="hidden" animate="show" variants={fadeUp}>
+            <m.div key={p.slug} custom={i} initial="hidden" animate="show" variants={fadeUp}>
               <Link to={`/portfolio/${p.slug}`} className="group block">
                 {p.image && (
                   <div className="overflow-hidden rounded-2xl mb-4 aspect-[16/10]">
@@ -194,7 +194,7 @@ export default function Home() {
                   <span className="text-ink/30 group-hover:text-ink transition-colors">→</span>
                 </div>
               </Link>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </section>
@@ -211,7 +211,7 @@ export default function Home() {
             />
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-14">
               {processSteps.map((s, i) => (
-                <motion.div
+                <m.div
                   key={s.id || s.title}
                   custom={i}
                   initial="hidden"
@@ -222,7 +222,7 @@ export default function Home() {
                   <span className="font-mono text-xs text-marigold-dark">{s.step}</span>
                   <h3 className="font-display text-lg font-semibold mt-2">{s.title}</h3>
                   <p className="text-sm text-slate leading-relaxed mt-2">{s.description}</p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>

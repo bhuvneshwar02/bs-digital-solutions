@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { PageHero, CTASection, HireMe } from '../components/PageParts'
 import { SectionHeading, Eyebrow } from '../components/Atoms'
 import Seo from '../components/Seo'
@@ -75,7 +75,7 @@ export default function About() {
           <SectionHeading eyebrow="Timeline" title="How this studio came together" align="center" />
           <div className="mt-14 flex flex-col">
             {timeline.map((item, i) => (
-              <motion.div
+              <m.div
                 key={item.id || item.title}
                 custom={i}
                 initial="hidden"
@@ -93,7 +93,7 @@ export default function About() {
                   <h3 className="font-display font-semibold text-ink">{item.title}</h3>
                   <p className="text-sm text-slate leading-relaxed mt-1.5">{item.text}</p>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </section>
@@ -106,7 +106,7 @@ export default function About() {
             <SectionHeading tone="dark" eyebrow="Core values" title="What every project is held to" />
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
               {coreValues.map((v, i) => (
-                <motion.div
+                <m.div
                   key={v.id || v.title}
                   custom={i}
                   initial="hidden"
@@ -116,7 +116,7 @@ export default function About() {
                 >
                   <h3 className="font-display font-semibold">{v.title}</h3>
                   <p className="text-sm text-white/55 leading-relaxed mt-2">{v.description}</p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>

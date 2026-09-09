@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { PageHero } from '../components/PageParts'
 import Seo from '../components/Seo'
@@ -35,7 +35,7 @@ export default function Blog() {
       <section className="max-w-5xl mx-auto px-5 sm:px-8 py-16 sm:py-20">
         <div className="flex flex-col divide-y divide-line border-t border-b border-line">
           {blog.map((post, i) => (
-            <motion.div key={post.slug} custom={i} initial="hidden" animate="show" variants={fadeUp}>
+            <m.div key={post.slug} custom={i} initial="hidden" animate="show" variants={fadeUp}>
               <Link
                 to={`/blog/${post.slug}`}
                 className="group flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-8 py-7"
@@ -52,7 +52,7 @@ export default function Blog() {
                 </div>
                 <span className="text-ink/30 group-hover:text-ink transition-colors shrink-0 hidden sm:block">→</span>
               </Link>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </section>

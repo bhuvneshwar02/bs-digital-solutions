@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { PageHero, CTASection } from '../components/PageParts'
 import Seo from '../components/Seo'
@@ -30,7 +30,7 @@ export default function Portfolio() {
       <section className="max-w-7xl mx-auto px-5 sm:px-8 py-16 sm:py-20">
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {portfolio.map((p, i) => (
-            <motion.div key={p.slug} custom={i} initial="hidden" animate="show" variants={fadeUp}>
+            <m.div key={p.slug} custom={i} initial="hidden" animate="show" variants={fadeUp}>
               <Link to={`/portfolio/${p.slug}`} className="group block">
                 {p.image ? (
                   <div className="overflow-hidden rounded-[28px] mb-4 aspect-[16/10]">
@@ -56,7 +56,7 @@ export default function Portfolio() {
                   ))}
                 </div>
               </Link>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </section>

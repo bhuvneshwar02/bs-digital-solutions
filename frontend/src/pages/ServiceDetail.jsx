@@ -1,5 +1,5 @@
 import { useParams, Link, Navigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Eyebrow, Tag, PrimaryButton, GhostButton } from '../components/Atoms'
 import { CTASection } from '../components/PageParts'
 import Seo from '../components/Seo'
@@ -30,14 +30,14 @@ export default function ServiceDetail() {
           </Link>
           <div className="mt-6">
             <span className="font-mono text-[11px] uppercase tracking-widest text-marigold">{service.tag}</span>
-            <motion.h1
+            <m.h1
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight mt-3 leading-tight max-w-2xl"
             >
               {service.title}
-            </motion.h1>
+            </m.h1>
             <p className="text-white/60 text-base sm:text-lg leading-relaxed mt-5 max-w-xl">{service.short}</p>
             <div className="flex flex-wrap items-center gap-4 mt-8">
               <PrimaryButton to="/contact">Enquire about this service</PrimaryButton>

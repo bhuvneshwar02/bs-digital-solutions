@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { PageHero, CTASection, Commitments } from '../components/PageParts'
 import { SectionHeading, PrimaryButton, GhostButton } from '../components/Atoms'
 import Seo from '../components/Seo'
@@ -16,7 +16,7 @@ function PlanCard({ plan, i, accent = 'marigold' }) {
   const check = accent === 'teal' ? 'text-teal' : 'text-marigold-dark'
 
   return (
-    <motion.div
+    <m.div
       custom={i}
       initial="hidden"
       animate="show"
@@ -59,7 +59,7 @@ function PlanCard({ plan, i, accent = 'marigold' }) {
           </GhostButton>
         )}
       </div>
-    </motion.div>
+    </m.div>
   )
 }
 

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { PageHero } from '../components/PageParts'
 import Seo from '../components/Seo'
 import { useContent } from '../content/ContentContext'
@@ -32,7 +32,7 @@ export default function Gallery() {
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
             {gallery.map((g, i) => (
-              <motion.button
+              <m.button
                 key={g.id || g.image + i}
                 custom={i}
                 initial="hidden"
@@ -52,7 +52,7 @@ export default function Gallery() {
                     {g.title}
                   </span>
                 </span>
-              </motion.button>
+              </m.button>
             ))}
           </div>
         )}

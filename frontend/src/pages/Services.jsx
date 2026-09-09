@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { PageHero, CTASection } from '../components/PageParts'
 import Seo from '../components/Seo'
@@ -53,7 +53,7 @@ export default function Services() {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {filtered.map((s, i) => (
-            <motion.div key={s.slug} custom={i} initial="hidden" animate="show" variants={fadeUp}>
+            <m.div key={s.slug} custom={i} initial="hidden" animate="show" variants={fadeUp}>
               <Link
                 to={`/services/${s.slug}`}
                 className="group flex flex-col h-full bg-white border border-line rounded-2xl p-6 hover:border-ink/30 hover:shadow-[0_4px_24px_rgba(18,23,43,0.06)] transition-all duration-200"
@@ -75,7 +75,7 @@ export default function Services() {
                   <span className="font-mono text-[10px] uppercase tracking-wider text-slate">{s.timeline}</span>
                 </div>
               </Link>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </section>

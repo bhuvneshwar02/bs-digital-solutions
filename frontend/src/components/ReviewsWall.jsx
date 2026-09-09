@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Stars } from './Stars'
 
 function initials(name = '') {
@@ -12,7 +12,7 @@ function initials(name = '') {
 
 function ReviewCard({ r, i, dark }) {
   return (
-    <motion.blockquote
+    <m.blockquote
       initial={{ opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: (i % 6) * 0.05 }}
@@ -37,7 +37,7 @@ function ReviewCard({ r, i, dark }) {
           </span>
         </span>
       </footer>
-    </motion.blockquote>
+    </m.blockquote>
   )
 }
 
