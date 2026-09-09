@@ -9,15 +9,16 @@ the bottom.)
 ## 1. MongoDB Atlas — the database
 
 1. Create a free account at <https://www.mongodb.com/cloud/atlas> and a free **M0** cluster.
-2. **Database Access** → add a database user (username + a strong password). Save it.
+2. **Database Access** → the user `atreyauser` already exists; if you don't have
+   its password, click **Edit → Edit Password** and set a new one. Save it somewhere safe.
 3. **Network Access** → Add IP Address → **Allow access from anywhere** (`0.0.0.0/0`).
    Render's IPs are dynamic, so this is required on the free tier.
-4. **Clusters → Connect → Drivers** → copy the connection string and insert your
-   password + the DB name before the `?`:
+4. Your `MONGODB_URI` (insert the real password, add the `/bs-innovation` DB name):
    ```
-   mongodb+srv://<user>:<password>@cluster0.xxxxx.mongodb.net/bs-innovation?retryWrites=true&w=majority
+   mongodb+srv://atreyauser:YOUR_PASSWORD@cluster0.w5ywqqm.mongodb.net/bs-innovation?retryWrites=true&w=majority&appName=Cluster0
    ```
-   This is `MONGODB_URI`.
+   Set this as the `MONGODB_URI` env var on Render (and in `backend/.env` if you
+   want to run locally against Atlas). Never commit it.
 
 ---
 
