@@ -155,6 +155,26 @@ export const schemas = {
     ...listable,
   }),
 
+  // Public "leave a review" submission.
+  reviewSubmit: z.object({
+    name: z.string().trim().min(1, 'Your name is required').max(80),
+    role: z.string().trim().max(120).optional().default(''),
+    rating: z.coerce.number().int().min(1).max(5).default(5),
+    project: z.string().trim().max(160).optional().default(''),
+    text: z.string().trim().min(10, 'Please write a little more').max(2000),
+  }),
+
+  // Admin create/edit of a review.
+  review: z.object({
+    name: z.string().trim().min(1).max(80),
+    role: z.string().trim().max(120).optional().default(''),
+    rating: z.coerce.number().int().min(1).max(5).default(5),
+    project: z.string().trim().max(160).optional().default(''),
+    text: z.string().trim().min(1).max(2000),
+    status: z.enum(['pending', 'approved', 'rejected']).optional().default('approved'),
+    featured: z.boolean().optional().default(false),
+  }),
+
   // Public "post a job for free" submission.
   jobPost: z.object({
     jobTitle: z.string().trim().min(2).max(160),

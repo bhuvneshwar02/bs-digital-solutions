@@ -8,6 +8,7 @@ import SiteSettingsPage from './SiteSettingsPage'
 import ContactInbox from './ContactInbox'
 import ApplicationsInbox from './ApplicationsInbox'
 import JobBoardInbox from './JobBoardInbox'
+import ReviewsAdmin from './ReviewsAdmin'
 import UsersPage from './UsersPage'
 import AccountPage from './AccountPage'
 
@@ -42,6 +43,7 @@ export default function AdminApp() {
         <Route path="messages" element={<ContactInbox />} />
         <Route path="applications" element={<ApplicationsInbox />} />
         <Route path="job-board" element={<JobBoardInbox />} />
+        <Route path="reviews" element={<ReviewsAdmin />} />
         <Route path="account" element={<AccountPage />} />
         <Route
           path="users"

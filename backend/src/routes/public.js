@@ -1,6 +1,26 @@
 import { Router } from 'express'
 import { collections } from './registry.js'
-import { SiteSettings } from '../models/index.js'
+import { SiteSettings, Review } from '../models/index.js'
+
+async function approvedReviews() {
+  const rows = await Review.find({ status: 'approved' }).sort({ featured: -1, createdAt: -1 }).limit(60)
+  const count = rows.length
+  const average = count ? Math.round((rows.reduce((s, r) => s + r.rating, 0) / count) * 10) / 10 : 0
+  return {
+    count,
+    average,
+    items: rows.map((r) => ({
+      id: r.id,
+      name: r.name,
+      role: r.role,
+      rating: r.rating,
+      project: r.project,
+      text: r.text,
+      featured: r.featured,
+      date: r.createdAt,
+    })),
+  }
+}
 
 const router = Router()
 
@@ -57,12 +77,13 @@ for (const [key, cfg] of Object.entries(collections)) {
 // One call that returns everything the site needs to render.
 router.get('/bootstrap', async (_req, res, next) => {
   try {
-    const [site, ...lists] = await Promise.all([
+    const [site, reviews, ...lists] = await Promise.all([
       settings(),
+      approvedReviews(),
       ...Object.values(collections).map((cfg) => cfg.Model.find(publishedSort).sort(sortBy).limit(500)),
     ])
     const keys = Object.keys(collections)
-    const payload = { site }
+    const payload = { site, reviews }
     keys.forEach((key, i) => {
       payload[key] = lists[i]
     })

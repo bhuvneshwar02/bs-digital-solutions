@@ -27,6 +27,7 @@ import {
   ServiceCategory,
   GalleryItem,
   Job,
+  Review,
 } from '../models/index.js'
 import * as content from './data/content.js'
 import { siteSettings } from './data/site.js'
@@ -148,6 +149,17 @@ async function seedSettings() {
   }
 }
 
+async function seedReviews() {
+  if (fresh) await Review.deleteMany({})
+  const existing = await Review.countDocuments()
+  if (existing > 0) {
+    console.log(`• Review: ${existing} present — skipping`)
+    return
+  }
+  await Review.insertMany(content.reviews)
+  console.log(`• Review: inserted ${content.reviews.length}`)
+}
+
 async function main() {
   await connectDb()
   console.log(`Seeding${fresh ? ' (fresh)' : ''}…`)
@@ -157,6 +169,7 @@ async function main() {
     // eslint-disable-next-line no-await-in-loop
     await seedGroup(group)
   }
+  await seedReviews()
   console.log('Done.')
   await disconnectDb()
 }

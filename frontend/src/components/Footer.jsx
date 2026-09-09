@@ -4,6 +4,7 @@ import { useContent, useSite } from '../content/ContentContext'
 
 // Only the pages not already in the top nav.
 const pages = [
+  { label: 'Reviews', to: '/reviews' },
   { label: 'Pricing', to: '/pricing' },
   { label: 'Gallery', to: '/gallery' },
   { label: 'Blog', to: '/blog' },

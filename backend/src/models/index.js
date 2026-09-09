@@ -336,6 +336,25 @@ const jobPostSchema = new Schema(
 export const JobPost = model('JobPost', jobPostSchema)
 
 /* ------------------------------------------------------------------ */
+/*  Reviews — anyone can leave one; moderated before it shows          */
+/* ------------------------------------------------------------------ */
+
+const reviewSchema = new Schema(
+  {
+    name: { type: String, required: true, trim: true },
+    role: { type: String, trim: true }, // e.g. "Owner, Grameen Haat" or "Client"
+    rating: { type: Number, min: 1, max: 5, default: 5 },
+    project: { type: String, trim: true }, // which project / work, optional
+    text: { type: String, required: true },
+    status: { type: String, enum: ['pending', 'approved', 'rejected'], default: 'pending', index: true },
+    featured: { type: Boolean, default: false },
+    meta: { ip: String, userAgent: String },
+  },
+  opts,
+)
+export const Review = model('Review', reviewSchema)
+
+/* ------------------------------------------------------------------ */
 /*  Contact messages                                                   */
 /* ------------------------------------------------------------------ */
 

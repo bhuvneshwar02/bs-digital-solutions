@@ -13,6 +13,7 @@ import publicRouter from './routes/public.js'
 import contactRouter from './routes/contact.js'
 import applicationsRouter from './routes/applications.js'
 import jobBoardRouter from './routes/jobBoard.js'
+import reviewsRouter from './routes/reviews.js'
 import adminRouter from './routes/admin/index.js'
 
 // Baseline limiter for the whole API (per IP). Tighter limiters sit on the
@@ -70,6 +71,7 @@ export function createApp() {
   app.use('/api/contact', contactRouter)
   app.use('/api/applications', applicationsRouter)
   app.use('/api/job-board', jobBoardRouter)
+  app.use('/api/reviews', reviewsRouter)
   app.use('/api/admin', adminRouter)
   app.use('/api', publicRouter)
 

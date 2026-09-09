@@ -13,6 +13,7 @@ function normalize(raw) {
     blog: raw.blog || [],
     gallery: raw.gallery || [],
     jobs: raw.jobs || [],
+    reviews: raw.reviews || { items: [], count: 0, average: 0 },
     pricingPlans: raw['pricing-plans'] || [],
     pricingAddons: raw['pricing-addons'] || [],
     testimonials: raw.testimonials || [],

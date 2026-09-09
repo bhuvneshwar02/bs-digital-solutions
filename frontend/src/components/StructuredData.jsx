@@ -5,7 +5,7 @@ import { jsonLd } from '../lib/jsonld'
 // freelance service, who runs it, where, and what it covers.
 export default function StructuredData() {
   const site = useSite()
-  const { services } = useContent()
+  const { services, reviews } = useContent()
   const brand = site.brand || {}
   const domain = (brand.domain || 'bsinnovationsolutions.com').replace(/^https?:\/\//, '').replace(/\/$/, '')
   const origin = `https://${domain}`
@@ -50,6 +50,24 @@ export default function StructuredData() {
       '@type': 'Offer',
       itemOffered: { '@type': 'Service', name: s.title, url: `${origin}/services/${s.slug}` },
     })),
+  }
+
+  // Real, user-submitted reviews → star ratings in search results.
+  if (reviews?.count > 0) {
+    data.aggregateRating = {
+      '@type': 'AggregateRating',
+      ratingValue: reviews.average,
+      reviewCount: reviews.count,
+      bestRating: 5,
+      worstRating: 1,
+    }
+    data.review = (reviews.items || []).slice(0, 10).map((r) => ({
+      '@type': 'Review',
+      author: { '@type': 'Person', name: r.name },
+      reviewRating: { '@type': 'Rating', ratingValue: r.rating, bestRating: 5 },
+      reviewBody: r.text,
+      ...(r.date ? { datePublished: r.date } : {}),
+    }))
   }
 
   return (

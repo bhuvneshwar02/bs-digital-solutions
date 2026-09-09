@@ -6,6 +6,7 @@ import { useSite } from '../content/ContentContext'
 
 // Secondary pages — shown in the mobile menu and the footer, not the top bar.
 const secondaryLinks = [
+  { label: 'Reviews', to: '/reviews' },
   { label: 'Pricing', to: '/pricing' },
   { label: 'Gallery', to: '/gallery' },
   { label: 'Blog', to: '/blog' },

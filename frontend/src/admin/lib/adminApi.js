@@ -40,6 +40,12 @@ export const adminApi = {
   setJobPostStatus: (id, status) => api.patch(`/job-board/admin/${id}`, { status }, opts),
   removeJobPost: (id) => api.del(`/job-board/admin/${id}`, opts),
 
+  // Reviews
+  listReviews: (status) => api.get(`/reviews/admin${status ? `?status=${status}` : ''}`, opts),
+  createReview: (body) => api.post('/reviews/admin', body, opts),
+  updateReview: (id, patch) => api.patch(`/reviews/admin/${id}`, patch, opts),
+  removeReview: (id) => api.del(`/reviews/admin/${id}`, opts),
+
   // Change own password
   changePassword: (currentPassword, newPassword) =>
     api.post('/auth/change-password', { currentPassword, newPassword }, opts),

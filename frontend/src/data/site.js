@@ -143,6 +143,47 @@ export const jobs = [
   },
 ]
 
+// Fallback shape mirrors GET /api/reviews: { count, average, items: [...] }.
+const reviewItems = [
+  {
+    name: 'Event Organising Committee',
+    role: 'MCE Snehada Milana',
+    rating: 5,
+    project: 'Alumni reunion registration platform',
+    text: 'The registration site was ready well before our deadline and held up fine even when everyone signed up in the last two days. Exactly what an alumni committee needed.',
+    featured: true,
+  },
+  {
+    name: 'Temple Trust',
+    role: 'Panchwati Hanuman Mandir',
+    rating: 5,
+    project: 'Temple website',
+    text: 'He understood the tone we needed for a temple website — respectful, simple, nothing flashy — and delivered exactly that. Devotees abroad can now follow events and timings easily.',
+    featured: true,
+  },
+  {
+    name: 'Management',
+    role: 'Dheeraj Singh Consultancy',
+    rating: 5,
+    project: 'Student services portal',
+    text: 'Our consultancy portal has made day-to-day student enquiries far easier to track than the old system ever did. Support after launch has been prompt too.',
+    featured: false,
+  },
+  {
+    name: 'Kiran Kumar',
+    role: 'Photographer',
+    rating: 5,
+    project: 'Portfolio website',
+    text: 'Clean, fast and exactly the premium look I wanted for my photography work. Easy to send to brands and agencies.',
+    featured: false,
+  },
+]
+export const reviews = {
+  items: reviewItems,
+  count: reviewItems.length,
+  average: 5,
+}
+
 export const gallery = [
   { title: 'MCE Snehada Milana — registration', image: '/assets/portfolio/MCE.png', caption: 'Sample — replace with real screenshot' },
   { title: 'Atreya Ayurvedam — home', image: '/assets/portfolio/ayurvedic.png', caption: 'Sample — replace with real screenshot' },

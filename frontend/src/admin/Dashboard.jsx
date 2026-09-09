@@ -11,6 +11,7 @@ export default function Dashboard() {
   const [newMessages, setNewMessages] = useState(null)
   const [newApps, setNewApps] = useState(null)
   const [pendingJobs, setPendingJobs] = useState(null)
+  const [pendingReviews, setPendingReviews] = useState(null)
 
   useEffect(() => {
     const keys = adminNav.flatMap((g) => g.items)
@@ -37,6 +38,11 @@ export default function Dashboard() {
       .listJobPosts('pending')
       .then((rows) => setPendingJobs(rows.length))
       .catch(() => setPendingJobs(null))
+
+    adminApi
+      .listReviews('pending')
+      .then((rows) => setPendingReviews(rows.length))
+      .catch(() => setPendingReviews(null))
   }, [])
 
   return (
@@ -68,6 +74,14 @@ export default function Dashboard() {
             <p className="font-mono text-[11px] uppercase tracking-wider text-slate">Job board</p>
             <p className="font-display text-3xl font-semibold mt-1">
               {pendingJobs ?? '—'} <span className="text-sm font-normal text-slate">to review</span>
+            </p>
+          </Card>
+        </Link>
+        <Link to="/admin/reviews">
+          <Card className="hover:border-ink/30 transition-colors">
+            <p className="font-mono text-[11px] uppercase tracking-wider text-slate">Reviews</p>
+            <p className="font-display text-3xl font-semibold mt-1">
+              {pendingReviews ?? '—'} <span className="text-sm font-normal text-slate">to review</span>
             </p>
           </Card>
         </Link>

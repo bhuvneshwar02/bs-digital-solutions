@@ -5,6 +5,8 @@ import { SectionHeading, StatusTag, PrimaryButton, GhostButton } from '../compon
 import { CTASection, HireMe, Commitments } from '../components/PageParts'
 import Seo from '../components/Seo'
 import DevIllustration from '../components/DevIllustration'
+import ReviewsWall from '../components/ReviewsWall'
+import { Stars } from '../components/Stars'
 import { useContent, useSite } from '../content/ContentContext'
 
 const fadeUp = {
@@ -21,7 +23,7 @@ const whyChoose = [
 
 export default function Home() {
   const site = useSite()
-  const { services, portfolio, processSteps, techStack, testimonials, faqs } = useContent()
+  const { services, portfolio, processSteps, techStack, reviews, faqs } = useContent()
   const hero = site.hero || {}
   const trustedBy = site.trustedBy || []
 
@@ -242,33 +244,28 @@ export default function Home() {
         </section>
       )}
 
-      {/* TESTIMONIALS */}
-      {testimonials.length > 0 && (
+      {/* REVIEWS */}
+      {reviews.items?.length > 0 && (
         <section className="bg-ink text-paper py-20 sm:py-28">
           <div className="max-w-7xl mx-auto px-5 sm:px-8">
-            <SectionHeading
-            tone="dark"
-            eyebrow="What clients say"
-            title="Feedback from the people who commissioned the work"
-          />
-            <div className="grid sm:grid-cols-3 gap-6 mt-14">
-              {testimonials.map((t, i) => (
-                <motion.blockquote
-                  key={t.id || t.name}
-                  custom={i}
-                  initial="hidden"
-                  animate="show"
-                  variants={fadeUp}
-                  className="border border-white/15 rounded-2xl p-6"
-                >
-                  <p className="text-white/75 text-sm leading-relaxed">“{t.quote}”</p>
-                  <footer className="mt-5">
-                    <p className="font-display text-sm font-semibold">{t.name}</p>
-                    <p className="font-mono text-[10px] uppercase tracking-wider text-white/40 mt-1">{t.context}</p>
-                  </footer>
-                </motion.blockquote>
-              ))}
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-14">
+              <div>
+                <SectionHeading tone="dark" eyebrow="Reviews" title="What people say — in their words" />
+                {reviews.count > 0 && (
+                  <div className="flex items-center gap-3 mt-4">
+                    <Stars value={reviews.average} size={18} />
+                    <span className="font-display font-semibold">{reviews.average.toFixed(1)}</span>
+                    <span className="font-mono text-[11px] uppercase tracking-wider text-white/45">
+                      {reviews.count} review{reviews.count === 1 ? '' : 's'}
+                    </span>
+                  </div>
+                )}
+              </div>
+              <GhostButton dark to="/reviews" className="shrink-0">
+                Read all · leave a review
+              </GhostButton>
             </div>
+            <ReviewsWall reviews={reviews.items} dark limit={6} />
           </div>
         </section>
       )}
