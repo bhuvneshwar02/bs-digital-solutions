@@ -20,10 +20,10 @@ export const brand = {
 }
 
 export const nav = [
+  { label: 'Home', to: '/' },
+  { label: 'About', to: '/about' },
   { label: 'Services', to: '/services' },
   { label: 'Portfolio', to: '/portfolio' },
-  { label: 'Pricing', to: '/pricing' },
-  { label: 'About', to: '/about' },
   { label: 'Jobs', to: '/jobs' },
   { label: 'Contact', to: '/contact' },
 ]

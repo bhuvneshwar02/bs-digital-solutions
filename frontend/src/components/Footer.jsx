@@ -2,13 +2,11 @@ import { Link } from 'react-router-dom'
 import Logo from './Logo'
 import { useContent, useSite } from '../content/ContentContext'
 
+// Only the pages not already in the top nav.
 const pages = [
-  { label: 'Home', to: '/' },
-  { label: 'Services', to: '/services' },
+  { label: 'Pricing', to: '/pricing' },
   { label: 'Gallery', to: '/gallery' },
   { label: 'Blog', to: '/blog' },
-  { label: 'Jobs', to: '/jobs' },
-  { label: 'Contact', to: '/contact' },
   { label: 'Start a project', to: '/start-project' },
   { label: 'Work with me', to: '/collaborate' },
 ]

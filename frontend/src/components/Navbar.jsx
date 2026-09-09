@@ -4,10 +4,12 @@ import Logo from './Logo'
 import { PrimaryButton } from './Atoms'
 import { useSite } from '../content/ContentContext'
 
-// Links shown in the footer but not the top nav (kept out to keep the bar tight).
+// Secondary pages — shown in the mobile menu and the footer, not the top bar.
 const secondaryLinks = [
+  { label: 'Pricing', to: '/pricing' },
   { label: 'Gallery', to: '/gallery' },
   { label: 'Blog', to: '/blog' },
+  { label: 'Start a project', to: '/start-project' },
   { label: 'Work with me', to: '/collaborate' },
 ]
 

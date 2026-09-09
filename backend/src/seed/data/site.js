@@ -16,13 +16,12 @@ export const siteSettings = {
     instagram: 'https://instagram.com/bhuvneshwar02',
     facebook: 'https://facebook.com/bhuvneshwar02',
   },
-  // Primary top-nav only — secondary pages (Home logo, About, Gallery, Blog…)
-  // live in the footer.
+  // Primary top-nav only — secondary pages (Pricing, Gallery, Blog…) live in the footer.
   nav: [
-    { label: 'Services', to: '/services', order: 0 },
-    { label: 'Portfolio', to: '/portfolio', order: 1 },
-    { label: 'Pricing', to: '/pricing', order: 2 },
-    { label: 'About', to: '/about', order: 3 },
+    { label: 'Home', to: '/', order: 0 },
+    { label: 'About', to: '/about', order: 1 },
+    { label: 'Services', to: '/services', order: 2 },
+    { label: 'Portfolio', to: '/portfolio', order: 3 },
     { label: 'Jobs', to: '/jobs', order: 4 },
     { label: 'Contact', to: '/contact', order: 5 },
   ],

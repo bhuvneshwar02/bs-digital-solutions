@@ -130,6 +130,7 @@ async function seedSettings() {
     'Home,About,Services,Portfolio,Pricing,Blog,Contact',
     'Home,About,Services,Portfolio,Gallery,Pricing,Blog,Contact',
     'Services,Portfolio,Pricing,About,Contact',
+    'Services,Portfolio,Pricing,About,Jobs,Contact',
   ]
   const currentNav = (existing.nav || []).map((n) => n.label).join(',')
   if (legacyNavShapes.includes(currentNav)) {
