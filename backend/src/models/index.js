@@ -322,12 +322,17 @@ const jobPostSchema = new Schema(
     jobTitle: { type: String, required: true },
     company: String,
     location: { type: String, required: true },
+    city: { type: String, required: true },
+    state: { type: String, required: true },
     workMode: { type: String, default: 'On-site' }, // On-site | Remote | Hybrid
     budget: String,
     description: { type: String, required: true },
+    // Poster identity — all required, verified by an admin before the post shows.
     posterName: { type: String, required: true },
     posterEmail: { type: String, required: true, lowercase: true, trim: true },
-    posterPhone: String,
+    posterPhone: { type: String, required: true },
+    posterOrg: String,
+    posterAddress: String,
     status: { type: String, enum: ['pending', 'approved', 'rejected'], default: 'pending', index: true },
     meta: { ip: String, userAgent: String },
   },
@@ -345,6 +350,8 @@ const reviewSchema = new Schema(
     role: { type: String, trim: true }, // e.g. "Owner, Grameen Haat" or "Client"
     rating: { type: Number, min: 1, max: 5, default: 5 },
     project: { type: String, trim: true }, // which project / work, optional
+    city: { type: String, trim: true },
+    state: { type: String, trim: true },
     text: { type: String, required: true },
     status: { type: String, enum: ['pending', 'approved', 'rejected'], default: 'pending', index: true },
     featured: { type: Boolean, default: false },

@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import { PageHero } from '../components/PageParts'
 import { SectionHeading } from '../components/Atoms'
 import { Stars } from '../components/Stars'
@@ -9,6 +11,14 @@ import { useContent } from '../content/ContentContext'
 export default function Reviews() {
   const { reviews } = useContent()
   const { items = [], count = 0, average = 0 } = reviews || {}
+  const { hash } = useLocation()
+
+  useEffect(() => {
+    if (hash === '#leave-a-review') {
+      const t = setTimeout(() => document.getElementById('leave-a-review')?.scrollIntoView({ behavior: 'smooth' }), 100)
+      return () => clearTimeout(t)
+    }
+  }, [hash])
 
   return (
     <>

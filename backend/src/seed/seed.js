@@ -151,6 +151,7 @@ async function seedSettings() {
 
 async function seedReviews() {
   if (fresh) await Review.deleteMany({})
+  if (!content.reviews?.length) return
   const existing = await Review.countDocuments()
   if (existing > 0) {
     console.log(`• Review: ${existing} present — skipping`)

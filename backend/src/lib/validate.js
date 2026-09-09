@@ -1,4 +1,7 @@
 import { z } from 'zod'
+import { IN_STATES } from './states.js'
+
+const stateEnum = z.enum(IN_STATES)
 
 const strArray = z.array(z.string().trim().max(2000)).max(100).default([])
 const listable = {
@@ -161,6 +164,8 @@ export const schemas = {
     role: z.string().trim().max(120).optional().default(''),
     rating: z.coerce.number().int().min(1).max(5).default(5),
     project: z.string().trim().max(160).optional().default(''),
+    city: z.string().trim().max(80).optional().default(''),
+    state: z.union([stateEnum, z.literal('')]).optional().default(''),
     text: z.string().trim().min(10, 'Please write a little more').max(2000),
   }),
 
@@ -170,22 +175,34 @@ export const schemas = {
     role: z.string().trim().max(120).optional().default(''),
     rating: z.coerce.number().int().min(1).max(5).default(5),
     project: z.string().trim().max(160).optional().default(''),
+    city: z.string().trim().max(80).optional().default(''),
+    state: z.union([stateEnum, z.literal('')]).optional().default(''),
     text: z.string().trim().min(1).max(2000),
     status: z.enum(['pending', 'approved', 'rejected']).optional().default('approved'),
     featured: z.boolean().optional().default(false),
   }),
 
-  // Public "post a job for free" submission.
+  // Public "post a job for free" submission — full poster identity is required
+  // and an admin verifies it before the post is published.
   jobPost: z.object({
     jobTitle: z.string().trim().min(2).max(160),
     company: z.string().trim().max(160).optional().default(''),
     location: z.string().trim().min(2).max(160),
+    city: z.string().trim().min(2, 'City is required').max(80),
+    state: stateEnum,
     workMode: z.string().trim().max(40).optional().default('On-site'),
     budget: z.string().trim().max(120).optional().default(''),
     description: z.string().trim().min(15, 'Please describe the job in a bit more detail').max(4000),
-    posterName: z.string().trim().min(1).max(120),
+    posterName: z.string().trim().min(2, 'Your full name is required').max(120),
     posterEmail: z.string().trim().email('A valid email is required').max(200),
-    posterPhone: z.string().trim().max(40).optional().default(''),
+    posterPhone: z
+      .string()
+      .trim()
+      .min(7, 'A phone number is required')
+      .max(20)
+      .regex(/^[+\d][\d\s-]{6,}$/, 'Enter a valid phone number'),
+    posterOrg: z.string().trim().max(160).optional().default(''),
+    posterAddress: z.string().trim().max(300).optional().default(''),
   }),
 
   application: z.object({

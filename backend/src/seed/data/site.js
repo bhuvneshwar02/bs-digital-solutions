@@ -91,12 +91,12 @@ export const siteSettings = {
   footerBlurb:
     'Helping businesses, institutions and everyday people get their digital work done — websites, web apps, AI tools and the small digital chores in between.',
   seo: {
-    title: 'BS Innovation Solutions — Freelance Web, App & AI Developer',
+    title: 'Freelance Web, App & AI Developer — BS Innovation Solutions',
     description:
-      'BS Innovation Solutions — Bhuvneshwar Sharma, freelance full-stack web, app and AI developer serving Rampur, Milak, Moradabad, Bareilly and clients across India and worldwide. Business websites, e-commerce, admin dashboards, AI chatbots, SEO and day-to-day digital operations, at a fixed price with no hidden charges.',
-    ogTitle: 'BS Innovation Solutions — Freelance Web, App & AI Developer',
+      'Hire Bhuvneshwar Sharma — a freelance full-stack web, app and AI developer in Rampur, Uttar Pradesh, serving Milak, Moradabad, Bareilly and clients across India and worldwide. Business websites, e-commerce, admin dashboards, AI chatbots and SEO at a fixed price, no hidden charges.',
+    ogTitle: 'Freelance Web, App & AI Developer — BS Innovation Solutions',
     ogDescription:
-      'Websites, web apps, AI solutions and everyday digital operations — built end-to-end by Bhuvneshwar Sharma. Fixed price, delivered on time, remote across India and worldwide.',
+      'Looking for a freelancer? Bhuvneshwar Sharma builds websites, web apps and AI tools end-to-end — fixed price, delivered on time, remote across India and worldwide.',
     // Areas targeted for local SEO (structured data + Jobs page copy).
     serviceAreas: ['Rampur', 'Milak', 'Moradabad', 'Bareilly', 'Uttar Pradesh', 'India'],
   },

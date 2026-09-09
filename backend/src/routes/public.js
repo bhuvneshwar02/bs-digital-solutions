@@ -15,6 +15,8 @@ async function approvedReviews() {
       role: r.role,
       rating: r.rating,
       project: r.project,
+      city: r.city,
+      state: r.state,
       text: r.text,
       featured: r.featured,
       date: r.createdAt,

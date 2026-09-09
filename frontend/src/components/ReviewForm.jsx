@@ -3,6 +3,7 @@ import { PrimaryButton, GhostButton, Eyebrow } from './Atoms'
 import { StarInput } from './Stars'
 import { useSite } from '../content/ContentContext'
 import { api, ApiError } from '../lib/api'
+import { IN_STATES } from '../lib/states'
 
 const input = 'w-full bg-white border border-line rounded-xl px-4 py-3 text-sm focus:border-ink outline-none'
 
@@ -20,7 +21,16 @@ function Field({ label, required, children }) {
 export default function ReviewForm() {
   const site = useSite()
   const brand = site.brand || {}
-  const [form, setForm] = useState({ name: '', role: '', rating: 5, project: '', text: '', website: '' })
+  const [form, setForm] = useState({
+    name: '',
+    role: '',
+    rating: 5,
+    project: '',
+    city: '',
+    state: '',
+    text: '',
+    website: '',
+  })
   const [status, setStatus] = useState('idle')
   const [error, setError] = useState('')
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }))
@@ -74,6 +84,20 @@ export default function ReviewForm() {
       <Field label="Which project / work is this about?">
         <input className={input} value={form.project} onChange={set('project')} placeholder="Optional" />
       </Field>
+
+      <div className="grid sm:grid-cols-2 gap-5">
+        <Field label="Your city">
+          <input className={input} value={form.city} onChange={set('city')} placeholder="e.g. Rampur" />
+        </Field>
+        <Field label="Your state">
+          <select className={input} value={form.state} onChange={set('state')}>
+            <option value="">Select a state</option>
+            {IN_STATES.map((s) => (
+              <option key={s}>{s}</option>
+            ))}
+          </select>
+        </Field>
+      </div>
 
       <Field label="Your review" required>
         <textarea

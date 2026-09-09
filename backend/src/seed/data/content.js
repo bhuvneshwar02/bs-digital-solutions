@@ -752,46 +752,9 @@ export const coreValues = [
   { title: 'Small requests matter too', description: 'A Gmail account setup gets the same care as a full web application.' },
 ]
 
-// Sample approved reviews so the wall isn't empty on first deploy.
-// Real ones come in through the public form → Admin → Reviews.
-export const reviews = [
-  {
-    name: 'Event Organising Committee',
-    role: 'MCE Snehada Milana',
-    rating: 5,
-    project: 'Alumni reunion registration platform',
-    text: 'The registration site was ready well before our deadline and held up fine even when everyone signed up in the last two days. Exactly what an alumni committee needed.',
-    status: 'approved',
-    featured: true,
-  },
-  {
-    name: 'Temple Trust',
-    role: 'Panchwati Hanuman Mandir',
-    rating: 5,
-    project: 'Temple website',
-    text: 'He understood the tone we needed for a temple website — respectful, simple, nothing flashy — and delivered exactly that. Devotees abroad can now follow events and timings easily.',
-    status: 'approved',
-    featured: true,
-  },
-  {
-    name: 'Management',
-    role: 'Dheeraj Singh Consultancy',
-    rating: 5,
-    project: 'Student services portal',
-    text: 'Our consultancy portal has made day-to-day student enquiries far easier to track than the old system ever did. Support after launch has been prompt too.',
-    status: 'approved',
-    featured: false,
-  },
-  {
-    name: 'Kiran Kumar',
-    role: 'Photographer',
-    rating: 5,
-    project: 'Portfolio website',
-    text: 'Clean, fast and exactly the premium look I wanted for my photography work. Easy to send to brands and agencies.',
-    status: 'approved',
-    featured: false,
-  },
-]
+// No seeded reviews — all reviews are real, submitted through /reviews and
+// approved by an admin.
+export const reviews = []
 
 export const jobs = [
   {

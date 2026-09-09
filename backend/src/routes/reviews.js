@@ -24,6 +24,8 @@ const publicShape = (r) => ({
   role: r.role,
   rating: r.rating,
   project: r.project,
+  city: r.city,
+  state: r.state,
   text: r.text,
   featured: r.featured,
   date: r.createdAt,
@@ -45,6 +47,7 @@ router.post('/', limiter, async (req, res, next) => {
         data.role && `Role: ${data.role}`,
         `Rating: ${data.rating}/5`,
         data.project && `Project: ${data.project}`,
+        (data.city || data.state) && `Location: ${[data.city, data.state].filter(Boolean).join(', ')}`,
         '',
         data.text,
         '',
@@ -101,6 +104,8 @@ router.patch('/admin/:id', requireAuth, async (req, res, next) => {
     }
     if (req.body?.featured !== undefined) patch.featured = !!req.body.featured
     if (typeof req.body?.text === 'string') patch.text = req.body.text.slice(0, 2000)
+    if (typeof req.body?.city === 'string') patch.city = req.body.city.slice(0, 80)
+    if (typeof req.body?.state === 'string') patch.state = req.body.state.slice(0, 80)
     const doc = await Review.findByIdAndUpdate(req.params.id, patch, { new: true })
     if (!doc) throw new ApiError(404, 'Review not found')
     res.json(doc)

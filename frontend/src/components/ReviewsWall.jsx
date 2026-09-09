@@ -33,7 +33,7 @@ function ReviewCard({ r, i, dark }) {
         <span className="min-w-0">
           <span className="font-display text-sm font-semibold block truncate">{r.name}</span>
           <span className={`font-mono text-[10px] uppercase tracking-wider block truncate ${dark ? 'text-white/40' : 'text-slate'}`}>
-            {[r.role, r.project].filter(Boolean).join(' · ')}
+            {[r.role, r.project, [r.city, r.state].filter(Boolean).join(', ')].filter(Boolean).join(' · ')}
           </span>
         </span>
       </footer>

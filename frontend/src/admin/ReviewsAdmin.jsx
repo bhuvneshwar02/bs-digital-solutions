@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { adminApi } from './lib/adminApi'
-import { Card, Badge, EmptyState, Button, Field, Input, Textarea } from './ui'
+import { Card, Badge, EmptyState, Button, Field, Input, Textarea, inputClass } from './ui'
 import { Stars, StarInput } from '../components/Stars'
+import { IN_STATES } from '../lib/states'
 
 const tones = { pending: 'amber', approved: 'green', rejected: 'red' }
-const blank = { name: '', role: '', rating: 5, project: '', text: '' }
+const blank = { name: '', role: '', rating: 5, project: '', city: '', state: '', text: '' }
 
 export default function ReviewsAdmin() {
   const [rows, setRows] = useState([])
@@ -66,6 +67,17 @@ export default function ReviewsAdmin() {
           <Field label="Rating">
             <StarInput value={form.rating} onChange={(rating) => setForm({ ...form, rating })} />
           </Field>
+          <Field label="City">
+            <Input value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} placeholder="Optional" />
+          </Field>
+          <Field label="State">
+            <select className={inputClass} value={form.state} onChange={(e) => setForm({ ...form, state: e.target.value })}>
+              <option value="">—</option>
+              {IN_STATES.map((s) => (
+                <option key={s}>{s}</option>
+              ))}
+            </select>
+          </Field>
           <Field label="Review" >
             <Textarea rows={3} value={form.text} onChange={(e) => setForm({ ...form, text: e.target.value })} required />
           </Field>
@@ -105,7 +117,9 @@ export default function ReviewsAdmin() {
                   <Badge tone={tones[r.status]}>{r.status}</Badge>
                   {r.featured && <Badge tone="amber">featured</Badge>}
                 </div>
-                <p className="text-sm text-slate mt-0.5">{[r.role, r.project].filter(Boolean).join(' · ')}</p>
+                <p className="text-sm text-slate mt-0.5">
+                  {[r.role, r.project, [r.city, r.state].filter(Boolean).join(', ')].filter(Boolean).join(' · ')}
+                </p>
               </div>
               <span className="font-mono text-[10px] text-slate/60 shrink-0">
                 {new Date(r.createdAt).toLocaleString('en-IN')}

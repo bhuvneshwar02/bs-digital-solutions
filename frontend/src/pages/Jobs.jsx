@@ -193,7 +193,7 @@ export default function Jobs() {
                 <h3 className="font-display font-semibold text-ink">{p.jobTitle}</h3>
                 <div className="flex flex-wrap gap-2 mt-2">
                   {p.company && <Tag>{p.company}</Tag>}
-                  <Tag>{p.location}</Tag>
+                  <Tag>{[p.location, p.city, p.state].filter(Boolean).join(', ')}</Tag>
                   <Tag>{p.workMode}</Tag>
                 </div>
                 <p className="text-sm text-slate leading-relaxed mt-3 line-clamp-4">{p.description}</p>

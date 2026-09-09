@@ -66,16 +66,18 @@ export default function JobBoardInbox() {
                 </div>
                 <p className="text-sm text-slate mt-0.5">
                   {p.company ? `${p.company} · ` : ''}
-                  {p.location} · {p.workMode}
+                  {[p.location, p.city, p.state].filter(Boolean).join(', ')} · {p.workMode}
                   {p.budget ? ` · ${p.budget}` : ''}
                 </p>
                 <p className="text-sm text-slate mt-0.5">
-                  {p.posterName} —{' '}
+                  <span className="font-semibold text-ink/70">{p.posterName}</span> —{' '}
                   <a href={`mailto:${p.posterEmail}`} className="hover:underline">
                     {p.posterEmail}
                   </a>
                   {p.posterPhone ? ` · ${p.posterPhone}` : ''}
+                  {p.posterOrg ? ` · ${p.posterOrg}` : ''}
                 </p>
+                {p.posterAddress && <p className="text-sm text-slate/80 mt-0.5">{p.posterAddress}</p>}
               </div>
               <span className="font-mono text-[10px] text-slate/60 shrink-0">
                 {new Date(p.createdAt).toLocaleString('en-IN')}

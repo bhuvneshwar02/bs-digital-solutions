@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { PrimaryButton, GhostButton, Eyebrow } from './Atoms'
 import { useSite } from '../content/ContentContext'
 import { api, ApiError } from '../lib/api'
+import { IN_STATES } from '../lib/states'
 
 const input = 'w-full bg-white border border-line rounded-xl px-4 py-3 text-sm focus:border-ink outline-none'
 const modes = ['On-site', 'Remote', 'Hybrid']
@@ -24,12 +25,16 @@ export default function JobBoardForm() {
     jobTitle: '',
     company: '',
     location: '',
+    city: '',
+    state: '',
     workMode: 'On-site',
     budget: '',
     description: '',
     posterName: '',
     posterEmail: '',
     posterPhone: '',
+    posterOrg: '',
+    posterAddress: '',
     website: '', // honeypot
   })
   const [status, setStatus] = useState('idle')
@@ -55,7 +60,7 @@ export default function JobBoardForm() {
         <Eyebrow>Submitted for review</Eyebrow>
         <h3 className="font-display text-xl font-semibold mt-3">Thanks — your job post is in the queue.</h3>
         <p className="text-sm text-slate leading-relaxed mt-2">
-          Every post is checked before it goes live (usually within a day) to keep the board free of spam. You&apos;ll
+          Every post is checked and the poster&apos;s details verified before it goes live (usually within a day). You&apos;ll
           hear from anyone interested by email.
         </p>
         <GhostButton to="/jobs" className="mt-6">
@@ -66,51 +71,81 @@ export default function JobBoardForm() {
   }
 
   return (
-    <form onSubmit={submit} className="flex flex-col gap-5">
-      <div className="grid sm:grid-cols-2 gap-5">
-        <Field label="Job / project title" required>
-          <input required className={input} value={form.jobTitle} onChange={set('jobTitle')} placeholder="e.g. Need a website for my shop" />
+    <form onSubmit={submit} className="flex flex-col gap-6">
+      <fieldset className="flex flex-col gap-5">
+        <legend className="font-mono text-[11px] uppercase tracking-widest text-teal mb-1">The job</legend>
+        <div className="grid sm:grid-cols-2 gap-5">
+          <Field label="Job / project title" required>
+            <input required className={input} value={form.jobTitle} onChange={set('jobTitle')} placeholder="e.g. Need a website for my shop" />
+          </Field>
+          <Field label="Business name">
+            <input className={input} value={form.company} onChange={set('company')} placeholder="Optional" />
+          </Field>
+        </div>
+        <div className="grid sm:grid-cols-3 gap-5">
+          <Field label="Area / locality" required>
+            <input required className={input} value={form.location} onChange={set('location')} placeholder={`e.g. ${areas.split(',')[0]}`} />
+          </Field>
+          <Field label="City" required>
+            <input required className={input} value={form.city} onChange={set('city')} placeholder="e.g. Rampur" />
+          </Field>
+          <Field label="State" required>
+            <select required className={input} value={form.state} onChange={set('state')}>
+              <option value="">Select a state</option>
+              {IN_STATES.map((s) => (
+                <option key={s}>{s}</option>
+              ))}
+            </select>
+          </Field>
+        </div>
+        <div className="grid sm:grid-cols-2 gap-5">
+          <Field label="Work mode">
+            <select className={input} value={form.workMode} onChange={set('workMode')}>
+              {modes.map((m) => (
+                <option key={m}>{m}</option>
+              ))}
+            </select>
+          </Field>
+          <Field label="Budget / pay">
+            <input className={input} value={form.budget} onChange={set('budget')} placeholder="Optional" />
+          </Field>
+        </div>
+        <Field label="Describe the job" required>
+          <textarea
+            required
+            rows={5}
+            className={`${input} resize-none`}
+            value={form.description}
+            onChange={set('description')}
+            placeholder="What needs doing, any deadline, skills required…"
+          />
         </Field>
-        <Field label="Business / your name">
-          <input className={input} value={form.company} onChange={set('company')} placeholder="Optional" />
+      </fieldset>
+
+      <fieldset className="flex flex-col gap-5 border-t border-line pt-6">
+        <legend className="font-mono text-[11px] uppercase tracking-widest text-teal mb-1">
+          Your details (verified by admin — not shown publicly except your email)
+        </legend>
+        <div className="grid sm:grid-cols-2 gap-5">
+          <Field label="Your full name" required>
+            <input required minLength={2} className={input} value={form.posterName} onChange={set('posterName')} />
+          </Field>
+          <Field label="Your email" required>
+            <input required type="email" className={input} value={form.posterEmail} onChange={set('posterEmail')} placeholder="you@email.com" />
+          </Field>
+        </div>
+        <div className="grid sm:grid-cols-2 gap-5">
+          <Field label="Your phone" required>
+            <input required type="tel" className={input} value={form.posterPhone} onChange={set('posterPhone')} placeholder="+91 …" />
+          </Field>
+          <Field label="Organisation / role">
+            <input className={input} value={form.posterOrg} onChange={set('posterOrg')} placeholder="Optional" />
+          </Field>
+        </div>
+        <Field label="Address">
+          <input className={input} value={form.posterAddress} onChange={set('posterAddress')} placeholder="Optional — helps verification" />
         </Field>
-      </div>
-      <div className="grid sm:grid-cols-[1.4fr_0.9fr_1fr] gap-5">
-        <Field label="Location" required>
-          <input required className={input} value={form.location} onChange={set('location')} placeholder={`e.g. ${areas.split(',')[0]}`} />
-        </Field>
-        <Field label="Work mode">
-          <select className={input} value={form.workMode} onChange={set('workMode')}>
-            {modes.map((m) => (
-              <option key={m}>{m}</option>
-            ))}
-          </select>
-        </Field>
-        <Field label="Budget / pay">
-          <input className={input} value={form.budget} onChange={set('budget')} placeholder="Optional" />
-        </Field>
-      </div>
-      <Field label="Describe the job" required>
-        <textarea
-          required
-          rows={5}
-          className={`${input} resize-none`}
-          value={form.description}
-          onChange={set('description')}
-          placeholder="What needs doing, any deadline, skills required…"
-        />
-      </Field>
-      <div className="grid sm:grid-cols-3 gap-5">
-        <Field label="Your name" required>
-          <input required className={input} value={form.posterName} onChange={set('posterName')} />
-        </Field>
-        <Field label="Your email" required>
-          <input required type="email" className={input} value={form.posterEmail} onChange={set('posterEmail')} placeholder="you@email.com" />
-        </Field>
-        <Field label="Your phone">
-          <input className={input} value={form.posterPhone} onChange={set('posterPhone')} placeholder="+91" />
-        </Field>
-      </div>
+      </fieldset>
 
       <input
         type="text"
@@ -132,7 +167,8 @@ export default function JobBoardForm() {
         </PrimaryButton>
       </div>
       <p className="font-mono text-[11px] text-slate">
-        Free to post. Reviewed before it goes live. Your email is shown to people who want to apply.
+        Free to post. Your details are verified and the post approved by an admin before it appears. Only your email is
+        shown publicly, to people who want to apply.
       </p>
     </form>
   )
