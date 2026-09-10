@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>How bsinnovationsolutions.com Was Built</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm 20mm 16mm; }
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: "Segoe UI", -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1b2233; line-height: 1.55; font-size: 10.5pt; margin: 0;
+  }
+  h1, h2, h3, h4 { font-family: "Segoe UI Semibold", "Segoe UI", Arial, sans-serif; color: #12172B; line-height: 1.25; }
+  h1 { font-size: 24pt; margin: 0 0 4pt; }
+  h2 {
+    font-size: 15pt; margin: 26pt 0 8pt; padding-bottom: 4pt;
+    border-bottom: 2px solid #F2A93B; page-break-after: avoid;
+  }
+  h3 { font-size: 12pt; margin: 16pt 0 4pt; page-break-after: avoid; }
+  h4 { font-size: 10.5pt; margin: 12pt 0 2pt; color: #17917E; page-break-after: avoid; }
+  p { margin: 0 0 7pt; }
+  ul, ol { margin: 0 0 8pt; padding-left: 18pt; }
+  li { margin: 0 0 3pt; }
+  code { font-family: "Cascadia Mono", Consolas, "Courier New", monospace; font-size: 9pt; background: #f3f2ec; padding: 1px 4px; border-radius: 3px; }
+  pre { background: #12172B; color: #eef0e6; padding: 10pt 12pt; border-radius: 6px; font-family: "Cascadia Mono", Consolas, monospace; font-size: 8.5pt; line-height: 1.5; overflow: hidden; white-space: pre-wrap; }
+  table { width: 100%; border-collapse: collapse; margin: 6pt 0 12pt; font-size: 9.5pt; }
+  th, td { text-align: left; vertical-align: top; padding: 5pt 8pt; border: 1px solid #dcdbcf; }
+  th { background: #12172B; color: #fff; font-weight: 600; }
+  tr:nth-child(even) td { background: #f7f6f0; }
+  .lead { font-size: 11pt; color: #5B6472; margin-bottom: 2pt; }
+  .tag { display: inline-block; background: #17917E; color: #fff; font-size: 8pt; letter-spacing: .5px; text-transform: uppercase; padding: 2px 7px; border-radius: 10px; vertical-align: middle; }
+  .callout { background: #fbf4e6; border-left: 3px solid #F2A93B; padding: 8pt 12pt; margin: 8pt 0 12pt; border-radius: 0 4px 4px 0; }
+  .callout p:last-child { margin-bottom: 0; }
+  .plain { background: #eef6f4; border-left: 3px solid #17917E; padding: 8pt 12pt; margin: 8pt 0 12pt; border-radius: 0 4px 4px 0; }
+  .plain p:last-child, .plain b + span { margin-bottom: 0; }
+  .cover { border-bottom: 3px solid #12172B; padding-bottom: 14pt; margin-bottom: 6pt; }
+  .cover .mono { font-family: "Cascadia Mono", Consolas, monospace; color: #5B6472; font-size: 9.5pt; }
+  .toc { columns: 2; column-gap: 24pt; font-size: 9.5pt; margin: 8pt 0 0; }
+  .toc ol { padding-left: 16pt; }
+  .section { page-break-inside: auto; }
+  h2, h3 { break-after: avoid-page; }
+  .avoid-break { page-break-inside: avoid; }
+  .diagram {
+    font-family: "Cascadia Mono", Consolas, monospace; font-size: 8pt; line-height: 1.4;
+    background: #f3f2ec; border: 1px solid #dcdbcf; border-radius: 6px; padding: 10pt; white-space: pre; overflow: hidden;
+  }
+  footer { margin-top: 30pt; padding-top: 8pt; border-top: 1px solid #dcdbcf; font-size: 8.5pt; color: #8A93A2; }
+  .pagebreak { page-break-before: always; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <p class="lead">Technical Overview &amp; Explainer</p>
+  <h1>How <span style="color:#D98E1F">bsinnovationsolutions.com</span> Was Built</h1>
+  <p class="mono">BS Innovation Solutions &nbsp;·&nbsp; Bhuvneshwar Sharma &nbsp;·&nbsp; Full‑stack web application &nbsp;·&nbsp; Prepared September 2026</p>
+</div>
+
+<p>This document explains, in plain language and in technical detail, how the website
+<b>bsinnovationsolutions.com</b> is built and how every part of it works. It is written so that a
+non‑technical reader can follow the ideas, and a technical reader (a client's IT team, a
+recruiter, another developer) gets the exact stack and architecture.</p>
+
+<div class="plain avoid-break">
+  <p><b>The one‑paragraph version.</b> This is not a template or a WordPress site. It is a custom
+  <b>full‑stack web application</b>. The part visitors see is built with <b>React</b> (JavaScript).
+  The content — every heading, service, project, price and review — lives in a <b>MongoDB database</b>
+  and is served by a custom <b>Node.js / Express API</b>. There is a password‑protected <b>admin panel</b>
+  where the whole site can be edited without touching code. The site is hosted in three pieces:
+  the visible site on <b>Hostinger</b>, the API on <b>Render</b>, and the database on <b>MongoDB Atlas</b>.</p>
+</div>
+
+<h3>Contents</h3>
+<div class="toc">
+<ol>
+  <li>What the website is</li>
+  <li>The technology stack at a glance</li>
+  <li>How the pieces fit together</li>
+  <li>The front‑end (what visitors see)</li>
+  <li>The back‑end (the API)</li>
+  <li>The database</li>
+  <li>The admin panel / CMS</li>
+  <li>Security</li>
+  <li>Search engine optimisation (SEO)</li>
+  <li>Analytics &amp; the visit counter</li>
+  <li>Hosting &amp; deployment</li>
+  <li>How to run and change it</li>
+  <li>Glossary</li>
+</ol>
+</div>
+
+<div class="section">
+<h2>1 &nbsp; What the website is</h2>
+<p>bsinnovationsolutions.com is the online home of <b>BS Innovation Solutions</b>, the freelance
+practice of <b>Bhuvneshwar Sharma</b> — a freelance full‑stack web, app and AI developer based in
+Rampur, Uttar Pradesh, working remotely across India and worldwide.</p>
+<p>The site is a marketing and lead‑generation website with a full content‑management system behind it. It has:</p>
+<ul>
+  <li><b>Public pages</b> — Home, About, Services (17 individual service pages), Portfolio (project case studies), Pricing, Blog, Reviews, Gallery, a community Job Board, and Contact.</li>
+  <li><b>Interactive features</b> — a contact form, two application forms (start a project / work with me), a public "leave a review" form with admin moderation, a public "post a job" board with poster‑identity verification, a floating WhatsApp button, and a floating review button.</li>
+  <li><b>A private admin panel</b> at <code>/admin</code> where every word, image, price, service and review on the site is edited, and where all form submissions arrive.</li>
+</ul>
+<div class="plain">
+  <p><b>In plain terms:</b> think of it as two apps that talk to each other. One is the public website.
+  The other is a private control room (the admin panel). The control room writes to a database; the
+  public website reads from that same database. Change something in the control room, and it appears
+  on the live site.</p>
+</div>
+</div>
+
+<div class="section">
+<h2>2 &nbsp; The technology stack at a glance</h2>
+
+<h4>Languages</h4>
+<table>
+  <tr><th>Language</th><th>Where it is used</th><th>Why</th></tr>
+  <tr><td><b>JavaScript</b> (ES2022, "ESM" modules)</td><td>Everything — the entire front‑end and the entire back‑end</td><td>One language across the whole project; huge ecosystem; the standard for this kind of app</td></tr>
+  <tr><td><b>JSX</b></td><td>Front‑end — React's HTML‑in‑JavaScript syntax for building the interface</td><td>Lets the UI be written as reusable components</td></tr>
+  <tr><td><b>HTML5</b></td><td>The single <code>index.html</code> shell, plus structured‑data and meta tags</td><td>The page skeleton the browser loads first</td></tr>
+  <tr><td><b>CSS3</b> (via Tailwind)</td><td>Front‑end styling</td><td>All visual design — colours, layout, spacing, animations</td></tr>
+  <tr><td><b>JSON</b></td><td>The format the front‑end and back‑end use to exchange data; also config files</td><td>Lightweight, universal data format</td></tr>
+</table>
+<p style="font-size:9pt;color:#5B6472;margin-top:-4pt">No PHP, no WordPress, no page‑builder. No TypeScript — plain JavaScript with strict linting instead.</p>
+
+<h4>Front‑end (the part that runs in the visitor's browser)</h4>
+<table>
+  <tr><th>Tool</th><th>Version</th><th>Role</th></tr>
+  <tr><td><b>React</b></td><td>19</td><td>The library that builds and updates the user interface</td></tr>
+  <tr><td><b>React Router</b></td><td>7</td><td>Handles moving between pages without a full reload (a "single‑page app")</td></tr>
+  <tr><td><b>Vite</b> (with Rolldown)</td><td>8</td><td>The build tool — bundles and optimises the code for production</td></tr>
+  <tr><td><b>Tailwind CSS</b></td><td>4</td><td>The styling system — utility classes instead of hand‑written CSS files</td></tr>
+  <tr><td><b>Framer Motion</b></td><td>13</td><td>Animations (fades, slides, the scrolling reviews row)</td></tr>
+  <tr><td><b>oxlint</b></td><td>1</td><td>Code‑quality checker, run before every build</td></tr>
+  <tr><td><b>sharp</b></td><td>0.35</td><td>Generates the favicon / app‑icon image files from one source</td></tr>
+</table>
+
+<h4>Back‑end (the API server)</h4>
+<table>
+  <tr><th>Tool</th><th>Version</th><th>Role</th></tr>
+  <tr><td><b>Node.js</b></td><td>20+</td><td>Runs JavaScript on the server</td></tr>
+  <tr><td><b>Express</b></td><td>4</td><td>The web‑server framework — defines the API endpoints (URLs the front‑end calls)</td></tr>
+  <tr><td><b>MongoDB</b> + <b>Mongoose</b></td><td>8 (driver)</td><td>The database and the library used to define its data shapes and talk to it</td></tr>
+  <tr><td><b>JSON Web Tokens</b> (jsonwebtoken)</td><td>9</td><td>Admin login sessions</td></tr>
+  <tr><td><b>bcryptjs</b></td><td>2</td><td>One‑way password hashing (passwords are never stored in readable form)</td></tr>
+  <tr><td><b>Zod</b></td><td>3</td><td>Validates every piece of data sent to the API before it is trusted</td></tr>
+  <tr><td><b>Helmet, express‑rate‑limit, hpp, express‑mongo‑sanitize</b></td><td>—</td><td>Security middleware (see section 8)</td></tr>
+  <tr><td><b>Resend</b></td><td>API</td><td>Sends email notifications when a form is submitted or an account is locked</td></tr>
+  <tr><td><b>slugify</b></td><td>1</td><td>Turns titles like "Business Websites" into clean URLs like <code>/services/business-websites</code></td></tr>
+</table>
+
+<h4>Hosting &amp; infrastructure</h4>
+<table>
+  <tr><th>Service</th><th>What it hosts</th></tr>
+  <tr><td><b>Hostinger</b></td><td>The built front‑end (static files) served from <code>bsinnovationsolutions.com</code></td></tr>
+  <tr><td><b>Render</b></td><td>The Node.js / Express API at <code>bsinnovationsolutions.onrender.com</code></td></tr>
+  <tr><td><b>MongoDB Atlas</b></td><td>The cloud database (free M0 cluster)</td></tr>
+  <tr><td><b>GitHub</b></td><td>The source code repository (version control)</td></tr>
+  <tr><td><b>Google Analytics 4</b></td><td>Visitor analytics</td></tr>
+  <tr><td><b>GoDaddy</b></td><td>The domain name registration</td></tr>
+</table>
+</div>
+
+<div class="section pagebreak">
+<h2>3 &nbsp; How the pieces fit together</h2>
+
+<div class="diagram">
+                        ┌───────────────────────────────┐
+                        │        VISITOR'S BROWSER       │
+                        │   React app (HTML/CSS/JS)      │
+                        └───────────────┬───────────────┘
+                                        │  HTTPS request for data
+                                        │  GET /api/bootstrap
+                                        ▼
+   Hostinger                    Render (Node + Express API)
+   serves the ────────────►     ┌──────────────────────────┐
+   built React files            │  Routes → Validation      │
+   (bsinnovationsolutions.com)   │  Auth (JWT) → Controllers │
+                                 └────────────┬─────────────┘
+                                              │  Mongoose queries
+                                              ▼
+                                 MongoDB Atlas  (the database)
+                                 ┌──────────────────────────┐
+                                 │ site settings, services,  │
+                                 │ projects, blog, pricing,  │
+                                 │ reviews, job posts,       │
+                                 │ form submissions, users   │
+                                 └──────────────────────────┘
+</div>
+
+<h3>The request flow, step by step</h3>
+<ol>
+  <li>A visitor opens <b>bsinnovationsolutions.com</b>. Hostinger sends back <code>index.html</code> and the JavaScript bundle.</li>
+  <li>The React app starts in the browser. It immediately calls the API once: <code>GET /api/bootstrap</code>.</li>
+  <li>The Render API receives that call, reads all the site content from MongoDB Atlas in one go, and returns it as JSON.</li>
+  <li>React renders the pages using that content. Moving between pages after that is instant — no page reloads.</li>
+  <li>When a visitor submits a form, React sends the data to the API (e.g. <code>POST /api/contact</code>). The API validates it, saves it to the database, and emails a notification.</li>
+  <li>The site owner logs into <code>/admin</code>, which is the same React app in a different mode. It talks to the protected <code>/api/admin/*</code> endpoints to edit content and read submissions.</li>
+</ol>
+
+<div class="callout avoid-break">
+  <p><b>Why split it into three services?</b> Each piece can be hosted where it is cheapest and best:
+  static files are free and fast on Hostinger; the API needs a real server, which Render provides;
+  the database is a managed, backed‑up cloud service. They are joined only by web addresses and a
+  shared secret, so any one can be moved or upgraded without rewriting the others.</p>
+</div>
+
+<h3>The "always works" safety net</h3>
+<p>The front‑end ships with a bundled copy of the site's content built into it. If the API is ever
+slow or unreachable (for example, Render's free tier "sleeps" after 15 minutes of no traffic and
+takes ~30 seconds to wake), the site still renders instantly from that built‑in copy and then
+quietly refreshes with live data once the API responds. The visitor never sees a broken page.</p>
+</div>
+
+<div class="section">
+<h2>4 &nbsp; The front‑end — what visitors see</h2>
+
+<h3>It is a "single‑page application" (SPA)</h3>
+<p>The browser loads one HTML file. React then draws every page and swaps content in and out as the
+visitor navigates, using <b>React Router</b> for the URLs. This makes navigation feel instant.</p>
+
+<h3>Built from reusable components</h3>
+<p>The interface is assembled from small building blocks in <code>src/components/</code> (Navbar,
+Footer, Logo, buttons, the reviews row, forms…) and page files in <code>src/pages/</code> (Home,
+About, Services…). A component is written once and reused everywhere.</p>
+
+<h3>Code‑splitting for speed</h3>
+<p>Vite splits the app into ~25 small files. The browser only downloads the code for the page being
+viewed. The first load is roughly <b>130&nbsp;KB compressed</b>; the rarely‑changing parts (React
+itself, the animation library) are cached separately so repeat visits are near‑instant.</p>
+
+<h3>How content reaches the page</h3>
+<p>A single component, <code>ContentProvider</code>, fetches <code>/api/bootstrap</code> once when the
+app starts and makes the result available to every page through a hook called <code>useContent()</code>.
+Pages never hard‑code their text — they read it from this shared content. That is what lets the admin
+panel control everything.</p>
+
+<h3>Styling</h3>
+<p>All visual design is done with <b>Tailwind CSS</b> utility classes directly in the components, with
+a small custom theme (the navy <code>#12172B</code>, marigold <code>#F2A93B</code> and teal
+<code>#17917E</code> brand colours, and the Space Grotesk / Inter / JetBrains Mono fonts). Animations
+use <b>Framer Motion</b>.</p>
+
+<h3>Other front‑end details</h3>
+<ul>
+  <li><b>Metadata per page</b> — React 19 places the correct <code>&lt;title&gt;</code> and description tags in the page head for each route, for SEO and link previews.</li>
+  <li><b>Scroll handling</b> — every navigation returns to the top of the page; a reload no longer restores an old scroll position.</li>
+  <li><b>The "BS" logo</b> is drawn in code as an SVG (scalable vector), so it is crisp at any size and used everywhere including the browser‑tab icon.</li>
+</ul>
+</div>
+
+<div class="section pagebreak">
+<h2>5 &nbsp; The back‑end — the API</h2>
+
+<p>The back‑end is a <b>Node.js</b> program using the <b>Express</b> framework. It is a "REST API":
+a set of web addresses (endpoints) that return or accept JSON data. It never sends HTML — only data.</p>
+
+<h3>Main endpoint groups</h3>
+<table>
+  <tr><th>Path</th><th>Access</th><th>Purpose</th></tr>
+  <tr><td><code>/api/health</code></td><td>public</td><td>A simple "I'm alive" check used by Render</td></tr>
+  <tr><td><code>/api/bootstrap</code>, <code>/api/site</code>, <code>/api/services</code> …</td><td>public, read‑only</td><td>All the content the public site displays</td></tr>
+  <tr><td><code>/api/contact</code>, <code>/api/applications</code>, <code>/api/job-board</code>, <code>/api/reviews</code></td><td>public, write</td><td>Receive form submissions; rate‑limited and validated</td></tr>
+  <tr><td><code>/api/auth/login</code>, <code>/api/auth/me</code>, <code>/api/auth/change-password</code></td><td>public / token</td><td>Admin login and session</td></tr>
+  <tr><td><code>/api/admin/*</code></td><td>token required</td><td>Create / edit / delete all content; read every submission; manage users</td></tr>
+  <tr><td><code>/api/metrics/hit</code></td><td>public</td><td>Increments the visit counter shown in the footer</td></tr>
+</table>
+
+<h3>The "generic CRUD" design — the clever part</h3>
+<p>Rather than writing near‑identical create/read/update/delete code for services, projects, blog
+posts, pricing, FAQs and so on, the back‑end has <b>one</b> reusable CRUD router driven by a
+<b>registry</b> (<code>src/routes/registry.js</code>). The registry lists each content type, its
+database model, and its validation rules. Adding a new content type is a few lines in the registry
+plus a matching form definition on the front‑end — no new endpoint code.</p>
+
+<div class="plain avoid-break">
+  <p><b>Plain version:</b> the developer wrote the "edit any list of things" machinery once, then
+  fed it a list of what kinds of things exist. Services, projects, blog posts and the rest all run
+  through the same tested code.</p>
+</div>
+
+<h3>Request handling pipeline</h3>
+<ol>
+  <li><b>Security middleware</b> — Helmet sets protective headers; the request is checked against rate limits; suspicious database characters are stripped; duplicated parameters are collapsed.</li>
+  <li><b>CORS check</b> — only the real website's address is allowed to call the API from a browser.</li>
+  <li><b>Validation</b> — every field is checked with a <b>Zod</b> schema (correct type, length limits, allowed values). Bad data is rejected with a clear message before anything is saved.</li>
+  <li><b>Authentication</b> (admin routes only) — the request must carry a valid, unexpired login token.</li>
+  <li><b>Controller</b> — the actual work: read or write the database via Mongoose.</li>
+  <li><b>Central error handler</b> — turns any failure into a clean JSON error with the right status code; never leaks internal details.</li>
+</ol>
+</div>
+
+<div class="section">
+<h2>6 &nbsp; The database</h2>
+<p>The database is <b>MongoDB</b> — a "document" database that stores records as JSON‑like objects.
+<b>Mongoose</b> defines the shape of each collection in <code>src/models/index.js</code>. The main
+collections:</p>
+<table>
+  <tr><th>Collection</th><th>Holds</th></tr>
+  <tr><td><b>SiteSettings</b> (one document)</td><td>Brand name, contact details, social links, navigation, hero text, "hire me" block, About text, footer, SEO defaults</td></tr>
+  <tr><td><b>Service</b>, <b>Project</b>, <b>BlogPost</b></td><td>The 17 services, portfolio case studies, and blog articles — each with its own URL slug</td></tr>
+  <tr><td><b>PricingPlan</b>, <b>PricingAddon</b>, <b>Faq</b>, <b>ProcessStep</b>, <b>Testimonial</b>, <b>TechItem</b>, <b>TimelineItem</b>, <b>CoreValue</b>, <b>GalleryItem</b>, <b>ServiceCategory</b></td><td>The smaller content lists shown across the site</td></tr>
+  <tr><td><b>Review</b></td><td>Visitor‑submitted reviews, each with a status: <code>pending</code> → <code>approved</code> / <code>rejected</code></td></tr>
+  <tr><td><b>JobPost</b></td><td>Community job‑board submissions with full poster identity, moderated before publishing</td></tr>
+  <tr><td><b>ContactMessage</b>, <b>Application</b></td><td>Every contact enquiry and project/collaborator application</td></tr>
+  <tr><td><b>User</b></td><td>Admin accounts — name, email, hashed password, role (<code>admin</code> or <code>editor</code>), lockout state</td></tr>
+  <tr><td><b>Metric</b></td><td>The running total of site visits</td></tr>
+</table>
+<p>Every content record also carries an <code>order</code> number and a <code>published</code> flag,
+so the admin can reorder items or hide them without deleting.</p>
+
+<h3>Seeding</h3>
+<p>A script (<code>npm run seed</code>) fills a fresh database with the starting content and creates
+the first admin account. It is safe to re‑run: it only adds what is missing and never overwrites
+content that has been edited in the admin panel.</p>
+</div>
+
+<div class="section pagebreak">
+<h2>7 &nbsp; The admin panel / CMS</h2>
+<p>At <code>bsinnovationsolutions.com/admin</code> is a password‑protected control panel. It is part
+of the same React app, loaded only when needed. From it the owner can:</p>
+<ul>
+  <li>Edit <b>every</b> piece of text and every image on the public site — brand details, navigation, hero, services, projects, pricing, blog, FAQs, gallery, SEO settings.</li>
+  <li>Reorder or hide any item; add or remove services, projects and posts.</li>
+  <li>Read every <b>contact message</b>, <b>project application</b> and <b>collaborator application</b>.</li>
+  <li>Moderate <b>reviews</b> — approve, reject, feature, or edit — so only genuine, approved reviews appear publicly.</li>
+  <li>Moderate <b>job‑board posts</b> — verify the poster's identity before the post goes live.</li>
+  <li>Manage <b>users</b> (admin only): add editors, change roles, unlock a locked account.</li>
+  <li>Change their own password.</li>
+</ul>
+<p>Editors can manage content; only admins can manage users, site settings and deletions. The last
+remaining admin cannot be demoted or deleted.</p>
+</div>
+
+<div class="section">
+<h2>8 &nbsp; Security</h2>
+<table>
+  <tr><th>Area</th><th>Protection</th></tr>
+  <tr><td>Passwords</td><td>Hashed with <b>bcrypt</b> (cost 12) — never stored or logged in readable form. Minimum 10 characters.</td></tr>
+  <tr><td>Admin sessions</td><td><b>JSON Web Tokens</b>, 7‑day expiry, signed with a 32+ character secret. Changing a password instantly invalidates every existing token.</td></tr>
+  <tr><td>Brute‑force login</td><td>3 failed attempts locks that account for 24 hours (rejects even the correct password) and emails the owner. Plus a per‑IP limit of 10 attempts / 15 minutes.</td></tr>
+  <tr><td>Account enumeration</td><td>Login takes the same time whether the email exists or not — attackers cannot discover valid accounts.</td></tr>
+  <tr><td>Input validation</td><td>Every request body is checked by a <b>Zod</b> schema with strict type and length limits before use.</td></tr>
+  <tr><td>Database injection</td><td><code>express-mongo-sanitize</code> strips operator characters; Mongoose runs in strict mode.</td></tr>
+  <tr><td>HTTP headers</td><td><b>Helmet</b> on the API; a strict <b>Content‑Security‑Policy</b>, HSTS, <code>X-Frame-Options: DENY</code> and more on the website (via <code>.htaccess</code>).</td></tr>
+  <tr><td>Rate limiting</td><td>Global 400 requests / 15 min per IP, with tighter limits on login, contact, applications and the job board.</td></tr>
+  <tr><td>CORS</td><td>The API only accepts browser calls from the real website's domain.</td></tr>
+  <tr><td>Spam</td><td>Hidden "honeypot" fields on every public form catch automated bots.</td></tr>
+  <tr><td>Production guardrails</td><td>The API refuses to start in production if the security secrets are missing or weak.</td></tr>
+  <tr><td>Secrets</td><td>All keys and passwords live in environment variables, never in the source code or Git history.</td></tr>
+</table>
+</div>
+
+<div class="section pagebreak">
+<h2>9 &nbsp; Search engine optimisation (SEO)</h2>
+<ul>
+  <li><b>Per‑page titles and descriptions</b> written around what people actually search for, leading with "Freelancer" / "Freelance developer".</li>
+  <li><b>Structured data (Schema.org / JSON‑LD)</b> on every page: a <code>Person</code> (Bhuvneshwar Sharma), a <code>ProfessionalService</code> (the business), a <code>WebSite</code>, <code>BreadcrumbList</code> trails, <code>BlogPosting</code> on articles, <code>Service</code> on service pages, and an <code>AggregateRating</code> that appears once real reviews exist. The About page carries a <code>ProfilePage</code> so a search for the owner's name resolves to this site.</li>
+  <li><b>Local signals</b> — service areas (Rampur, Milak, Moradabad, Bareilly, Uttar Pradesh, India) and geo meta tags.</li>
+  <li><b>Sitemap</b> — regenerated on every build from the live database; currently ~47 URLs including every service, project and blog post.</li>
+  <li><b>robots.txt</b> naming Googlebot and Bingbot explicitly, pointing to the sitemap.</li>
+  <li><b>Performance</b> — sub‑second loads, which is itself a ranking factor.</li>
+  <li><b>IndexNow</b> — a script (<code>npm run indexnow</code>) that instantly notifies Bing / Yandex when content changes.</li>
+  <li><b>Blog</b> — articles targeting real buyer questions (cost of a website, hiring a freelancer, whether to use AI), which is the main long‑term organic‑traffic engine.</li>
+</ul>
+<div class="callout">
+  <p><b>Note on ranking:</b> on‑page SEO is necessary but not sufficient. A new domain also needs to be
+  registered in Google Search Console, submitted, and earn links from other sites (LinkedIn, GitHub,
+  Freelancer.com, directories) before it ranks for competitive terms. That is an ongoing, off‑site effort.</p>
+</div>
+</div>
+
+<div class="section">
+<h2>10 &nbsp; Analytics &amp; the visit counter</h2>
+<p><b>Google Analytics 4</b> is loaded only in the production build (measurement ID
+<code>G‑09RTYSGNW0</code>). It reports a page view on every navigation, so the owner can see traffic,
+sources and popular pages in real time.</p>
+<p>Separately, a lightweight <b>visit counter</b> lives in the database. Each browser is counted once
+per session via <code>POST /api/metrics/hit</code>; the running total is shown in the bottom‑right of
+the site footer.</p>
+</div>
+
+<div class="section">
+<h2>11 &nbsp; Hosting &amp; deployment</h2>
+<h4>Front‑end → Hostinger</h4>
+<ol>
+  <li>On the developer's machine: <code>npm run build</code>. Vite regenerates the sitemap, checks code quality, and produces a <code>dist/</code> folder of optimised static files with the API address baked in.</li>
+  <li>The contents of <code>dist/</code> (including a <code>.htaccess</code> file for routing and security headers) are uploaded to Hostinger's <code>public_html/</code>.</li>
+</ol>
+<h4>Back‑end → Render</h4>
+<p>Render is connected to the GitHub repository. Every push to the <code>main</code> branch
+automatically redeploys the API. Configuration (database URL, secrets, email keys) is set as
+environment variables in the Render dashboard. A blueprint file (<code>render.yaml</code>) records
+the setup.</p>
+<h4>Database → MongoDB Atlas</h4>
+<p>A managed cloud cluster. The API connects using a connection string kept in Render's environment
+variables. Atlas handles backups and availability.</p>
+<h4>Source control → GitHub</h4>
+<p>All code is in one repository (<code>github.com/bhuvneshwar02/bsinnovationsolutions</code>) with
+<code>frontend/</code> and <code>backend/</code> folders. Every change is a commit with a message
+explaining what and why.</p>
+</div>
+
+<div class="section pagebreak">
+<h2>12 &nbsp; How to run and change it</h2>
+<h4>Run locally</h4>
+<pre>cd backend   &amp;&amp;  npm install  &amp;&amp;  npm run dev     # API on http://localhost:4000
+cd frontend  &amp;&amp;  npm install  &amp;&amp;  npm run dev     # site on http://localhost:5173</pre>
+<h4>Common operations</h4>
+<table>
+  <tr><th>Task</th><th>Command / action</th></tr>
+  <tr><td>Edit site content</td><td>Log in at <code>/admin</code> — no code needed</td></tr>
+  <tr><td>Load starting content into a database</td><td><code>cd backend &amp;&amp; npm run seed</code></td></tr>
+  <tr><td>Unlock a locked admin account</td><td><code>cd backend &amp;&amp; npm run unlock -- &lt;email&gt;</code></td></tr>
+  <tr><td>Rebuild the public site</td><td><code>cd frontend &amp;&amp; npm run build</code>, then upload <code>dist/</code></td></tr>
+  <tr><td>Notify Bing of new content</td><td><code>cd frontend &amp;&amp; npm run indexnow</code></td></tr>
+  <tr><td>Deploy the API</td><td><code>git push</code> — Render redeploys automatically</td></tr>
+</table>
+<h4>Add a new page or content type</h4>
+<p>Add its model in <code>backend/src/models/index.js</code>, register it in
+<code>backend/src/routes/registry.js</code> with a Zod schema, add a matching form definition in
+<code>frontend/src/admin/schemas.js</code>, and (if it needs a public page) a component in
+<code>frontend/src/pages/</code> with a route in <code>frontend/src/App.jsx</code>. The generic CRUD
+system handles the rest.</p>
+</div>
+
+<div class="section">
+<h2>13 &nbsp; Glossary</h2>
+<table>
+  <tr><th>Term</th><th>Meaning</th></tr>
+  <tr><td>Front‑end</td><td>The part of the app that runs in the visitor's web browser — what you see and click.</td></tr>
+  <tr><td>Back‑end</td><td>The program running on a server that the front‑end talks to for data and logic.</td></tr>
+  <tr><td>API</td><td>"Application Programming Interface" — a set of URLs the front‑end calls to get or send data.</td></tr>
+  <tr><td>REST / endpoint</td><td>A common style of API; an endpoint is one such URL, e.g. <code>/api/services</code>.</td></tr>
+  <tr><td>React</td><td>A JavaScript library for building user interfaces out of reusable components.</td></tr>
+  <tr><td>SPA</td><td>"Single‑Page Application" — the browser loads one page and JavaScript swaps content without full reloads.</td></tr>
+  <tr><td>Component</td><td>A reusable, self‑contained piece of interface (a button, a card, a form).</td></tr>
+  <tr><td>Vite</td><td>The build tool that bundles and optimises the front‑end code for production.</td></tr>
+  <tr><td>Tailwind CSS</td><td>A styling system using small utility classes instead of separate CSS files.</td></tr>
+  <tr><td>Node.js</td><td>Software that lets JavaScript run on a server instead of only in a browser.</td></tr>
+  <tr><td>Express</td><td>A minimal framework for building web servers and APIs in Node.js.</td></tr>
+  <tr><td>MongoDB</td><td>A database that stores records as flexible JSON‑like documents.</td></tr>
+  <tr><td>Mongoose</td><td>A library that defines the shape of MongoDB data and provides a clean way to query it.</td></tr>
+  <tr><td>JWT</td><td>"JSON Web Token" — a signed token proving a user is logged in, sent with each request.</td></tr>
+  <tr><td>bcrypt</td><td>A one‑way hashing algorithm for storing passwords securely.</td></tr>
+  <tr><td>Zod</td><td>A library that checks incoming data matches an expected shape and rules.</td></tr>
+  <tr><td>CORS</td><td>A browser security rule controlling which websites may call an API.</td></tr>
+  <tr><td>CMS</td><td>"Content Management System" — here, the custom admin panel for editing the site.</td></tr>
+  <tr><td>CRUD</td><td>Create, Read, Update, Delete — the four basic data operations.</td></tr>
+  <tr><td>Slug</td><td>The clean, readable part of a URL, e.g. <code>business-websites</code>.</td></tr>
+  <tr><td>Structured data / Schema.org</td><td>Hidden, standardised tags that tell search engines exactly what a page is about.</td></tr>
+  <tr><td>Sitemap</td><td>A file listing every page, so search engines can find them all.</td></tr>
+  <tr><td>Environment variable</td><td>A configuration value (like a secret key) supplied to a program by its host, kept out of the code.</td></tr>
+  <tr><td>Git / commit / repository</td><td>Version‑control system; a commit is one saved change; the repository is the full history.</td></tr>
+  <tr><td>Deploy</td><td>Publish a new version of the code to the live servers.</td></tr>
+</table>
+</div>
+
+<footer>
+  BS Innovation Solutions — bsinnovationsolutions.com — Full‑stack web application (React 19 · Node/Express · MongoDB).
+  This document describes the system as of September 2026. Exact library versions are pinned in the project's <code>package.json</code> files.
+</footer>
+
+</body>
+</html>
