@@ -1,0 +1,14 @@
+{
+  "name": "BS Innovation Solutions",
+  "short_name": "BS Innovation",
+  "description": "Freelance web, app and AI developer — Bhuvneshwar Sharma.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#12172B",
+  "theme_color": "#12172B",
+  "icons": [
+    { "src": "/favicon-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/favicon-512x512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/favicon-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

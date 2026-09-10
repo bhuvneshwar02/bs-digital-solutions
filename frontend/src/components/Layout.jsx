@@ -5,6 +5,7 @@ import Footer from './Footer'
 import WhatsAppFloat from './WhatsAppFloat'
 import ReviewFloat from './ReviewFloat'
 import StructuredData from './StructuredData'
+import Analytics from './Analytics'
 
 function PageFallback() {
   return (
@@ -18,6 +19,7 @@ export default function Layout() {
   return (
     <div className="min-h-screen flex flex-col">
       <StructuredData />
+      <Analytics />
       <Navbar />
       <main className="flex-1">
         <Suspense fallback={<PageFallback />}>

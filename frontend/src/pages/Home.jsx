@@ -5,7 +5,7 @@ import { SectionHeading, StatusTag, PrimaryButton, GhostButton } from '../compon
 import { CTASection, HireMe, Commitments } from '../components/PageParts'
 import Seo from '../components/Seo'
 import DevIllustration from '../components/DevIllustration'
-import ReviewsWall from '../components/ReviewsWall'
+import ReviewsMarquee from '../components/ReviewsMarquee'
 import { Stars } from '../components/Stars'
 import { useContent, useSite } from '../content/ContentContext'
 
@@ -265,8 +265,8 @@ export default function Home() {
                 Read all · leave a review
               </GhostButton>
             </div>
-            <ReviewsWall reviews={reviews.items} dark limit={6} />
           </div>
+          <ReviewsMarquee reviews={reviews.items} dark limit={12} />
         </section>
       )}
 

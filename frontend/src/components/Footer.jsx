@@ -14,7 +14,7 @@ const pages = [
 
 export default function Footer() {
   const site = useSite()
-  const { services, portfolio } = useContent()
+  const { services, portfolio, visits } = useContent()
   const brand = site.brand || {}
 
   const socials = [
@@ -111,10 +111,17 @@ export default function Footer() {
             </Link>
           </div>
         </div>
-        <p className="font-mono text-[11px] text-white/30 mt-6">
-          © {new Date().getFullYear()} {brand.name || 'BS Innovation Solutions'}. Founded by{' '}
-          {brand.founder || 'Bhuvneshwar Sharma'}. All rights reserved.
-        </p>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mt-6">
+          <p className="font-mono text-[11px] text-white/30">
+            © {new Date().getFullYear()} {brand.name || 'BS Innovation Solutions'}. Founded by{' '}
+            {brand.founder || 'Bhuvneshwar Sharma'}. All rights reserved.
+          </p>
+          {typeof visits === 'number' && visits > 0 && (
+            <p className="font-mono text-[11px] text-white/30 sm:text-right" title="Total visits to this site">
+              {visits.toLocaleString('en-IN')} visits
+            </p>
+          )}
+        </div>
       </div>
     </footer>
   )

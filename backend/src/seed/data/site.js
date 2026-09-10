@@ -52,7 +52,7 @@ export const siteSettings = {
   ],
   hero: {
     statusText: 'Available for new projects — freelance, remote, worldwide',
-    titleLead: 'Digital work, done properly —',
+    titleLead: 'Freelance digital work, done properly —',
     titleAccent: 'websites, apps, AI and everything in between.',
     description:
       "BS Innovation Solutions is a one-person full-stack studio run by Bhuvneshwar Sharma. From a business website to an AI chatbot to setting up your first Gmail account for work — if it's digital, it's within scope.",
@@ -91,10 +91,10 @@ export const siteSettings = {
   footerBlurb:
     'Helping businesses, institutions and everyday people get their digital work done — websites, web apps, AI tools and the small digital chores in between.',
   seo: {
-    title: 'Freelance Web, App & AI Developer — BS Innovation Solutions',
+    title: 'Freelancer for Websites, Apps & AI — Hire Bhuvneshwar Sharma | BS Innovation Solutions',
     description:
-      'Hire Bhuvneshwar Sharma — a freelance full-stack web, app and AI developer in Rampur, Uttar Pradesh, serving Milak, Moradabad, Bareilly and clients across India and worldwide. Business websites, e-commerce, admin dashboards, AI chatbots and SEO at a fixed price, no hidden charges.',
-    ogTitle: 'Freelance Web, App & AI Developer — BS Innovation Solutions',
+      'Looking for a freelancer? Hire Bhuvneshwar Sharma — a freelance full-stack web, app and AI developer in Rampur, Uttar Pradesh, serving Moradabad, Bareilly, Milak and clients across India and worldwide. Business websites, e-commerce, admin dashboards, AI chatbots and SEO at a fixed price, no hidden charges.',
+    ogTitle: 'Freelancer for Websites, Apps & AI — Hire Bhuvneshwar Sharma',
     ogDescription:
       'Looking for a freelancer? Bhuvneshwar Sharma builds websites, web apps and AI tools end-to-end — fixed price, delivered on time, remote across India and worldwide.',
     // Areas targeted for local SEO (structured data + Jobs page copy).

@@ -381,3 +381,16 @@ const contactMessageSchema = new Schema(
   opts,
 )
 export const ContactMessage = model('ContactMessage', contactMessageSchema)
+
+/* ------------------------------------------------------------------ */
+/*  Metrics (singleton counters, e.g. total site visits)              */
+/* ------------------------------------------------------------------ */
+
+const metricSchema = new Schema(
+  {
+    key: { type: String, required: true, unique: true },
+    count: { type: Number, default: 0 },
+  },
+  { timestamps: true },
+)
+export const Metric = model('Metric', metricSchema)

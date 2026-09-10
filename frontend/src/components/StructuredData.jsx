@@ -18,9 +18,9 @@ export default function StructuredData() {
     '@type': 'Person',
     '@id': `${origin}/#bhuvneshwar`,
     name: brand.founder || 'Bhuvneshwar Sharma',
-    jobTitle: 'Freelance Full-Stack & AI Developer',
+    jobTitle: ['Freelancer', 'Freelance Full-Stack & AI Developer', 'Freelance Web Developer'],
     description:
-      'Freelance web, app and AI developer available for hire — business websites, web apps, e-commerce, AI chatbots and SEO.',
+      'Freelancer and freelance web, app and AI developer available for hire — business websites, web apps, e-commerce, AI chatbots and SEO.',
     url: origin,
     email: brand.email || undefined,
     telephone: brand.phone || undefined,

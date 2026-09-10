@@ -135,6 +135,24 @@ async function seedSettings() {
     existing.seo = { ...(existing.seo?.toObject?.() ?? existing.seo ?? {}), serviceAreas: siteSettings.seo.serviceAreas }
     touched += 1
   }
+  // One-time refresh of the SEO title/description if they still match the
+  // previous default (owner hasn't customised them in the admin panel).
+  const legacySeoTitles = ['Freelance Web, App & AI Developer — BS Innovation Solutions']
+  if (legacySeoTitles.includes(existing.seo?.title)) {
+    existing.seo = {
+      ...(existing.seo?.toObject?.() ?? existing.seo ?? {}),
+      title: siteSettings.seo.title,
+      description: siteSettings.seo.description,
+      ogTitle: siteSettings.seo.ogTitle,
+      ogDescription: siteSettings.seo.ogDescription,
+    }
+    touched += 1
+  }
+  if (existing.hero?.titleLead === 'Digital work, done properly —') {
+    existing.hero.titleLead = siteSettings.hero.titleLead
+    existing.markModified('hero')
+    touched += 1
+  }
   // Reset nav to the canonical primary set only if it still matches a known older
   // default (i.e. the owner hasn't customised it).
   const legacyNavShapes = [

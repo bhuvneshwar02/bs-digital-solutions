@@ -1,6 +1,12 @@
 import { Router } from 'express'
+import rateLimit from 'express-rate-limit'
 import { collections } from './registry.js'
-import { SiteSettings, Review } from '../models/index.js'
+import { SiteSettings, Review, Metric } from '../models/index.js'
+
+async function visitCount() {
+  const doc = await Metric.findOne({ key: 'visits' })
+  return doc?.count || 0
+}
 
 async function approvedReviews() {
   const rows = await Review.find({ status: 'approved' }).sort({ featured: -1, createdAt: -1 }).limit(60)
@@ -41,6 +47,39 @@ async function settings() {
   return doc
 }
 
+// --- Site visit counter -------------------------------------------------
+// The frontend calls this once per browser session; the number is shown in
+// the footer. Rate-limited so it can't be inflated by a script.
+const visitLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 40,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many requests' },
+})
+
+router.post('/metrics/hit', visitLimiter, async (_req, res, next) => {
+  try {
+    const doc = await Metric.findOneAndUpdate(
+      { key: 'visits' },
+      { $inc: { count: 1 } },
+      { upsert: true, new: true, setDefaultsOnInsert: true },
+    )
+    res.json({ visits: doc.count })
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/metrics', async (_req, res, next) => {
+  try {
+    cache(res)
+    res.json({ visits: await visitCount() })
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.get('/site', async (_req, res, next) => {
   try {
     cache(res)
@@ -79,13 +118,14 @@ for (const [key, cfg] of Object.entries(collections)) {
 // One call that returns everything the site needs to render.
 router.get('/bootstrap', async (_req, res, next) => {
   try {
-    const [site, reviews, ...lists] = await Promise.all([
+    const [site, reviews, visits, ...lists] = await Promise.all([
       settings(),
       approvedReviews(),
+      visitCount(),
       ...Object.values(collections).map((cfg) => cfg.Model.find(publishedSort).sort(sortBy).limit(500)),
     ])
     const keys = Object.keys(collections)
-    const payload = { site, reviews }
+    const payload = { site, reviews, visits }
     keys.forEach((key, i) => {
       payload[key] = lists[i]
     })

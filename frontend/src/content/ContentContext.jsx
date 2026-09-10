@@ -14,6 +14,7 @@ function normalize(raw) {
     gallery: raw.gallery || [],
     jobs: raw.jobs || [],
     reviews: raw.reviews || { items: [], count: 0, average: 0 },
+    visits: typeof raw.visits === 'number' ? raw.visits : null,
     pricingPlans: raw['pricing-plans'] || [],
     pricingAddons: raw['pricing-addons'] || [],
     testimonials: raw.testimonials || [],
@@ -49,6 +50,30 @@ export function ContentProvider({ children }) {
     return () => {
       cancelled = true
     }
+  }, [])
+
+  // Count this visit once per browser session, then keep the live number.
+  useEffect(() => {
+    let counted = false
+    try {
+      counted = sessionStorage.getItem('bs-visit-counted') === '1'
+    } catch {
+      counted = false
+    }
+    if (counted) return
+    api
+      .post('/metrics/hit')
+      .then((r) => {
+        try {
+          sessionStorage.setItem('bs-visit-counted', '1')
+        } catch {
+          /* private mode — just skip the guard */
+        }
+        if (typeof r?.visits === 'number') {
+          setState((s) => ({ ...s, data: { ...s.data, visits: r.visits } }))
+        }
+      })
+      .catch(() => {})
   }, [])
 
   const value = useMemo(() => state, [state])
