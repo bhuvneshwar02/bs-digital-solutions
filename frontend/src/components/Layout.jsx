@@ -6,6 +6,7 @@ import WhatsAppFloat from './WhatsAppFloat'
 import ReviewFloat from './ReviewFloat'
 import StructuredData from './StructuredData'
 import Analytics from './Analytics'
+import ScrollToTop from './ScrollToTop'
 
 function PageFallback() {
   return (
@@ -18,6 +19,7 @@ function PageFallback() {
 export default function Layout() {
   return (
     <div className="min-h-screen flex flex-col">
+      <ScrollToTop />
       <StructuredData />
       <Analytics />
       <Navbar />

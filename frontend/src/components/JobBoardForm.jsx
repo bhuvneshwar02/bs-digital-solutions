@@ -48,6 +48,7 @@ export default function JobBoardForm() {
     try {
       await api.post('/job-board', form)
       setStatus('sent')
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     } catch (err) {
       setStatus('error')
       setError(err instanceof ApiError ? err.userMessage : 'Something went wrong — please try again.')

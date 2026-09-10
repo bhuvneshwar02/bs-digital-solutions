@@ -65,6 +65,7 @@ export default function ApplicationForm({ kind, job }) {
         ...(isJob && job ? { jobId: job.id || '', jobTitle: job.title || '' } : {}),
       })
       setStatus('sent')
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     } catch (err) {
       setStatus('error')
       setError(err instanceof ApiError ? err.userMessage : 'Something went wrong — please email directly.')

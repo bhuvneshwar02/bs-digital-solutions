@@ -42,6 +42,7 @@ export default function ReviewForm() {
     try {
       await api.post('/reviews', form)
       setStatus('sent')
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     } catch (err) {
       setStatus('error')
       setError(err instanceof ApiError ? err.userMessage : 'Something went wrong — please try again.')

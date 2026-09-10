@@ -20,8 +20,8 @@ export default function Footer() {
   const socials = [
     { label: 'LinkedIn', href: brand.linkedin },
     { label: 'GitHub', href: brand.github },
-    { label: 'Instagram · bhuvneshwar02', href: brand.instagram },
-    { label: 'Instagram · bsinnovationsolutions', href: brand.instagramBusiness },
+    { label: 'bhuvneshwar02', href: brand.instagram },
+    { label: 'bsinnovationsolutions', href: brand.instagramBusiness },
     { label: 'Facebook', href: brand.facebook },
     { label: 'Freelancer.com', href: brand.freelancer },
     { label: 'Review on Google ★', href: brand.googleReview },
