@@ -51,7 +51,7 @@ export function Card({ title, actions, children, className = '' }) {
   )
 }
 
-export function Badge({ tone = 'neutral', children }) {
+export function Badge({ tone = 'neutral', children, className = '', title }) {
   const styles = {
     neutral: 'bg-ink/5 text-slate',
     green: 'bg-teal-soft text-teal',
@@ -59,7 +59,10 @@ export function Badge({ tone = 'neutral', children }) {
     red: 'bg-red-50 text-red-700',
   }[tone]
   return (
-    <span className={`inline-flex items-center font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full ${styles}`}>
+    <span
+      title={title}
+      className={`inline-flex items-center font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full ${styles} ${className}`}
+    >
       {children}
     </span>
   )

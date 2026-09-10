@@ -55,6 +55,21 @@ router.put('/:id', async (req, res, next) => {
   }
 })
 
+// Clear a brute-force lock early (another admin can rescue a locked-out user).
+router.post('/:id/unlock', async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id)
+    if (!user) throw new ApiError(404, 'User not found')
+    user.lockedUntil = undefined
+    user.failedLoginAttempts = 0
+    user.lockNotifiedAt = undefined
+    await user.save()
+    res.json(user)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.delete('/:id', async (req, res, next) => {
   try {
     if (String(req.user.id) === req.params.id) {

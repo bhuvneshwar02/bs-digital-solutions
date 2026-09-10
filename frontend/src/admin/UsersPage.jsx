@@ -56,6 +56,17 @@ export default function UsersPage() {
     }
   }
 
+  const unlock = async (u) => {
+    try {
+      await adminApi.unlockUser(u.id)
+      load()
+    } catch (err) {
+      setError(err.message)
+    }
+  }
+
+  const isLocked = (u) => u.lockedUntil && new Date(u.lockedUntil).getTime() > Date.now()
+
   return (
     <div className="flex flex-col gap-6">
       <h1 className="font-display text-2xl font-semibold text-ink">Users & roles</h1>
@@ -124,8 +135,18 @@ export default function UsersPage() {
                   <td className="py-2">{u.email}</td>
                   <td className="py-2">
                     <Badge tone={u.role === 'admin' ? 'amber' : 'neutral'}>{u.role}</Badge>
+                    {isLocked(u) && (
+                      <Badge tone="amber" className="ml-2" title={`Locked until ${new Date(u.lockedUntil).toLocaleString()}`}>
+                        locked
+                      </Badge>
+                    )}
                   </td>
                   <td className="py-2 text-right whitespace-nowrap">
+                    {isLocked(u) && (
+                      <button onClick={() => unlock(u)} className="font-mono text-xs text-teal hover:underline mr-3">
+                        Unlock
+                      </button>
+                    )}
                     <button onClick={() => edit(u)} className="font-mono text-xs hover:underline mr-3">
                       Edit
                     </button>

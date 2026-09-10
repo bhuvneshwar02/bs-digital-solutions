@@ -20,6 +20,7 @@ export const adminApi = {
   listUsers: () => api.get('/admin/users', opts),
   createUser: (body) => api.post('/admin/users', body, opts),
   updateUser: (id, body) => api.put(`/admin/users/${id}`, body, opts),
+  unlockUser: (id) => api.post(`/admin/users/${id}/unlock`, undefined, opts),
   removeUser: (id) => api.del(`/admin/users/${id}`, opts),
 
   // Contact inbox

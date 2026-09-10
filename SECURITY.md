@@ -14,6 +14,7 @@ What's in place, and what you need to do at deploy time.
 | NoSQL injection | `express-mongo-sanitize` strips `$`/`.` from keys; query params coerced to strings; Mongoose `strictQuery` |
 | Parameter pollution | `hpp` collapses duplicated query params |
 | Auth | JWT (HS256) with `iss`/`aud`, 7-day expiry; `bcrypt` cost 12; constant-time login (dummy hash on unknown account → no user enumeration); a password change re-stamps the user and invalidates every existing token |
+| Account lockout | 3 consecutive failed logins lock that account for 24 hours (rejects even the correct password); the account email is notified. Another admin can clear it from **Users & roles**, or run `npm run unlock -- <email>` on the server |
 | Roles | `editor` = content only; `admin` = users, site settings, deletes. Last-admin cannot be demoted or deleted |
 | Passwords | Minimum 10 characters (enforced server-side); new password must differ from current |
 | Image URLs | Only site-relative (`/…`) or `http(s)://` accepted — blocks `javascript:` / `data:` in `<img src>` |

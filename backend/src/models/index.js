@@ -39,6 +39,11 @@ const userSchema = new Schema(
     lastLoginAt: Date,
     // Any token issued before this instant is rejected (see requireAuth).
     passwordChangedAt: Date,
+    // Brute-force protection: after MAX_LOGIN_ATTEMPTS consecutive failures the
+    // account is locked until `lockedUntil`. Reset on any successful login.
+    failedLoginAttempts: { type: Number, default: 0 },
+    lockedUntil: Date,
+    lockNotifiedAt: Date,
   },
   {
     timestamps: true,

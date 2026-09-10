@@ -5,6 +5,7 @@ import { User } from '../models/index.js'
 import { schemas } from '../lib/validate.js'
 import { signToken, requireAuth } from '../middleware/auth.js'
 import { ApiError } from '../middleware/errors.js'
+import { sendMail } from '../lib/mailer.js'
 
 const router = Router()
 
@@ -12,6 +13,12 @@ const router = Router()
 // doesn't exist so login takes ~the same time either way (no user enumeration).
 const DUMMY_HASH = '$2a$12$lYc8gx77/HFYDK6wM8c4yeV5yjeWIRjz6hMYphPk9JS3f674XT0m.'
 
+// After this many consecutive failed attempts the account locks for LOCK_MS.
+const MAX_LOGIN_ATTEMPTS = 3
+const LOCK_MS = 24 * 60 * 60 * 1000
+
+// A coarse network-level cap on top of the per-account lock, so an attacker
+// can't grind many different emails from one host.
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 10,
@@ -20,14 +27,74 @@ const loginLimiter = rateLimit({
   message: { error: 'Too many login attempts — try again in a few minutes' },
 })
 
+function minutesUntil(date) {
+  return Math.max(1, Math.ceil((date.getTime() - Date.now()) / 60000))
+}
+
+async function notifyLock(user, req, lockedUntil) {
+  const when = new Date().toISOString()
+  const ip = req.ip || req.headers['x-forwarded-for'] || 'unknown'
+  const ua = req.headers['user-agent'] || 'unknown'
+  await sendMail({
+    subject: `⚠️ Admin account locked after ${MAX_LOGIN_ATTEMPTS} failed logins — BS Innovation Solutions`,
+    text: [
+      `The admin account "${user.email}" has been locked for 24 hours after ${MAX_LOGIN_ATTEMPTS} failed login attempts.`,
+      ``,
+      `Time:        ${when}`,
+      `IP address:  ${ip}`,
+      `User agent:  ${ua}`,
+      `Locked until: ${lockedUntil.toISOString()}`,
+      ``,
+      `If this was you, wait until the lock expires or reset the account from the database.`,
+      `If it was not you, the password is still safe — but consider changing it once the lock lifts.`,
+    ].join('\n'),
+  })
+}
+
 router.post('/login', loginLimiter, async (req, res, next) => {
   try {
     const { email, password } = schemas.login.parse(req.body)
     const user = await User.findOne({ email: email.toLowerCase() }).select('+passwordHash')
-    const ok = await bcrypt.compare(password, user?.passwordHash || DUMMY_HASH)
-    if (!user || !ok) {
+
+    // Always run a bcrypt compare so timing doesn't reveal whether the account
+    // exists or is locked.
+    const passwordOk = await bcrypt.compare(password, user?.passwordHash || DUMMY_HASH)
+
+    // Account currently locked → refuse without touching the counter.
+    if (user?.lockedUntil && user.lockedUntil.getTime() > Date.now()) {
+      throw new ApiError(
+        429,
+        `Account locked after ${MAX_LOGIN_ATTEMPTS} failed attempts. Try again in about ${minutesUntil(
+          user.lockedUntil,
+        )} minute(s).`,
+      )
+    }
+
+    if (!user || !passwordOk) {
+      if (user) {
+        user.failedLoginAttempts = (user.failedLoginAttempts || 0) + 1
+        if (user.failedLoginAttempts >= MAX_LOGIN_ATTEMPTS) {
+          const lockedUntil = new Date(Date.now() + LOCK_MS)
+          user.lockedUntil = lockedUntil
+          user.failedLoginAttempts = 0
+          user.lockNotifiedAt = new Date()
+          await user.save()
+          // Fire-and-forget: a mail failure must not change the API response.
+          notifyLock(user, req, lockedUntil).catch((e) => console.error('[auth] lock mail failed:', e.message))
+          throw new ApiError(
+            429,
+            `Too many failed attempts — this account is now locked for 24 hours. The account owner has been notified by email.`,
+          )
+        }
+        await user.save()
+      }
       throw new ApiError(401, 'Incorrect email or password')
     }
+
+    // Success — clear any failure state.
+    user.failedLoginAttempts = 0
+    user.lockedUntil = undefined
+    user.lockNotifiedAt = undefined
     user.lastLoginAt = new Date()
     await user.save()
     res.json({ token: signToken(user), user: user.toJSON() })
