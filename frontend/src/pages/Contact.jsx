@@ -197,6 +197,11 @@ export default function Contact() {
             {brand.location && <ContactRow label="Location" value={brand.location} />}
             {brand.linkedin && <ContactRow label="LinkedIn" value="bhuvneshwar02" href={brand.linkedin} />}
             {brand.github && <ContactRow label="GitHub" value="bhuvneshwar02" href={brand.github} />}
+            {brand.instagram && <ContactRow label="Instagram" value="bhuvneshwar02" href={brand.instagram} />}
+            {brand.instagramBusiness && (
+              <ContactRow label="Instagram" value="bsinnovationsolutions" href={brand.instagramBusiness} />
+            )}
+            {brand.freelancer && <ContactRow label="Freelancer.com" value="bhuvneshwar03" href={brand.freelancer} />}
           </div>
 
           {brand.googleReview && (

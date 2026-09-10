@@ -85,6 +85,52 @@ export const blog = [
       'Keep publishing something, even monthly. A single blog post a month, answering a real customer question, does more for long-term ranking than a one-time SEO "setup" that is never touched again.',
     ],
   },
+  {
+    slug: 'how-to-hire-a-freelance-web-developer',
+    tag: 'NOTE-07',
+    title: 'How to Hire a Freelance Web Developer Without Getting Burned',
+    date: '2026-08-24',
+    readTime: '7 min read',
+    excerpt: 'What to check before you pay a freelancer anything — from the first message to the final handover — whether you are in India or hiring remotely from anywhere.',
+    body: [
+      'Hiring a freelance web developer is mostly about de-risking the first two weeks. Most bad experiences do not come from a lack of skill — they come from unclear scope, no written timeline, and a payment structure that leaves all the leverage on one side.',
+      'Start by looking at live work, not a portfolio of screenshots. Ask for two or three URLs you can open right now, on your phone, and check how fast they load and whether they break on a small screen. A developer who builds real, fast, mobile-first sites will have links ready in one message.',
+      'Insist on a written scope and a fixed quote before any work begins. It should list the pages, the features, the number of revision rounds, who provides the content, and what happens if the scope changes mid-project. "We will figure it out as we go" is how projects double in price.',
+      'Structure payment in milestones tied to visible progress — for example a deposit, a payment when the staging link is live and approved, and the balance on launch. Never pay the full amount upfront, and never expect a developer to deliver the full site before any payment.',
+      'Ask who owns the result. You should get the domain in your own account, the code or CMS login, and the hosting under your control. If the site only works while you keep paying one person a monthly "platform fee" with no other option, that is a lock-in, not a service.',
+      'Finally, judge communication in the first 48 hours. Clear questions, a realistic timeline, and honesty about what they would not recommend building are all better signals than a low price. As a freelancer myself, I would rather lose a quote than win it by promising something I know will not hold up.',
+    ],
+  },
+  {
+    slug: 'what-a-freelance-web-developer-costs',
+    tag: 'NOTE-08',
+    title: 'What Should a Freelance Web Developer Cost in 2026?',
+    date: '2026-09-01',
+    readTime: '6 min read',
+    excerpt: 'A transparent look at freelance web development pricing — what a fair rate looks like in India and globally, and why the cheapest quote almost always costs more later.',
+    body: [
+      'Freelance web development pricing varies more by what is being built than by where the freelancer sits. A five-page informational website, a booking system, and a full web application with accounts and payments are three completely different amounts of engineering time, and no single hourly rate captures that.',
+      'For a small business website built by an independent developer in India, a fair one-time range in 2026 is roughly ₹8,000 to ₹40,000 depending on the number of custom page templates, whether it needs a database, and how much original design work is involved. Web applications with logins, dashboards or payment flows start higher because they are genuinely more work to build and test.',
+      'Globally, the same project from a freelancer in a higher-cost market might be two to five times that number — not because the code is different, but because the cost of living behind the rate is. Remote work is exactly why a client anywhere can get agency-quality output at an independent developer\'s rate.',
+      'The cheapest quote is usually the most expensive one over two years. It tends to skip the parts you cannot see on day one: mobile testing, load speed, security updates, clean code that the next developer can actually work with, and a proper handover. Rebuilding a rushed site costs more than building it once.',
+      'A fair quote is a single fixed number, agreed in writing before work starts, with the scope and revision rounds spelled out. If a change is genuinely outside that scope, it is quoted separately — not sprung on you at the end. That is the model I work on: fixed price, no hidden charges, and the timeline in writing.',
+    ],
+  },
+  {
+    slug: 'do-you-need-an-ai-chatbot',
+    tag: 'NOTE-09',
+    title: 'Does Your Business Actually Need an AI Chatbot in 2026?',
+    date: '2026-09-08',
+    readTime: '6 min read',
+    excerpt: 'AI chatbots are the most-requested feature right now. Here is an honest framework for deciding whether one will save you time or just sit on your homepage.',
+    body: [
+      'The question to answer first is not "should we have AI on the site" but "which repetitive task would it remove". If your team answers the same ten questions by email or WhatsApp every week — hours, pricing, coverage area, how to book — a chatbot that answers those from your own information is a genuine time saver.',
+      'The technology that makes this safe is Retrieval-Augmented Generation, usually shortened to RAG. Instead of letting a general AI model guess, the chatbot is restricted to answering from documents you provide — your policies, your FAQ, your product details. It answers correctly from that material, or it says it does not know and hands off to a human.',
+      'A chatbot is a poor fit when your enquiries are all unique, high-value conversations — a custom consulting engagement, a bespoke quote — where a person needs to be involved from the first message anyway. Bolting a bot onto that just adds a step.',
+      'Cost and maintenance are real. A useful chatbot needs its knowledge base kept current; an out-of-date bot confidently giving last year\'s prices is worse than no bot. Budget for the upkeep, not just the build.',
+      'A simple test before committing: write down the five questions you would want it to handle, and how often each one actually comes in. If those five add up to real weekly volume, build it. If the honest answer is "it would look modern," wait until there is a task worth automating.',
+    ],
+  },
 ]
 
 export const getBlogBySlug = (slug) => blog.find((b) => b.slug === slug)

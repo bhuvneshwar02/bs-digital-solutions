@@ -82,7 +82,9 @@ const siteSettingsSchema = new Schema(
       linkedin: { type: String, default: '' },
       github: { type: String, default: '' },
       instagram: { type: String, default: '' },
+      instagramBusiness: { type: String, default: '' },
       facebook: { type: String, default: '' },
+      freelancer: { type: String, default: '' },
     },
     // "Timely delivery / fixed price / no hidden charges" promises.
     commitments: [{ title: String, description: String }],

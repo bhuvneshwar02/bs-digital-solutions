@@ -93,7 +93,7 @@ export default function SiteSettingsPage() {
 
       <Card title="Brand & contact">
         <div className="grid sm:grid-cols-2 gap-4">
-          {['name', 'short', 'tagline', 'founder', 'location', 'domain', 'email', 'phone', 'whatsapp', 'googleReview', 'linkedin', 'github', 'instagram', 'facebook'].map(
+          {['name', 'short', 'tagline', 'founder', 'location', 'domain', 'email', 'phone', 'whatsapp', 'googleReview', 'linkedin', 'github', 'instagram', 'instagramBusiness', 'facebook', 'freelancer'].map(
             (k) => (
               <Field key={k} label={k}>
                 <Input value={brand[k] || ''} onChange={setBrand(k)} disabled={!isAdmin} />

@@ -12,7 +12,14 @@ export default function StructuredData() {
   const origin = `https://${domain}`
   const areas = site.seo?.serviceAreas || ['Rampur', 'Milak', 'Moradabad', 'Bareilly']
 
-  const sameAs = [brand.linkedin, brand.github, brand.instagram, brand.facebook].filter(Boolean)
+  const sameAs = [
+    brand.linkedin,
+    brand.github,
+    brand.instagram,
+    brand.instagramBusiness,
+    brand.facebook,
+    brand.freelancer,
+  ].filter(Boolean)
 
   const person = {
     '@type': 'Person',
@@ -96,7 +103,17 @@ export default function StructuredData() {
     }))
   }
 
-  const graph = { '@context': 'https://schema.org', '@graph': [person, business] }
+  const webSite = {
+    '@type': 'WebSite',
+    '@id': `${origin}/#website`,
+    url: origin,
+    name: brand.name || 'BS Innovation Solutions',
+    inLanguage: 'en',
+    publisher: { '@id': `${origin}/#business` },
+    about: { '@id': `${origin}/#bhuvneshwar` },
+  }
+
+  const graph = { '@context': 'https://schema.org', '@graph': [webSite, person, business] }
 
   const faqLd =
     faqs?.length > 0

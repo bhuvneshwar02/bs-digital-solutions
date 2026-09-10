@@ -23,7 +23,17 @@ export default function PortfolioDetail() {
 
   return (
     <>
-      <Seo title={project.title} description={project.summary} path={`/portfolio/${project.slug}`} image={project.image} />
+      <Seo
+        title={project.title}
+        description={project.summary}
+        path={`/portfolio/${project.slug}`}
+        image={project.image}
+        breadcrumbs={[
+          { name: 'Home', path: '/' },
+          { name: 'Portfolio', path: '/portfolio' },
+          { name: project.title, path: `/portfolio/${project.slug}` },
+        ]}
+      />
       <section className="bg-ink text-paper bp-grid">
         <div className="max-w-5xl mx-auto px-5 sm:px-8 pt-10 pb-16 sm:pt-14 sm:pb-20">
           <Link to="/portfolio" className="font-mono text-[11px] uppercase tracking-wider text-white/50 hover:text-marigold">

@@ -2,4 +2,10 @@ User-agent: *
 Allow: /
 Disallow: /admin
 
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
 Sitemap: https://bsinnovationsolutions.com/sitemap.xml

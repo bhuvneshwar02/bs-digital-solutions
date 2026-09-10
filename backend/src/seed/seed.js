@@ -110,7 +110,7 @@ async function seedSettings() {
   }
   // Backfill only fields that don't exist yet — never overwrite edited values.
   let touched = 0
-  const backfillBrand = ['domain', 'googleReview']
+  const backfillBrand = ['domain', 'googleReview', 'instagram', 'instagramBusiness', 'facebook', 'linkedin', 'github', 'freelancer']
   for (const k of backfillBrand) {
     if (!existing.brand?.[k] && siteSettings.brand[k]) {
       existing.brand[k] = siteSettings.brand[k]

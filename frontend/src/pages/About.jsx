@@ -4,6 +4,7 @@ import { SectionHeading, Eyebrow } from '../components/Atoms'
 import Seo from '../components/Seo'
 import DevIllustration from '../components/DevIllustration'
 import { useContent, useSite } from '../content/ContentContext'
+import { jsonLd } from '../lib/jsonld'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 18 },
@@ -15,14 +16,44 @@ export default function About() {
   const { techStack, timeline, coreValues } = useContent()
   const about = site.about || {}
   const brand = site.brand || {}
+  const founder = brand.founder || 'Bhuvneshwar Sharma'
+  const origin = `https://${(brand.domain || 'bsinnovationsolutions.com').replace(/^https?:\/\//, '').replace(/\/$/, '')}`
+  const sameAs = [brand.linkedin, brand.github, brand.instagram, brand.facebook, brand.freelancer].filter(Boolean)
+
+  // A ProfilePage about the person, so a search for "Bhuvneshwar Sharma"
+  // resolves to this site with the right title and role.
+  const profileLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    dateModified: new Date().toISOString(),
+    mainEntity: {
+      '@type': 'Person',
+      '@id': `${origin}/#bhuvneshwar`,
+      name: founder,
+      alternateName: 'Bhuvneshwar',
+      jobTitle: ['Freelancer', 'Software Developer', 'Freelance Full-Stack & AI Developer'],
+      description: `${founder} is a freelancer and software developer — building websites, web apps and AI tools for clients in India and worldwide through BS Innovation Solutions.`,
+      url: origin,
+      email: brand.email || undefined,
+      worksFor: { '@type': 'Organization', name: brand.name || 'BS Innovation Solutions', url: origin },
+      knowsAbout: ['Web development', 'React', 'Node.js', 'MongoDB', 'AI chatbots', 'RAG applications', 'SEO'],
+      address: { '@type': 'PostalAddress', addressLocality: 'Rampur', addressRegion: 'Uttar Pradesh', addressCountry: 'IN' },
+      sameAs,
+    },
+  }
 
   return (
     <>
       <Seo
-        title="About"
+        title={`${founder} — Freelancer & Software Developer`}
         path="/about"
-        description={about.heroDescription}
+        description={`${founder} is a freelance software developer in Rampur, Uttar Pradesh — building websites, web apps and AI tools for clients across India and worldwide through BS Innovation Solutions. ${about.heroDescription || ''}`.trim()}
+        breadcrumbs={[
+          { name: 'Home', path: '/' },
+          { name: 'About', path: '/about' },
+        ]}
       />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(profileLd) }} />
       <PageHero
         eyebrow={`About ${brand.name || 'BS Innovation Solutions'}`}
         title={about.heroTitle || 'A one-person studio, built like a full team.'}

@@ -270,7 +270,9 @@ const brandSchema = z
     linkedin: z.string().trim().optional(),
     github: z.string().trim().optional(),
     instagram: z.string().trim().optional(),
+    instagramBusiness: z.string().trim().optional(),
     facebook: z.string().trim().optional(),
+    freelancer: z.string().trim().optional(),
   })
   .partial()
 

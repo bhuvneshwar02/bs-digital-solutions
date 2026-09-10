@@ -2,7 +2,8 @@ import { useParams, Link, Navigate } from 'react-router-dom'
 import { Eyebrow } from '../components/Atoms'
 import { CTASection } from '../components/PageParts'
 import Seo from '../components/Seo'
-import { useContent } from '../content/ContentContext'
+import { useContent, useSite } from '../content/ContentContext'
+import { jsonLd } from '../lib/jsonld'
 
 function formatDate(value) {
   if (!value) return ''
@@ -14,6 +15,9 @@ function formatDate(value) {
 export default function BlogDetail() {
   const { slug } = useParams()
   const { blog, loading } = useContent()
+  const site = useSite()
+  const brand = site.brand || {}
+  const origin = `https://${(brand.domain || 'bsinnovationsolutions.com').replace(/^https?:\/\//, '').replace(/\/$/, '')}`
   const post = blog.find((b) => b.slug === slug)
 
   if (!post) {
@@ -23,9 +27,32 @@ export default function BlogDetail() {
 
   const more = blog.filter((b) => b.slug !== post.slug).slice(0, 2)
 
+  const articleLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.excerpt,
+    ...(post.date ? { datePublished: new Date(post.date).toISOString(), dateModified: new Date(post.updatedAt || post.date).toISOString() } : {}),
+    author: { '@type': 'Person', name: brand.founder || 'Bhuvneshwar Sharma', url: origin },
+    publisher: { '@type': 'Organization', name: brand.name || 'BS Innovation Solutions', url: origin },
+    mainEntityOfPage: `${origin}/blog/${post.slug}`,
+    inLanguage: 'en',
+  }
+
   return (
     <>
-      <Seo title={post.title} description={post.excerpt} path={`/blog/${post.slug}`} />
+      <Seo
+        title={post.title}
+        description={post.excerpt}
+        path={`/blog/${post.slug}`}
+        type="article"
+        breadcrumbs={[
+          { name: 'Home', path: '/' },
+          { name: 'Blog', path: '/blog' },
+          { name: post.title, path: `/blog/${post.slug}` },
+        ]}
+      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(articleLd) }} />
       <section className="bg-ink text-paper bp-grid">
         <div className="max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16 sm:pt-14 sm:pb-20">
           <Link to="/blog" className="font-mono text-[11px] uppercase tracking-wider text-white/50 hover:text-marigold">

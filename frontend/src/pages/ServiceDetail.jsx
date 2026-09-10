@@ -5,6 +5,7 @@ import { CTASection } from '../components/PageParts'
 import Seo from '../components/Seo'
 import MediaSlot from '../components/MediaSlot'
 import { useContent, useSite } from '../content/ContentContext'
+import { jsonLd } from '../lib/jsonld'
 
 export default function ServiceDetail() {
   const { slug } = useParams()
@@ -18,11 +19,36 @@ export default function ServiceDetail() {
   }
 
   const whatsapp = site.brand?.whatsapp
+  const brand = site.brand || {}
+  const origin = `https://${(brand.domain || 'bsinnovationsolutions.com').replace(/^https?:\/\//, '').replace(/\/$/, '')}`
+  const areas = site.seo?.serviceAreas || ['Rampur', 'Moradabad', 'Bareilly', 'Uttar Pradesh', 'India']
   const related = services.filter((s) => s.category === service.category && s.slug !== service.slug).slice(0, 3)
+
+  const serviceLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: service.title,
+    description: service.short || service.description,
+    serviceType: service.title,
+    provider: { '@type': 'Person', name: brand.founder || 'Bhuvneshwar Sharma', url: origin },
+    areaServed: [...areas.map((name) => ({ '@type': 'Place', name })), { '@type': 'Place', name: 'Worldwide (remote)' }],
+    url: `${origin}/services/${service.slug}`,
+  }
 
   return (
     <>
-      <Seo title={service.title} description={service.short} path={`/services/${service.slug}`} />
+      <Seo
+        title={service.title}
+        description={service.short}
+        path={`/services/${service.slug}`}
+        image={service.image}
+        breadcrumbs={[
+          { name: 'Home', path: '/' },
+          { name: 'Services', path: '/services' },
+          { name: service.title, path: `/services/${service.slug}` },
+        ]}
+      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(serviceLd) }} />
       <section className="bg-ink text-paper bp-grid">
         <div className="max-w-5xl mx-auto px-5 sm:px-8 pt-10 pb-16 sm:pt-14 sm:pb-20">
           <Link to="/services" className="font-mono text-[11px] uppercase tracking-wider text-white/50 hover:text-marigold">

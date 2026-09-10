@@ -14,7 +14,9 @@ export const siteSettings = {
     linkedin: 'https://linkedin.com/in/bhuvneshwar02',
     github: 'https://github.com/bhuvneshwar02',
     instagram: 'https://instagram.com/bhuvneshwar02',
+    instagramBusiness: 'https://instagram.com/bsinnovationsolutions',
     facebook: 'https://facebook.com/bhuvneshwar02',
+    freelancer: 'https://www.freelancer.com/u/bhuvneshwar03',
   },
   // Primary top-nav only — secondary pages (Pricing, Gallery, Blog…) live in the footer.
   nav: [
