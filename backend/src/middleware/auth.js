@@ -5,12 +5,17 @@ import { ApiError } from './errors.js'
 
 const ISSUER = 'bs-innovation-solutions'
 
+// Admin sessions are capped at 5 minutes: the signed token stops verifying then,
+// so a token lifted from a browser is useless shortly after it was issued. The
+// admin panel enforces the same window client-side.
+export const ADMIN_SESSION_TTL = '5m'
+
 const pwStamp = (user) => (user.passwordChangedAt ? user.passwordChangedAt.getTime() : 0)
 
-export function signToken(user) {
+export function signToken(user, { expiresIn = env.jwtExpiresIn } = {}) {
   return jwt.sign({ role: user.role, pca: pwStamp(user) }, env.jwtSecret, {
     subject: String(user.id ?? user._id),
-    expiresIn: env.jwtExpiresIn,
+    expiresIn,
     issuer: ISSUER,
     audience: ISSUER,
   })

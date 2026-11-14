@@ -320,6 +320,114 @@ export const services = [
     idealFor: ['First-time domain buyers', 'Anyone digitising paper records', 'Non-technical founders and families'],
     timeline: 'Same day – 3 days',
   },
+  {
+    slug: 'content-creation-and-copywriting',
+    category: 'helpdesk',
+    tag: 'HLP-06',
+    title: 'Content Creation & Copywriting',
+    image: '/assets/services/content-creation.svg',
+    short: 'Clear, engaging content for your website, pages, social media and business promotions — written to convert and connect.',
+    description:
+      'I create website copy, service pages, marketing content, business descriptions and social media captions that sound professional and speak directly to your audience. Whether you need page text, product descriptions or a content plan, everything is written with clarity and conversion in mind.',
+    features: [
+      'Website copy and landing page content',
+      'Service descriptions and business profile writing',
+      'Social media captions and promotion content',
+      'Content planning for regular posting',
+    ],
+    idealFor: ['Businesses needing strong website content', 'Founders with limited writing time', 'Brands wanting consistent digital messaging'],
+    timeline: '2–7 days',
+  },
+  {
+    slug: 'social-media-platform-management',
+    category: 'helpdesk',
+    tag: 'HLP-07',
+    title: 'Social Media Platform Handling',
+    image: '/assets/services/social-media.svg',
+    short: 'Set up, maintain and grow your social media presence across the platforms your audience actually uses.',
+    description:
+      'I handle social media platform setup, content planning, posting, page updates and routine engagement support for businesses that want a professional online presence without managing it all themselves. This includes Instagram, Facebook, WhatsApp Business and Google Business Profile coordination as needed.',
+    features: [
+      'Instagram and Facebook page setup / maintenance',
+      'Post planning and content scheduling',
+      'Business profile updates and brand consistency',
+      'WhatsApp Business and listing support',
+    ],
+    idealFor: ['Local businesses', 'Service providers', 'Brands needing consistent online presence'],
+    timeline: 'Monthly retainer',
+  },
+  {
+    slug: 'api-integration-automation',
+    category: 'ai',
+    tag: 'AI-03',
+    title: 'API Integration & Workflow Automation',
+    image: '/assets/services/api.svg',
+    short: 'Connect your website to the tools you already use and automate repetitive digital workflows.',
+    description:
+      'Move information between your website and business tools without repetitive manual work. Integrations are scoped to your existing systems, with clear error handling and a practical handover.',
+    features: [
+      'Connect website forms to email, CRM or spreadsheet workflows',
+      'Integrate supported third-party APIs into web applications',
+      'Automate routine data transfer and notifications',
+      'Document the setup and provide a handover',
+    ],
+    idealFor: ['Small teams handling enquiries manually', 'Businesses with disconnected tools', 'Web apps needing third-party data'],
+    timeline: '3–10 days',
+  },
+  {
+    slug: 'website-speed-optimization',
+    category: 'websites',
+    tag: 'WEB-08',
+    title: 'Website Speed Optimization',
+    image: '/assets/services/speed.svg',
+    short: 'Find and fix common causes of slow page loads on your existing website.',
+    description:
+      'A slow site frustrates visitors and makes it harder to complete tasks. I review the current build, identify the main performance bottlenecks and apply focused improvements without changing the site more than necessary.',
+    features: [
+      'Review page loading performance and identify bottlenecks',
+      'Optimize image sizes and loading behavior',
+      'Reduce unnecessary frontend assets where practical',
+      'Recheck key pages after the changes',
+    ],
+    idealFor: ['Small-business websites', 'Content-heavy sites', 'Sites with slow mobile loading'],
+    timeline: '2–5 days',
+  },
+  {
+    slug: 'website-accessibility-review',
+    category: 'websites',
+    tag: 'WEB-09',
+    title: 'Website Accessibility Review',
+    image: '/assets/services/accessibility.svg',
+    short: 'Improve keyboard access, readable structure and common accessibility issues on your website.',
+    description:
+      'A focused accessibility review can make a site easier to use for more people. I check common interaction and markup issues, then make practical improvements and explain anything that needs further specialist review.',
+    features: [
+      'Check keyboard navigation and visible focus states',
+      'Review headings, labels and alternative text',
+      'Improve common color contrast and form usability issues',
+      'Summarize fixes and remaining limitations',
+    ],
+    idealFor: ['Business and institutional websites', 'Online forms', 'Teams improving inclusive usability'],
+    timeline: '2–5 days',
+  },
+  {
+    slug: 'analytics-conversion-tracking',
+    category: 'commerce',
+    tag: 'COM-04',
+    title: 'Analytics & Conversion Tracking Setup',
+    image: '/assets/services/analytics.svg',
+    short: 'Set up practical website analytics so you can understand visits and enquiry activity.',
+    description:
+      'Analytics is useful when it answers real business questions. I configure an agreed analytics tool, track key actions such as form submissions or calls where supported, and walk you through the reports.',
+    features: [
+      'Configure an agreed website analytics platform',
+      'Track important events such as form submissions',
+      'Check that tracking works on key pages',
+      'Provide a short handover on reading the reports',
+    ],
+    idealFor: ['Businesses measuring enquiry activity', 'Newly launched websites', 'Owners preparing marketing campaigns'],
+    timeline: '1–3 days',
+  },
 ]
 
 export const portfolio = [
@@ -442,6 +550,22 @@ export const portfolio = [
     features: ['Product showcase & categories', 'Modern, simple UI', 'Built for first-time online buyers'],
     stack: ['React', 'Node.js', 'Express', 'MongoDB'],
     link: 'https://atreyaayurvedam.com/grameen-haat',
+  },
+  {
+    slug: 'patel-construction',
+    tag: 'CASE-08',
+    title: 'Patel Construction',
+    category: 'Construction / Business Website',
+    year: '2026',
+    image: '/assets/portfolio/patelconstruction.png',
+    summary: 'A clean construction company website built for trust, service visibility and fast enquiry conversion.',
+    problem:
+      'The construction business needed a professional website that clearly explained services, showcased the brand and made it easy for customers to get in touch without friction.',
+    solution:
+      'A polished service-focused website with project presentation, contact flow, and a responsive layout designed to communicate credibility and convert interest into enquiries.',
+    features: ['Service-based pages', 'Project showcase', 'Lead enquiry flow', 'Mobile-friendly design'],
+    stack: ['React', 'Vite', 'Tailwind CSS'],
+    link: 'https://patelconstruction.org.in',
   },
 ]
 

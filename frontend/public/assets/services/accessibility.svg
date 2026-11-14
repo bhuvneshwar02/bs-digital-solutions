@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-labelledby="title desc">
+  <title id="title">Accessibility review</title>
+  <desc id="desc">Abstract accessibility and usability illustration.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f7f2ff"/>
+      <stop offset="100%" stop-color="#eae4ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="520" fill="url(#bg)"/>
+  <rect x="110" y="130" width="580" height="260" rx="28" fill="#fff" opacity="0.96"/>
+  <rect x="150" y="170" width="180" height="120" rx="22" fill="#5f6fff"/>
+  <circle cx="240" cy="220" r="36" fill="#fff" opacity="0.9"/>
+  <rect x="370" y="180" width="230" height="15" rx="7.5" fill="#e3e1ff"/>
+  <rect x="370" y="215" width="180" height="15" rx="7.5" fill="#e3e1ff"/>
+  <rect x="370" y="250" width="200" height="15" rx="7.5" fill="#e3e1ff"/>
+  <path d="M155 338h490" stroke="#d8d0ff" stroke-width="12" stroke-linecap="round"/>
+  <path d="M150 338l60-56 78 72 82-96 86 86 88-36" fill="none" stroke="#6d58ff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

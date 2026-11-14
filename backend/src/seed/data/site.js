@@ -7,7 +7,7 @@ export const siteSettings = {
     founder: 'Bhuvneshwar Sharma',
     location: 'Rampur, Uttar Pradesh, India',
     domain: 'bsinnovationsolutions.com',
-    email: 'bhuvneshwarsharma44@gmail.com',
+    email: 'bhuvneshwar@bsinnovationsolutions.com',
     phone: '+91 87919 86336',
     whatsapp: '918791986336',
     googleReview: 'https://share.google/55Y7wRwqEJCePCqam',
@@ -55,13 +55,13 @@ export const siteSettings = {
   hero: {
     statusText: 'Available for new projects — freelance, remote, worldwide',
     titleLead: 'Freelance digital work, done properly —',
-    titleAccent: 'websites, apps, AI and everything in between.',
+    titleAccent: 'websites, apps, AI, content and social media in one place.',
     description:
-      "BS Innovation Solutions is a one-person full-stack studio run by Bhuvneshwar Sharma. From a business website to an AI chatbot to setting up your first Gmail account for work — if it's digital, it's within scope.",
+      "BS Innovation Solutions is a one-person full-stack studio run by Bhuvneshwar Sharma. From a business website to an AI chatbot, content writing, social media management and everyday digital support — if it's digital, it's within scope.",
     image: '',
     stats: [
-      { value: '8+', label: 'Live projects shipped' },
-      { value: '12+', label: 'Digital services offered' },
+      { value: '12+', label: 'Projects & builds delivered' },
+      { value: '20+', label: 'Digital services offered' },
       { value: '1–5', label: 'Weeks, typical build' },
     ],
   },
@@ -91,15 +91,17 @@ export const siteSettings = {
     image: '',
   },
   footerBlurb:
-    'Helping businesses, institutions and everyday people get their digital work done — websites, web apps, AI tools and the small digital chores in between.',
+    'Helping businesses, institutions and everyday people get their digital work done — websites, web apps, AI tools, social media support, content creation and the small digital chores in between.',
   seo: {
-    title: 'Freelancer for Websites, Apps & AI — Hire Bhuvneshwar Sharma | BS Innovation Solutions',
+    title: 'Freelancer for Websites, Apps, AI, Content & Social Media — Bhuvneshwar Sharma | BS Innovation Solutions',
     description:
-      'Looking for a freelancer? Hire Bhuvneshwar Sharma — a freelance full-stack web, app and AI developer in Rampur, Uttar Pradesh, serving Moradabad, Bareilly, Milak and clients across India and worldwide. Business websites, e-commerce, admin dashboards, AI chatbots and SEO at a fixed price, no hidden charges.',
-    ogTitle: 'Freelancer for Websites, Apps & AI — Hire Bhuvneshwar Sharma',
+      'Looking for a freelancer? Hire Bhuvneshwar Sharma — a freelance web, app, AI, content and social media expert based in Rampur, Uttar Pradesh, serving Bareilly, Bangalore, Noida and clients across India and worldwide. Business websites, e-commerce, admin dashboards, AI chatbots, content creation and social media management available.',
+    ogTitle: 'Freelancer for Websites, Apps, AI, Content & Social Media — Hire Bhuvneshwar Sharma',
     ogDescription:
-      'Looking for a freelancer? Bhuvneshwar Sharma builds websites, web apps and AI tools end-to-end — fixed price, delivered on time, remote across India and worldwide.',
-    // Areas targeted for local SEO (structured data + Jobs page copy).
-    serviceAreas: ['Rampur', 'Milak', 'Moradabad', 'Bareilly', 'Uttar Pradesh', 'India'],
+      'Looking for a freelancer? Bhuvneshwar Sharma builds websites, web apps, AI tools, content and social media systems for clients in Bareilly, Bangalore, Noida, across India and worldwide.',
+    keywords:
+      'Bhuvneshwar Sharma freelancer, freelance web developer India, website designer Rampur, web developer Bareilly, freelance app developer India, AI developer India, content creator freelancer, social media handler India, best freelancer for website and social media, BS Innovation Solutions portfolio, BS Innovation Solutions website, Bhuvneshwar Sharma portfolio, freelance web designer near me, web developer for small business, AI chatbot developer India, digital marketing freelancer Rampur',
+    // Remote service areas represented in structured data.
+    serviceAreas: ['Rampur', 'Milak', 'Moradabad', 'Bareilly', 'Bangalore', 'Noida', 'Uttar Pradesh', 'India'],
   },
 }

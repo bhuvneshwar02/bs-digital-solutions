@@ -127,11 +127,22 @@ async function seedSettings() {
     existing.brand.phone = siteSettings.brand.phone
     touched += 1
   }
+  if (!existing.brand?.email || existing.brand.email === 'bhuvneshwarsharma44@gmail.com') {
+    existing.brand.email = siteSettings.brand.email
+    touched += 1
+  }
   if (!existing.commitments?.length && siteSettings.commitments?.length) {
     existing.commitments = siteSettings.commitments
     touched += 1
   }
-  if (!existing.seo?.serviceAreas?.length && siteSettings.seo.serviceAreas?.length) {
+  const previousServiceAreas = ['Rampur', 'Milak', 'Moradabad', 'Bareilly', 'Uttar Pradesh', 'India']
+  if (
+    existing.seo?.serviceAreas?.length &&
+    JSON.stringify(existing.seo.serviceAreas) === JSON.stringify(previousServiceAreas)
+  ) {
+    existing.seo.serviceAreas = siteSettings.seo.serviceAreas
+    touched += 1
+  } else if (!existing.seo?.serviceAreas?.length && siteSettings.seo.serviceAreas?.length) {
     existing.seo = { ...(existing.seo?.toObject?.() ?? existing.seo ?? {}), serviceAreas: siteSettings.seo.serviceAreas }
     touched += 1
   }
@@ -148,10 +159,35 @@ async function seedSettings() {
     }
     touched += 1
   }
+  const previousSeoDescription =
+    'Looking for a freelancer? Hire Bhuvneshwar Sharma — a freelance full-stack web, app and AI developer in Rampur, Uttar Pradesh, serving Moradabad, Bareilly, Milak and clients across India and worldwide. Business websites, e-commerce, admin dashboards, AI chatbots and SEO at a fixed price, no hidden charges.'
+  const previousOgDescription =
+    'Looking for a freelancer? Bhuvneshwar Sharma builds websites, web apps and AI tools end-to-end — fixed price, delivered on time, remote across India and worldwide.'
+  if (existing.seo?.description === previousSeoDescription) {
+    existing.seo.description = siteSettings.seo.description
+    touched += 1
+  }
+  if (existing.seo?.ogDescription === previousOgDescription) {
+    existing.seo.ogDescription = siteSettings.seo.ogDescription
+    touched += 1
+  }
   if (existing.hero?.titleLead === 'Digital work, done properly —') {
     existing.hero.titleLead = siteSettings.hero.titleLead
     existing.markModified('hero')
     touched += 1
+  }
+  const legacyStats = [
+    { label: 'Live projects shipped', value: '8+', replacement: siteSettings.hero.stats[0] },
+    { label: 'Digital services offered', value: '12+', replacement: siteSettings.hero.stats[1] },
+  ]
+  for (const stat of legacyStats) {
+    const current = existing.hero?.stats?.find((item) => item.label === stat.label && item.value === stat.value)
+    if (current) {
+      current.value = stat.replacement.value
+      current.label = stat.replacement.label
+      existing.markModified('hero')
+      touched += 1
+    }
   }
   // Reset nav to the canonical primary set only if it still matches a known older
   // default (i.e. the owner hasn't customised it).

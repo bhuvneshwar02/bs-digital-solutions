@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs'
 import rateLimit from 'express-rate-limit'
 import { User } from '../models/index.js'
 import { schemas } from '../lib/validate.js'
-import { signToken, requireAuth } from '../middleware/auth.js'
+import { signToken, requireAuth, ADMIN_SESSION_TTL } from '../middleware/auth.js'
 import { ApiError } from '../middleware/errors.js'
 import { sendMail } from '../lib/mailer.js'
 
@@ -97,7 +97,7 @@ router.post('/login', loginLimiter, async (req, res, next) => {
     user.lockNotifiedAt = undefined
     user.lastLoginAt = new Date()
     await user.save()
-    res.json({ token: signToken(user), user: user.toJSON() })
+    res.json({ token: signToken(user, { expiresIn: ADMIN_SESSION_TTL }), user: user.toJSON() })
   } catch (err) {
     next(err)
   }
@@ -121,7 +121,7 @@ router.post('/change-password', requireAuth, async (req, res, next) => {
     user.passwordChangedAt = new Date()
     await user.save()
     // Issue a fresh token so the current session isn't logged out by its own change.
-    res.json({ ok: true, token: signToken(user) })
+    res.json({ ok: true, token: signToken(user, { expiresIn: ADMIN_SESSION_TTL }) })
   } catch (err) {
     next(err)
   }

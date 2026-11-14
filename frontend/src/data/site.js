@@ -9,7 +9,7 @@ export const brand = {
   founder: 'Bhuvneshwar Sharma',
   location: 'Rampur, Uttar Pradesh, India',
   domain: 'bsinnovationsolutions.com',
-  email: 'bhuvneshwarsharma44@gmail.com',
+  email: 'bhuvneshwar@bsinnovationsolutions.com',
   phone: '+91 87919 86336',
   whatsapp: '918791986336',
   googleReview: 'https://share.google/55Y7wRwqEJCePCqam',
@@ -59,13 +59,13 @@ export const trustedBy = [
 export const hero = {
   statusText: 'Available for new projects — freelance, remote, worldwide',
   titleLead: 'Freelance digital work, done properly —',
-  titleAccent: 'websites, apps, AI and everything in between.',
+  titleAccent: 'websites, apps, AI, content and social media in one place.',
   description:
-    "BS Innovation Solutions is a one-person full-stack studio run by Bhuvneshwar Sharma. From a business website to an AI chatbot to setting up your first Gmail account for work — if it's digital, it's within scope.",
+    "BS Innovation Solutions is a one-person full-stack studio run by Bhuvneshwar Sharma. From a business website to an AI chatbot, content writing, social media management and everyday digital support — if it's digital, it's within scope.",
   image: '',
   stats: [
-    { value: '8+', label: 'Live projects shipped' },
-    { value: '12+', label: 'Digital services offered' },
+    { value: '12+', label: 'Projects & builds delivered' },
+    { value: '20+', label: 'Digital services offered' },
     { value: '1–5', label: 'Weeks, typical build' },
   ],
 }
@@ -98,16 +98,16 @@ export const about = {
 }
 
 export const footerBlurb =
-  'Helping businesses, institutions and everyday people get their digital work done — websites, web apps, AI tools and the small digital chores in between.'
-
+'Helping businesses, institutions and everyday people get their digital work done — websites, web apps, AI tools, social media support, content creation and the small digital chores in between.'
 export const seo = {
-  title: 'Freelancer for Websites, Apps & AI — Hire Bhuvneshwar Sharma | BS Innovation Solutions',
+  title: 'Freelancer for Websites, Apps, AI, Content & Social Media — Bhuvneshwar Sharma | BS Innovation Solutions',
   description:
-    'Looking for a freelancer? Hire Bhuvneshwar Sharma — a freelance full-stack web, app and AI developer in Rampur, Uttar Pradesh, serving Moradabad, Bareilly, Milak and clients across India and worldwide. Business websites, e-commerce, admin dashboards, AI chatbots and SEO at a fixed price, no hidden charges.',
-  ogTitle: 'Freelancer for Websites, Apps & AI — Hire Bhuvneshwar Sharma',
+    'Looking for a freelancer? Hire Bhuvneshwar Sharma — a freelance web, app, AI, content and social media expert based in Rampur, Uttar Pradesh, serving Bareilly, Bangalore, Noida and clients across India and worldwide. Business websites, e-commerce, admin dashboards, AI chatbots, content creation and social media management available.',
+  ogTitle: 'Freelancer for Websites, Apps, AI, Content & Social Media — Hire Bhuvneshwar Sharma',
   ogDescription:
-    'Looking for a freelancer? Bhuvneshwar Sharma builds websites, web apps and AI tools end-to-end — fixed price, delivered on time, remote across India and worldwide.',
-  serviceAreas: ['Rampur', 'Milak', 'Moradabad', 'Bareilly', 'Uttar Pradesh', 'India'],
+    'Looking for a freelancer? Bhuvneshwar Sharma builds websites, web apps, AI tools, content and social media systems for clients in Bareilly, Bangalore, Noida, across India and worldwide.',
+  keywords: 'Bhuvneshwar Sharma freelancer, freelance web developer India, website designer Rampur, web developer Bareilly, freelance app developer India, AI developer India, content creator freelancer, social media handler India, best freelancer for website and social media, BS Innovation Solutions portfolio, BS Innovation Solutions website, Bhuvneshwar Sharma portfolio, freelance web designer near me, web developer for small business, AI chatbot developer India, digital marketing freelancer Rampur',
+  serviceAreas: ['Rampur', 'Milak', 'Moradabad', 'Bareilly', 'Bangalore', 'Noida', 'Uttar Pradesh', 'India'],
 }
 
 export const jobs = [
@@ -124,7 +124,7 @@ export const jobs = [
       'Git, and able to work to a brief with minimal hand-holding',
       'Available for at least one project a month',
     ],
-    compensation: 'Per project — ₹8,000–₹30,000 depending on scope',
+    compensation: 'Per project — ₹8,000–₹30,000 depending on scope; negotiable while discussing the project',
     status: 'open',
   },
   {
@@ -140,7 +140,7 @@ export const jobs = [
       'Reliable internet and 10–15 hours a week',
       'Based in or near Rampur is a plus, not required',
     ],
-    compensation: '₹6,000–₹10,000 / month',
+    compensation: '₹6,000–₹10,000 / month; negotiable while discussing requirements',
     status: 'open',
   },
 ]
@@ -150,15 +150,20 @@ export const jobs = [
 export const reviews = { items: [], count: 0, average: 0 }
 
 export const gallery = [
-  { title: 'MCE Snehada Milana — registration', image: '/assets/portfolio/MCE.png', caption: 'Sample — replace with real screenshot' },
-  { title: 'Atreya Ayurvedam — home', image: '/assets/portfolio/ayurvedic.png', caption: 'Sample — replace with real screenshot' },
-  { title: 'Kiran Kumar — portfolio', image: '/assets/portfolio/kiran-kummar.png', caption: 'Sample — replace with real screenshot' },
-  { title: 'Dheeraj Singh Consultancy — portal', image: '/assets/portfolio/dheeraj-banner.png', caption: 'Sample — replace with real screenshot' },
-  { title: 'Panchwati Hanuman Mandir', image: '/assets/portfolio/hanumanmandir.png', caption: 'Sample — replace with real screenshot' },
-  { title: 'AI Health Assistant', image: '/assets/portfolio/aiHealth.png', caption: 'Sample — replace with real screenshot' },
-  { title: 'Grameen Haat — marketplace', image: '/assets/portfolio/grameen.png', caption: 'Sample — replace with real screenshot' },
-  { title: 'Admin dashboard build', image: '/assets/services/admin.png', caption: 'Sample — replace with real screenshot' },
-  { title: 'E-commerce build', image: '/assets/services/e-commerce.png', caption: 'Sample — replace with real screenshot' },
+  { title: 'MCE Snehada Milana — registration', image: '/assets/portfolio/MCE.png', caption: 'Event registration system and alumni reunion platform' },
+  { title: 'Atreya Ayurvedam — home', image: '/assets/portfolio/ayurvedic.png', caption: 'Healthcare website for trust and appointment enquiries' },
+  { title: 'Kiran Kumar — portfolio', image: '/assets/portfolio/kiran-kummar.png', caption: 'Personal portfolio and commercial photography showcase' },
+  { title: 'Dheeraj Singh Consultancy — portal', image: '/assets/portfolio/dheeraj-banner.png', caption: 'Consultancy portal for enquiries, records and staff workflows' },
+  { title: 'Panchwati Hanuman Mandir', image: '/assets/portfolio/hanumanmandir.png', caption: 'Temple website for seva information, gallery and donations' },
+  { title: 'AI Health Assistant', image: '/assets/portfolio/aiHealth.png', caption: 'AI-powered knowledge assistant for verified answers' },
+  { title: 'Grameen Haat — marketplace', image: '/assets/portfolio/grameen.png', caption: 'Rural marketplace storefront with modern buying experience' },
+  { title: 'Admin dashboard build', image: '/assets/services/admin.png', caption: 'Business dashboard with charts, data tables and CRUD screens' },
+  { title: 'E-commerce build', image: '/assets/services/e-commerce.png', caption: 'Storefront and checkout experience for online selling' },
+{
+    title: 'Patel Construction — project website',
+    image: '/assets/portfolio/patelconstruction.svg',
+    caption: 'Construction company website, service pages and enquiry flow',
+  },
 ]
 
 export const processSteps = [
@@ -217,6 +222,12 @@ export const testimonials = [
     name: 'Management',
     context: 'Dheeraj Singh Consultancy',
   },
+  {
+    quote:
+      'The work was professional, clear and practical — the site looked sharp and the messaging was exactly what our business needed.',
+    name: 'Client',
+    context: 'Patel Construction',
+  },
 ]
 
 export const faqs = [
@@ -261,6 +272,7 @@ export const pricingPlans = [
       'Basic on-page SEO + Google Search Console setup',
       '1 round of revisions',
       '7–10 day delivery',
+      'Price can be negotiated while discussing project scope',
     ],
     highlighted: false,
   },
@@ -279,6 +291,7 @@ export const pricingPlans = [
       '2 rounds of revisions',
       '1 month free support after launch',
       '10–14 day delivery',
+      'Pricing is flexible and can be discussed before finalising',
     ],
     highlighted: true,
   },
@@ -296,6 +309,7 @@ export const pricingPlans = [
       'Payment gateway integration if needed',
       '3 months free maintenance',
       '2–4 week delivery',
+      'Project pricing discussed and adjusted depending on complexity',
     ],
     highlighted: false,
   },
@@ -311,6 +325,7 @@ export const pricingPlans = [
       'Payment gateway & third-party integrations',
       'Dedicated timeline & staging environment',
       'Fixed quote after a short scoping call',
+      'Price can be negotiated while discussing the project details',
     ],
     highlighted: false,
   },

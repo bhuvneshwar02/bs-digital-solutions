@@ -54,5 +54,5 @@ export const env = {
   // Email notifications via Resend (optional — DB storage always happens).
   resendApiKey: process.env.RESEND_API_KEY || '',
   mailFrom: process.env.MAIL_FROM || '',
-  mailTo: process.env.MAIL_TO || process.env.SEED_ADMIN_EMAIL || '',
+  mailTo: process.env.MAIL_TO || 'bhuvneshwar@bsinnovationsolutions.com',
 }

@@ -56,7 +56,7 @@ export const portfolio = [
       'SEO-friendly structure',
     ],
     stack: ['React', 'Vite', 'Tailwind CSS', 'JavaScript'],
-    link: 'https://kirankumar.com',
+    link: 'https://kirankuumar.com',
   },
   {
     slug: 'dheeraj-singh-consultancy',
@@ -88,7 +88,7 @@ export const portfolio = [
       'A React and Vite website presenting temple information, an events calendar, a photo gallery and a donations section, designed with a tone that respects the sanctity of the institution.',
     features: ['Temple information & timings', 'Events calendar', 'Photo gallery', 'Donations section'],
     stack: ['React', 'Vite', 'Tailwind CSS'],
-    link: 'https://panchwatihanumanmandir.onrender.com',
+    link: 'https://panchwatihanumanmandir.in',
   },
   {
     slug: 'ai-health-assistant',
@@ -121,6 +121,22 @@ export const portfolio = [
     features: ['Product showcase & categories', 'Modern, simple UI', 'Built for first-time online buyers'],
     stack: ['React', 'Node.js', 'Express', 'MongoDB'],
     link: 'https://atreyaayurvedam.com/grameen-haat',
+  },
+  {
+    slug: 'patel-construction',
+    tag: 'CASE-08',
+    title: 'Patel Construction',
+    category: 'Construction / Business Website',
+    year: '2026',
+    image: '/assets/portfolio/patelconstruction.svg',
+    summary: 'A clean construction company website built for trust, service visibility and fast enquiry conversion.',
+    problem:
+      'The construction business needed a professional website that clearly explained services, showcased the brand and made it easy for customers to get in touch without friction.',
+    solution:
+      'A polished service-focused website with project presentation, contact flow, and a responsive layout designed to communicate credibility and convert interest into enquiries.',
+    features: ['Service-based pages', 'Project showcase', 'Lead enquiry flow', 'Mobile-friendly design'],
+    stack: ['React', 'Vite', 'Tailwind CSS'],
+    link: 'https://patelconstruction.org.in',
   },
 ]
 

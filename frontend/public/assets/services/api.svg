@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-labelledby="title desc">
+  <title id="title">API integration and automation</title>
+  <desc id="desc">Abstract dashboard showing connected systems and automation.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#eef7ff"/>
+      <stop offset="100%" stop-color="#dfeef5"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="520" fill="url(#bg)"/>
+  <rect x="110" y="110" width="580" height="300" rx="30" fill="#fff" opacity="0.96"/>
+  <rect x="150" y="160" width="150" height="120" rx="18" fill="#1d7ab8"/>
+  <rect x="330" y="160" width="150" height="120" rx="18" fill="#24a4b0"/>
+  <rect x="510" y="160" width="140" height="120" rx="18" fill="#7a9eff"/>
+  <circle cx="225" cy="220" r="28" fill="#fff" opacity="0.9"/>
+  <circle cx="405" cy="220" r="28" fill="#fff" opacity="0.9"/>
+  <circle cx="580" cy="220" r="28" fill="#fff" opacity="0.9"/>
+  <path d="M280 220h52M458 220h52" stroke="#163d63" stroke-width="10" stroke-linecap="round"/>
+  <path d="M220 328h360" stroke="#d7e3f3" stroke-width="12" stroke-linecap="round"/>
+  <path d="M270 356c40-30 75-45 130-45s90 15 130 45" fill="none" stroke="#1d7ab8" stroke-width="10" stroke-linecap="round"/>
+</svg>

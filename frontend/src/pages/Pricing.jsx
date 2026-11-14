@@ -81,6 +81,14 @@ export default function Pricing() {
         description="Every project is a single fixed price you approve upfront. Monthly care and day-to-day operations plans are listed too — prices in INR, GST extra where applicable."
       />
 
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 -mt-6 pb-2">
+        <div className="flex flex-wrap justify-center sm:justify-end">
+          <PrimaryButton href="/assets/BS-Innovation-Solutions-brochure.pdf" className="shadow-sm">
+            Download work & pricing PDF
+          </PrimaryButton>
+        </div>
+      </div>
+
       {/* BUILD PLANS */}
       <section className="max-w-7xl mx-auto px-5 sm:px-8 py-16 sm:py-20">
         <SectionHeading

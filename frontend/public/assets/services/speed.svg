@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-labelledby="title desc">
+  <title id="title">Website speed optimization</title>
+  <desc id="desc">Illustration of speed monitoring and optimization.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f0fbf9"/>
+      <stop offset="100%" stop-color="#dff8f1"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="520" fill="url(#bg)"/>
+  <rect x="120" y="120" width="560" height="280" rx="30" fill="#ffffff" opacity="0.96"/>
+  <path d="M165 318c62-110 120-166 185-166s108 46 169 131" fill="none" stroke="#0e6a64" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="335" cy="242" r="46" fill="#2ac3a9"/>
+  <circle cx="335" cy="242" r="72" fill="none" stroke="#bfeee6" stroke-width="18"/>
+  <rect x="516" y="170" width="110" height="20" rx="10" fill="#d9f7f0"/>
+  <rect x="516" y="210" width="82" height="20" rx="10" fill="#d9f7f0"/>
+  <rect x="516" y="250" width="96" height="20" rx="10" fill="#d9f7f0"/>
+  <path d="M170 330l76 28 52-82 90 84 58-60 66 48" fill="none" stroke="#26aa8a" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -35,6 +35,9 @@ retainer) — set per plan in **Admin → Pricing plans**.
 You need MongoDB running locally (or an Atlas URI).
 
 ```bash
+# From the repository root, start the frontend:
+npm run dev
+
 # 1. API
 cd backend
 npm install

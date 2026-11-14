@@ -3,6 +3,12 @@
 const API_BASE = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '')
 
 const TOKEN_KEY = 'bsis.admin.token'
+const ISSUED_KEY = 'bsis.admin.token.at'
+
+// Hard cap on an admin session: 5 minutes after sign-in the token is dropped and
+// the panel falls back to the login screen, regardless of activity. The backend
+// signs login tokens with the same lifetime, so this is enforced on both ends.
+export const SESSION_TTL_MS = 5 * 60 * 1000
 
 export function getToken() {
   try {
@@ -14,10 +20,28 @@ export function getToken() {
 
 export function setToken(token) {
   try {
-    if (token) localStorage.setItem(TOKEN_KEY, token)
-    else localStorage.removeItem(TOKEN_KEY)
+    if (token) {
+      localStorage.setItem(TOKEN_KEY, token)
+      localStorage.setItem(ISSUED_KEY, String(Date.now()))
+    } else {
+      localStorage.removeItem(TOKEN_KEY)
+      localStorage.removeItem(ISSUED_KEY)
+    }
   } catch {
     /* storage unavailable — session-only */
+  }
+}
+
+// Milliseconds left before the current session hits its 5-minute cap.
+// 0 means "no session" or "already expired".
+export function sessionRemainingMs() {
+  try {
+    if (!localStorage.getItem(TOKEN_KEY)) return 0
+    const issued = Number(localStorage.getItem(ISSUED_KEY))
+    if (!issued) return 0
+    return Math.max(0, issued + SESSION_TTL_MS - Date.now())
+  } catch {
+    return 0
   }
 }
 
@@ -66,6 +90,12 @@ async function request(method, path, { body, auth = false } = {}) {
   const headers = {}
   if (body !== undefined) headers['Content-Type'] = 'application/json'
   if (auth) {
+    // Session past its 5-minute cap: drop the token and fail fast rather than
+    // send a request the server would reject anyway.
+    if (getToken() && sessionRemainingMs() === 0) {
+      setToken(null)
+      throw new ApiError('Session expired — please sign in again', 401)
+    }
     const token = getToken()
     if (token) headers.Authorization = `Bearer ${token}`
   }

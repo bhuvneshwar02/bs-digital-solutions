@@ -15,7 +15,7 @@ the bottom.)
    Render's IPs are dynamic, so this is required on the free tier.
 4. Your `MONGODB_URI` (insert the real password, add the `/bs-innovation` DB name):
    ```
-   mongodb+srv://atreyauser:YOUR_PASSWORD@cluster0.w5ywqqm.mongodb.net/bs-innovation?retryWrites=true&w=majority&appName=Cluster0
+mongodb+srv://<user>:<password>@<cluster>.mongodb.net/bs-innovation?retryWrites=true&w=majority
    ```
    Set this as the `MONGODB_URI` env var on Render (and in `backend/.env` if you
    want to run locally against Atlas). Never commit it.
@@ -44,11 +44,15 @@ the bottom.)
    | `SEED_ADMIN_NAME` | `Bhuvneshwar Sharma` |
    | `RESEND_API_KEY` | from step 4 (optional — blank = no email, submissions still saved) |
    | `MAIL_FROM` | `BS Innovation Solutions <onboarding@resend.dev>` (until your domain is verified in Resend) |
-   | `MAIL_TO` | the inbox that should receive enquiries |
+   | `MAIL_TO` | `bhuvneshwar@bsinnovationsolutions.com` (the inbox that should receive enquiries) |
+   For an existing service, update `MAIL_TO` in the Render dashboard before
+   redeploying; an existing environment value takes precedence over the code default.
 4. Deploy. When live, open the Render **Shell** and run once:
    ```
    npm run seed
    ```
+   The seed updates the previous default public contact email and SEO copy but
+   leaves any customized site settings and the admin login email unchanged.
 5. The service URL is `https://bsinnovationsolutions.onrender.com` — this is
    `VITE_API_URL` for the frontend (already set in `frontend/.env.production.example`).
 

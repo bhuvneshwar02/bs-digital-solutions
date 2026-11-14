@@ -4,7 +4,7 @@ import { useAuth } from '../auth/AuthContext'
 import { Button, Field, Input } from './ui'
 
 export default function Login() {
-  const { login } = useAuth()
+  const { login, expired } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
   const [email, setEmail] = useState('')
@@ -33,6 +33,11 @@ export default function Login() {
       <div className="w-full max-w-sm bg-white border border-line rounded-2xl p-8">
         <p className="font-mono text-[11px] uppercase tracking-widest text-teal">BS Innovation Solutions</p>
         <h1 className="font-display text-xl font-semibold mt-2">Admin sign in</h1>
+        {expired && !error && (
+          <p className="text-sm text-slate mt-3">
+            Your session ended automatically after 5 minutes. Please sign in again.
+          </p>
+        )}
         <form onSubmit={submit} className="flex flex-col gap-4 mt-6">
           <Field label="Email">
             <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoFocus />

@@ -12,7 +12,7 @@ import { jsonLd } from '../lib/jsonld'
  * @param {'website'|'article'} type  Open Graph type
  * @param {Array<{name:string,path:string}>} breadcrumbs  trail for BreadcrumbList JSON-LD
  */
-export default function Seo({ title, description, path = '', image, noindex = false, type = 'website', breadcrumbs }) {
+export default function Seo({ title, description, path = '', image, noindex = false, type = 'website', breadcrumbs, keywords }) {
   const site = useSite()
   const brand = site.brand || {}
   const seo = site.seo || {}
@@ -21,6 +21,7 @@ export default function Seo({ title, description, path = '', image, noindex = fa
 
   const fullTitle = title ? `${title} · ${brand.name || 'BS Innovation Solutions'}` : seo.title || brand.name
   const desc = description || seo.description || ''
+  const metaKeywords = keywords || seo.keywords || ''
   const canonical = `${origin}${path}`
   const rawImage = image || seo.ogImage || '/assets/portfolio/dheeraj-banner.png'
   const ogImage = rawImage.startsWith('http') ? rawImage : `${origin}${rawImage}`
@@ -43,6 +44,7 @@ export default function Seo({ title, description, path = '', image, noindex = fa
     <>
       <title>{fullTitle}</title>
       {desc && <meta name="description" content={desc} />}
+      {metaKeywords && <meta name="keywords" content={metaKeywords} />}
       <link rel="canonical" href={canonical} />
       {noindex && <meta name="robots" content="noindex,nofollow" />}
 
